@@ -408,8 +408,6 @@ public partial class Admin_Contact : System.Web.UI.Page
                         cmd.Parameters.AddWithValue("@cur_id", Label1.Text);
                         cmd.Parameters.AddWithValue("@cur_name", TextBox1.Text);
                         cmd.Parameters.AddWithValue("@cur_des", TextBox2.Text);
-
-
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
                         CON.Open();
                         cmd.ExecuteNonQuery();

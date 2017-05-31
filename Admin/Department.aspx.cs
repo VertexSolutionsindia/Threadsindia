@@ -640,7 +640,7 @@ public partial class Admin_Department_Entry : System.Web.UI.Page
                 show_head_dep();
                 getinvoiceno1();
 
-                this.ModalPopupExtender2.Show();
+                this.ModalPopupExtender2.Hide();
             }
             con1000.Close();
         }

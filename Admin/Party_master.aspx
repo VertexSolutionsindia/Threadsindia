@@ -446,19 +446,20 @@
                    <Columns>
                  
                    <asp:BoundField HeaderText="Party ID" DataField="party_id"  HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"  />
-           
-               <asp:BoundField HeaderText="party Code" DataField="party_code"  HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"/>
-                 <asp:BoundField HeaderText="Category" DataField="category"  HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"/>
+                   <asp:BoundField HeaderText="party Code" DataField="party_code"  HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"/>
+                   <asp:BoundField HeaderText="Category" DataField="category"  HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"/>
                    <asp:BoundField HeaderText="Party Name" DataField="party_name"  HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red" />
                   
-                     <asp:TemplateField>
+                   <asp:TemplateField HeaderText="Edit">
                    <ItemTemplate>
                    <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
                    </ItemTemplate>
-                   
+                   <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
                    </asp:TemplateField>
                    </Columns>
-                   
+                      <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
                    </asp:GridView>   
                          </div>
   

@@ -378,7 +378,7 @@ public partial class Admin_Purchase_edit : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 if (TextBox1.Text == "")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please enter country')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please enter category Name')", true);
                 }
                 else
                 {

@@ -125,16 +125,15 @@ public partial class Admin_Barcode_creation : System.Web.UI.Page
         dr2 = cmd2.ExecuteReader();
         if (dr2.Read())
         {
-           DropDownList1.SelectedItem.Text = dr2["loc_type"].ToString();
+            Label1.Text = dr2["loc_id"].ToString();
+            DropDownList1.SelectedItem.Text = dr2["loc_type"].ToString();
             TextBox2.Text = dr2["loc_name"].ToString();
             TextBox4.Text = dr2["loc_add"].ToString();
 
         }
         con2.Close();
-
-
-
     }
+
     protected void BindData2()
     {
         if (User.Identity.IsAuthenticated)
@@ -573,6 +572,7 @@ public partial class Admin_Barcode_creation : System.Web.UI.Page
     protected void Button8_Click(object sender, EventArgs e)
     {
         this.ModalPopupExtender2.Show();
+        TextBox11.Text = "";
     }
     protected void Button10_Click(object sender, EventArgs e)
     {
@@ -591,9 +591,6 @@ public partial class Admin_Barcode_creation : System.Web.UI.Page
                 SqlCommand cmd = new SqlCommand("insert into location_type values(@loc_type_id,@loc_type_name,@Com_Id)", CON);
                 cmd.Parameters.AddWithValue("@loc_type_id", Label16.Text);
                 cmd.Parameters.AddWithValue("@loc_type_name", TextBox11.Text);
-
-
-
                 cmd.Parameters.AddWithValue("@Com_Id", company_id);
                 CON.Open();
                 cmd.ExecuteNonQuery();
@@ -610,7 +607,7 @@ public partial class Admin_Barcode_creation : System.Web.UI.Page
                 BindData2();
 
 
-                this.ModalPopupExtender2.Show();
+                this.ModalPopupExtender2.Hide();
             }
             con1000.Close();
         }
