@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Data.OleDb;
 #endregion
 
 
@@ -1063,4 +1064,65 @@ public partial class Admin_Sub_category : System.Web.UI.Page
             con1000.Close();
         }
     }
+    protected void Button8_Click(object sender, EventArgs e)
+    {
+        //Upload and save the file
+        string excelPath = Server.MapPath("~/Files/") + Path.GetFileName(FileUpload1.PostedFile.FileName);
+        FileUpload1.SaveAs(excelPath);
+
+        string conString = string.Empty;
+        string extension = Path.GetExtension(FileUpload1.PostedFile.FileName);
+        switch (extension)
+        {
+            case ".xls": //Excel 97-03
+                conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                break;
+            case ".xlsx": //Excel 07 or higher
+                conString = ConfigurationManager.ConnectionStrings["Excel07+ConString"].ConnectionString;
+                break;
+
+        }
+        conString = string.Format(conString, excelPath);
+        using (OleDbConnection excel_con = new OleDbConnection(conString))
+        {
+            excel_con.Open();
+            string sheet1 = excel_con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
+            DataTable dtExcelData = new DataTable();
+
+            //[OPTIONAL]: It is recommended as otherwise the data will be considered as String by default.
+            dtExcelData.Columns.AddRange(new DataColumn[8] { new DataColumn("item_id", typeof(int)),
+                new DataColumn("group_id", typeof(string)),new DataColumn("group_name",typeof(string)),new DataColumn("item_code",typeof(string)),new DataColumn("item_name",typeof(string)),new DataColumn("item_Des",typeof(string)),new DataColumn("Com_Id",typeof(string)),new DataColumn("isprecot",typeof(string))
+                 });
+
+            using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+            {
+                oda.Fill(dtExcelData);
+            }
+            excel_con.Close();
+
+            string consString = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(consString))
+            {
+                using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                {
+                    //Set the database table name
+                    sqlBulkCopy.DestinationTableName = "dbo.item_master";
+
+                    //[OPTIONAL]: Map the Excel columns with that of the database table
+                    sqlBulkCopy.ColumnMappings.Add("item_id", "item_id");
+                    sqlBulkCopy.ColumnMappings.Add("group_id", "group_id");
+                    sqlBulkCopy.ColumnMappings.Add("group_name", "group_name");
+                    sqlBulkCopy.ColumnMappings.Add("item_code", "item_code");
+                    sqlBulkCopy.ColumnMappings.Add("item_name", "item_name");
+                    sqlBulkCopy.ColumnMappings.Add("item_Des", "item_Des");
+                    sqlBulkCopy.ColumnMappings.Add("Com_Id", "Com_Id");
+                    sqlBulkCopy.ColumnMappings.Add("isprecot", "isprecot");
+                    con.Open();
+                    sqlBulkCopy.WriteToServer(dtExcelData);
+                    con.Close();
+                }
+            }
+        }
+    }
+   
 }

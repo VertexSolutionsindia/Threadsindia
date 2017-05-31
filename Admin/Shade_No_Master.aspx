@@ -408,6 +408,11 @@
                             <div class="page-title see2">
                              <h2>Shade No Master
                                  </h2>
+                                  <Span style="float:right; font-size:15px"">
+                                
+                                 <asp:FileUpload ID="FileUpload1" runat="server" Width="200px" Height="40px" />
+<asp:Button ID="Button9" Text="Upload"  runat="server" onclick="Button9_Click" />
+                                </Span> 
                             <asp:UpdatePanel ID="UpdatePanel9" runat="server">
    <ContentTemplate>
     <asp:Button ID="Button7" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="<" OnClick="Button7_Click"></asp:Button>
@@ -445,14 +450,12 @@
         </div>        
         Search :<asp:DropDownList ID="DropDownList1" runat="server"  class="form-control input-x2 "  ></asp:DropDownList><asp:Button ID="Button8" runat="server" Text="Search" OnClick="Button8_Click"></asp:Button>
                        <div style="padding:12px; ">
-                    <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false" Width="100%">
+                    <asp:GridView ID="GridView3" runat="server"  Width="100%">
                    
                    <Columns>
                  
                  
-             <asp:BoundField HeaderText="shade Id" DataField="shade_id" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-              <asp:BoundField HeaderText="shade no" DataField="shade_no" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-               <asp:BoundField HeaderText="shade color" DataField="shade_color" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+          
                 
                   
                   
@@ -627,7 +630,7 @@
                       </ItemTemplate>
                       
                       </asp:TemplateField>
-                      <asp:BoundField DataField="item_name" HeaderText="Item Name" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"  />
+                      <asp:BoundField DataField="item_name" HeaderText="Item Name" HeaderStyle-CssClass="red1" FooterStyle-CssClass="red1" ItemStyle-CssClass="red1"  />
                        <asp:BoundField DataField="item_code" HeaderText="Item Code"  HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red" />
                       
                       </Columns>

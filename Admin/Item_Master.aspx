@@ -406,6 +406,17 @@
                             <div class="page-title see2">
                             <h2>Item Master
                                  </h2>
+
+
+                                  <Span style="float:right; font-size:15px"">
+                                
+                                 <asp:FileUpload ID="FileUpload1" runat="server" Width="200px" Height="40px" />
+<asp:Button ID="Button8" Text="Upload"  runat="server" onclick="Button8_Click" Width= />
+                                </Span> 
+                               
+                               
+       
+                              </ContentTemplate>
                             <asp:UpdatePanel ID="UpdatePanel9" runat="server">
    <ContentTemplate>
     <asp:Button ID="Button7" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="<" OnClick="Button7_Click"></asp:Button>
@@ -430,6 +441,8 @@
    </ContentTemplate>
                              
                            </asp:UpdatePanel>
+
+                        
 
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
@@ -524,10 +537,9 @@
                            <div class="form-horizontal">
                                <br />
                              
-                               <div class="form-group"><label class="col-lg-3 control-label">Item Id</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                               <div class="form-group"><label class="col-lg-3 control-label">Item Id </label>
+                              
+                                    <div class="col-lg-9">           <asp:UpdatePanel ID="UpdatePanel3" runat="server">
    <ContentTemplate>
                                     <asp:Label ID="Label1" runat="server" Text=""></asp:Label> 
                                       </ContentTemplate>

@@ -13,6 +13,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Data;
+using System.Data.OleDb;
+using System.Configuration;
 #endregion
 
 
@@ -83,19 +86,7 @@ public partial class Admin_email_report : System.Web.UI.Page
     private void show_shade_no()
     {
 
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from shade_no where Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
-
-        DropDownList1.DataSource = ds;
-        DropDownList1.DataTextField = "shade";
-        DropDownList1.DataValueField = "shade_id";
-        DropDownList1.DataBind();
-        DropDownList1.Items.Insert(0, new ListItem("All", "0"));
-        con.Close();
+       
     }
     protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
     {
@@ -117,7 +108,7 @@ public partial class Admin_email_report : System.Web.UI.Page
                
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from shade_master where shade_id='" +row.Cells[0].Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from shade_master_details where shade_id='" +row.Cells[1].Text + "' and Com_Id='" + company_id + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
@@ -125,7 +116,7 @@ public partial class Admin_email_report : System.Web.UI.Page
                 {
                     Label1.Text = dr2["shade_id"].ToString();
                     TextBox2.Text= dr2["shade_no"].ToString();
-                    TextBox1.Text = dr2["shade_color"].ToString();
+                    TextBox1.Text = dr2["color"].ToString();
 
                 }
                 con2.Close();
@@ -150,7 +141,7 @@ public partial class Admin_email_report : System.Web.UI.Page
             if (dr1000.Read())
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from shade_master where Com_Id='" + company_id + "'", con);
+                SqlCommand CMD = new SqlCommand("select distinct shade_id,shade_no,color from shade_master_details where Com_Id='" + company_id + "' order by shade_id", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -303,7 +294,7 @@ public partial class Admin_email_report : System.Web.UI.Page
 
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                 con1.Open();
-                string query = "Select Max(shade_id) from shade_master where Com_Id='" + company_id + "' ";
+                string query = "Select Max(shade_id) from shade_master_details where Com_Id='" + company_id + "' ";
                 SqlCommand cmd1 = new SqlCommand(query, con1);
                 SqlDataReader dr = cmd1.ExecuteReader();
                 if (dr.Read())
@@ -439,14 +430,14 @@ public partial class Admin_email_report : System.Web.UI.Page
                 }
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from shade_master where shade_id='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from shade_master_details where shade_id='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
                 if (dr2.Read())
                 {
                   TextBox2.Text = dr2["shade_no"].ToString();
-                    TextBox1.Text = dr2["shade_color"].ToString();
+                    TextBox1.Text = dr2["color"].ToString();
                    
                 }
                 con2.Close();
@@ -475,7 +466,7 @@ public partial class Admin_email_report : System.Web.UI.Page
                 else
                 {
                     SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd1 = new SqlCommand("select * from shade_master where shade_id='" + Label1.Text + "' AND Com_Id='" + company_id + "'  ", con1);
+                    SqlCommand cmd1 = new SqlCommand("select * from shade_master_details where shade_id='" + Label1.Text + "' AND Com_Id='" + company_id + "'  ", con1);
                     con1.Open();
                     SqlDataReader dr1;
                     dr1 = cmd1.ExecuteReader();
@@ -489,13 +480,7 @@ public partial class Admin_email_report : System.Web.UI.Page
                         cmd100.ExecuteNonQuery();
                         con100.Close();
 
-                        SqlConnection con32 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand cmd32 = new SqlCommand("update shade_master set shade_no=@shade_no,shade_color=@shade_color where shade_id='" + Label1.Text + "'", con32);
-                        cmd32.Parameters.AddWithValue("@shade_no", TextBox2.Text);
-                        cmd32.Parameters.AddWithValue("@shade_color", TextBox1.Text);
-                        con32.Open();
-                        cmd32.ExecuteNonQuery();
-                        con32.Close();
+                      
 
 
                         foreach (GridViewRow gvrow in GridView1.Rows)
@@ -543,7 +528,7 @@ public partial class Admin_email_report : System.Web.UI.Page
 
 
                          SqlConnection con11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                         SqlCommand cmd111 = new SqlCommand("select * from shade_master where shade_no='" + TextBox2.Text + "' AND Com_Id='" + company_id + "'  ", con11);
+                         SqlCommand cmd111 = new SqlCommand("select * from shade_master_details where shade_no='" + TextBox2.Text + "' AND Com_Id='" + company_id + "'  ", con11);
                     con11.Open();
                     SqlDataReader dr11;
                     dr11 = cmd111.ExecuteReader();
@@ -556,19 +541,7 @@ public partial class Admin_email_report : System.Web.UI.Page
                     {
 
 
-                        SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand cmd11 = new SqlCommand("insert into shade_master values(@shade_id,@shade_no,@shade_color,@Com_Id)", CON1);
-                        cmd11.Parameters.AddWithValue("@shade_id", Label1.Text);
-                        cmd11.Parameters.AddWithValue("@shade_no", TextBox2.Text);
-                        cmd11.Parameters.AddWithValue("@shade_color", TextBox1.Text);
-
-
-
-                        cmd11.Parameters.AddWithValue("@Com_Id", company_id);
-
-                        CON1.Open();
-                        cmd11.ExecuteNonQuery();
-                        CON1.Close();
+                       
 
 
                         foreach (GridViewRow gvrow in GridView1.Rows)
@@ -648,7 +621,7 @@ con1000.Close();
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
                 SqlConnection con21 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd21 = new SqlCommand("select max(shade_id) from shade_master where  Com_Id='" + company_id + "' ", con21);
+                SqlCommand cmd21 = new SqlCommand("select max(shade_id) from shade_master_details where  Com_Id='" + company_id + "' ", con21);
                 SqlDataReader dr21;
                 con21.Open();
                 dr21 = cmd21.ExecuteReader();
@@ -662,14 +635,14 @@ con1000.Close();
                 }
                 con21.Close();
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from shade_master where shade_id='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from shade_master_details where shade_id='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
                 if (dr2.Read())
                 {
                   TextBox2.Text = dr2["shade_no"].ToString();
-                    TextBox1.Text = dr2["shade_color"].ToString();
+                    TextBox1.Text = dr2["color"].ToString();
                    
                 }
               
@@ -760,5 +733,64 @@ con1000.Close();
             TextBox1.Text = dr["item_code"].ToString();
         }
         con.Close();
+    }
+    protected void Button9_Click(object sender, EventArgs e)
+    {
+        //Upload and save the file
+        string excelPath = Server.MapPath("~/Files/") + Path.GetFileName(FileUpload1.PostedFile.FileName);
+        FileUpload1.SaveAs(excelPath);
+
+        string conString = string.Empty;
+        string extension = Path.GetExtension(FileUpload1.PostedFile.FileName);
+        switch (extension)
+        {
+            case ".xls": //Excel 97-03
+                conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                break;
+            case ".xlsx": //Excel 07 or higher
+                conString = ConfigurationManager.ConnectionStrings["Excel07+ConString"].ConnectionString;
+                break;
+
+        }
+        conString = string.Format(conString, excelPath);
+        using (OleDbConnection excel_con = new OleDbConnection(conString))
+        {
+            excel_con.Open();
+            string sheet1 = excel_con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
+            DataTable dtExcelData = new DataTable();
+
+            //[OPTIONAL]: It is recommended as otherwise the data will be considered as String by default.
+            dtExcelData.Columns.AddRange(new DataColumn[6] { new DataColumn("shade_id", typeof(int)),
+                new DataColumn("shade_no", typeof(string)),new DataColumn("color",typeof(string)),new DataColumn("item_name",typeof(string)),new DataColumn("item_code",typeof(string)),new DataColumn("Com_Id",typeof(string))
+                 });
+
+            using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+            {
+                oda.Fill(dtExcelData);
+            }
+            excel_con.Close();
+
+            string consString = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(consString))
+            {
+                using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                {
+                    //Set the database table name
+                    sqlBulkCopy.DestinationTableName = "dbo.shade_master_details";
+
+                    //[OPTIONAL]: Map the Excel columns with that of the database table
+                    sqlBulkCopy.ColumnMappings.Add("shade_id", "shade_id");
+                    sqlBulkCopy.ColumnMappings.Add("shade_no", "shade_no");
+                    sqlBulkCopy.ColumnMappings.Add("color", "color");
+                    sqlBulkCopy.ColumnMappings.Add("item_name", "item_name");
+                    sqlBulkCopy.ColumnMappings.Add("item_name", "item_code");
+                    sqlBulkCopy.ColumnMappings.Add("Com_Id", "Com_Id");
+                 
+                    con.Open();
+                    sqlBulkCopy.WriteToServer(dtExcelData);
+                    con.Close();
+                }
+            }
+        }
     }
 }
