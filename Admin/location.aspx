@@ -218,7 +218,7 @@
                               <li>
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Company setup </span><span class="fa arrow"></span></a>
                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Compnay</a></li>
+                                    <li><a href="">Company</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="location.aspx">Location</a></li>
@@ -446,21 +446,36 @@
                     <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false" Width="100%">
                    
                    <Columns>
-                 
-                   <asp:BoundField HeaderText="Location ID" DataField="loc_id"  />
+                
+                   <asp:BoundField HeaderText="Location ID" DataField="loc_id">
+                     <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
            
-               <asp:BoundField HeaderText="Location Code" DataField="loc_type" />
-                 <asp:BoundField HeaderText="Location Name" DataField="loc_name" />
-                  
-                    <asp:BoundField HeaderText="Location address" DataField="Loc_add" />
-                     <asp:TemplateField>
+               <asp:BoundField HeaderText="Location Code" DataField="loc_type" >
+                 <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+
+                 <asp:BoundField HeaderText="Location Name" DataField="loc_name" >
+                    <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+                    <asp:BoundField HeaderText="Location address" DataField="Loc_add" >
+                      <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+
+                       <asp:TemplateField HeaderText="Edit">
                    <ItemTemplate>
                    <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
                    </ItemTemplate>
-                   
+                    <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
                    </asp:TemplateField>
                    </Columns>
-                   
+                    <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
                    </asp:GridView>   
                          </div>
   

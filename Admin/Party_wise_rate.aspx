@@ -226,7 +226,7 @@
                               <li>
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Company setup </span><span class="fa arrow"></span></a>
                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Compnay</a></li>
+                                    <li><a href="">Company</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="location.aspx">Location</a></li>
@@ -459,14 +459,16 @@
                  <asp:BoundField HeaderText="Party Name" DataField="party_name" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"/>
                   
                   
-                     <asp:TemplateField>
+                    <asp:TemplateField HeaderText="Edit">
                    <ItemTemplate>
                    <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
                    </ItemTemplate>
-                   
+                     <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
                    </asp:TemplateField>
                    </Columns>
-                   
+                     <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+                ForeColor="White" />
                    </asp:GridView>   
                          </div>
   
@@ -708,34 +710,56 @@
                                         <!-- End .form-group  -->
           <asp:UpdatePanel ID="UpdatePanel10" runat="server" >
    <ContentTemplate>
-<asp:GridView ID="GridView1" runat="server" width="100%" AutoGenerateColumns="false">
+<asp:GridView ID="GridView1" runat="server" width="100%" AutoGenerateColumns="False" 
+           BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
+           CellPadding="3">
 <Columns>
 <asp:BoundField DataField="s_no" HeaderText="S No"  
         HeaderStyle-CssClass="col-lg-3 control-label" 
         FooterStyle-CssClass="col-lg-3 control-label" >
+  
+    <FooterStyle CssClass="col-lg-3 control-label" />
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1" />
   
     </asp:BoundField>
 <asp:BoundField DataField="item_name" HeaderText="Item Name"  
         HeaderStyle-CssClass="col-lg-3 control-label" 
         FooterStyle-CssClass="col-lg-3 control-label" >
   
+    <FooterStyle CssClass="col-lg-3 control-label" />
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1" />
+  
     </asp:BoundField>
 <asp:BoundField DataField="unit" HeaderText="Unit"  
         HeaderStyle-CssClass="col-lg-3 control-label" 
         FooterStyle-CssClass="col-lg-3 control-label" >
+  
+    <FooterStyle CssClass="col-lg-3 control-label" Wrap="False" />
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1" />
   
     </asp:BoundField>
 <asp:BoundField DataField="credit_rate" HeaderText="Credit rate"  
         HeaderStyle-CssClass="col-lg-3 control-label" 
         FooterStyle-CssClass="col-lg-3 control-label" >
   
+    <FooterStyle CssClass="col-lg-3 control-label" />
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1" />
+  
     </asp:BoundField>
 <asp:BoundField DataField="cash_rate" HeaderText="Cash Rate"  
         HeaderStyle-CssClass="col-lg-3 control-label" 
         FooterStyle-CssClass="col-lg-3 control-label" >
    
+    <FooterStyle CssClass="col-lg-3 control-label" />
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1" />
+   
     </asp:BoundField>
-<asp:TemplateField>
+<asp:TemplateField HeaderText="Edit">
 <ItemTemplate>
 
 <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/delete3.png" 
@@ -743,9 +767,24 @@
 </ItemTemplate>
 
 
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1" />
+
+
 </asp:TemplateField>
 
 </Columns>
+
+
+    <FooterStyle BackColor="White" ForeColor="#000066" />
+    <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+    <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+    <RowStyle ForeColor="#000066" />
+    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+    <SortedAscendingCellStyle BackColor="#F1F1F1" />
+    <SortedAscendingHeaderStyle BackColor="#007DBB" />
+    <SortedDescendingCellStyle BackColor="#CAC9C9" />
+    <SortedDescendingHeaderStyle BackColor="#00547E" />
 
 
 </asp:GridView>

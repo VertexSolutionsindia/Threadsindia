@@ -474,13 +474,12 @@ public partial class Admin_Product_entry : System.Web.UI.Page
                         {
 
                             SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                            SqlCommand cmd = new SqlCommand("Update country set country=@country,region=@region,Com_Id=@Com_Id where state_id=@state_id", CON);
+                            SqlCommand cmd = new SqlCommand("Update state set state_name=@state_name,zone=@zone,country_name=@country_name,tin_series=@tin_series,Com_Id=@Com_Id where state_id=@state_id", CON);
                             cmd.Parameters.AddWithValue("@state_id", Label1.Text);
                             cmd.Parameters.AddWithValue("@state_name", TextBox1.Text);
                             cmd.Parameters.AddWithValue("@zone", TextBox2.Text);
                             cmd.Parameters.AddWithValue("@country_name", DropDownList1.SelectedItem.Text);
                             cmd.Parameters.AddWithValue("@tin_series", TextBox5.Text);
-
                             cmd.Parameters.AddWithValue("@Com_Id", company_id);
                             CON.Open();
                             cmd.ExecuteNonQuery();

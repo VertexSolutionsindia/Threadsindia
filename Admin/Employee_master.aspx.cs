@@ -179,17 +179,20 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Employee details does not exist')", true);
 
                     }
-                BindData();
+                    BindData();
+                    show_designation();
+                    TextBox2.Text = "";
+                    TextBox4.Text = "";
+                    TextBox5.Text = "";
 
+                    getinvoiceno();
 
-                getinvoiceno();
+                    TextBox1.Text = "";
 
-
-              
-                BindData2();
-                show_department();
-             
-                show_designation();
+                    BindData2();
+                    show_department();
+                    TextBox3.Text = "";
+                    DropDownList1.SelectedItem.Text = "Select Gender";
 
             }
             con1000.Close();

@@ -218,7 +218,7 @@
                               <li>
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Company setup </span><span class="fa arrow"></span></a>
                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Compnay</a></li>
+                                    <li><a href="">Company</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="location.aspx">Location</a></li>
@@ -444,19 +444,20 @@
                    
                    <Columns>
                  
-                   <asp:BoundField HeaderText="Tax ID" DataField="cat_id" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label"  />
+                   <asp:BoundField HeaderText="Tax ID" DataField="cat_id" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
            
-               <asp:BoundField HeaderText="Tax Name" DataField="cat_name" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+               <asp:BoundField HeaderText="Tax Name" DataField="cat_name" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
                
-                  
-                     <asp:TemplateField>
+               <asp:TemplateField HeaderText="Edit">
                    <ItemTemplate>
                    <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
                    </ItemTemplate>
-                   
+                     <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
                    </asp:TemplateField>
                    </Columns>
-                   
+                       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
                    </asp:GridView>   
                          </div>
   

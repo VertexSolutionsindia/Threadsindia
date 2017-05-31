@@ -83,19 +83,19 @@ public partial class Admin_email_report : System.Web.UI.Page
     private void show_shade_no()
     {
 
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from shade_no where Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
+        //SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        //SqlCommand cmd = new SqlCommand("Select * from shade_no where Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
+        //con.Open();
+        //DataSet ds = new DataSet();
+        //SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //da.Fill(ds);
 
-        DropDownList1.DataSource = ds;
-        DropDownList1.DataTextField = "shade";
-        DropDownList1.DataValueField = "shade_id";
-        DropDownList1.DataBind();
-        DropDownList1.Items.Insert(0, new ListItem("All", "0"));
-        con.Close();
+        //DropDownList1.DataSource = ds;
+        //DropDownList1.DataTextField = "shade";
+        //DropDownList1.DataValueField = "shade_id";
+        //DropDownList1.DataBind();
+        //DropDownList1.Items.Insert(0, new ListItem("All", "0"));
+        //con.Close();
     }
     protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
     {
@@ -692,6 +692,8 @@ con1000.Close();
     protected void Button6_Click(object sender, EventArgs e)
     {
         this.ModalPopupExtender1.Show();
+        show_shade_no();
+        BindData2();
     }
     protected void Button8_Click(object sender, EventArgs e)
     {
@@ -705,7 +707,7 @@ con1000.Close();
             if (dr1000.Read())
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from shade_no where shade='" + DropDownList1.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
+                SqlCommand CMD = new SqlCommand("select * from shade_master where shade_no='" + DropDownList1.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);

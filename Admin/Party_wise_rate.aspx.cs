@@ -271,19 +271,21 @@ public partial class Admin_Account_ledger : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("delete from country where country_id='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con);
+                SqlCommand cmd = new SqlCommand("delete from party_wise_rate where party_id='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con);
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Country deleted successfully')", true);
-                BindData();
-
-
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Party wise rate deleted successfully')", true);
                 getinvoiceno();
 
-              
-                BindData2();
+                BindData();
+                show_category();
 
+                getpartyname();
+
+                show_item();
+                show_unit();
+                getinvoiceno1();
             }
             con1000.Close();
         }
@@ -297,15 +299,9 @@ public partial class Admin_Account_ledger : System.Web.UI.Page
 
         getpartyname();
 
-
-
-
-
         show_item();
         show_unit();
         getinvoiceno1();
-
-      
     }
     private void active()
     {

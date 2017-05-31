@@ -136,6 +136,7 @@ public partial class Admin_Email_marketting : System.Web.UI.Page
 
                 TextBox2.Text = "";
                 TextBox1.Text = "";
+                TextBox4.Text = "";
                 BindData2();
 
             }
@@ -390,7 +391,7 @@ public partial class Admin_Email_marketting : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 if (TextBox1.Text == "")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please enter country')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please enter Cone Type')", true);
                 }
                 else
                 {

@@ -422,20 +422,43 @@ public partial class Seetings : System.Web.UI.Page
             if (dr1000.Read())
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("delete from country where country_id='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con);
+                SqlCommand cmd = new SqlCommand("delete from party where party_id='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con);
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Country deleted successfully')", true);
-               
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Party deleted successfully')", true);
 
-
+                show_category();
+                show_City();
+                show_employee();
+                show_state();
+                showcustomertype();
                 getinvoiceno();
+                TextBox1.Text = "";
 
                 TextBox2.Text = "";
-                TextBox1.Text = "";
                 BindData2();
+                TextBox3.Text = "";
+
+                TextBox5.Text = "";
+                TextBox11.Text = "";
+                TextBox13.Text = "";
+                TextBox14.Text = "";
+                TextBox15.Text = "";
+                TextBox16.Text = "";
+                TextBox17.Text = "";
+                TextBox18.Text = "";
+                TextBox19.Text = "";
+                TextBox20.Text = "";
+                TextBox21.Text = "";
+                TextBox5.Text = "";
+                TextBox7.Text = "";
+                TextBox8.Text = "";
+                TextBox9.Text = "";
+
+                TextBox12.Text = "";
 
             }
             con1000.Close();
@@ -1009,6 +1032,8 @@ public partial class Seetings : System.Web.UI.Page
     protected void Button8_Click(object sender, EventArgs e)
     {
         this.ModalPopupExtender2.Show();
+        TextBox21.Text = "";
+
     }
 
     protected void Button10_Click(object sender, EventArgs e)
@@ -1048,7 +1073,7 @@ public partial class Seetings : System.Web.UI.Page
 
                 getinvoiceno1();
 
-                this.ModalPopupExtender2.Show();
+                this.ModalPopupExtender2.Hide();
             }
             con1000.Close();
         }
