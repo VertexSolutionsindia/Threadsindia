@@ -26,12 +26,24 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        TextBox13.Focus();
+        ComboBox1.Focus();
         TextBox13.Attributes.Add("onkeypress", "return controlEnter('" + ComboBox1.ClientID + "', event)");
+        ComboBox1.Attributes.Add("onkeypress", "return controlEnter('" + TextBox4.ClientID + "', event)");
         TextBox4.Attributes.Add("onkeypress", "return controlEnter('" + TextBox7.ClientID + "', event)");
-        TextBox2.Attributes.Add("onkeypress", "return controlEnter('" + ComboBox2.ClientID + "', event)");
-        ComboBox2.Attributes.Add("onkeypress", "return controlEnter('" + ComboBox3.ClientID + "', event)");
-       
+        TextBox7.Attributes.Add("onkeypress", "return controlEnter('" + TextBox2.ClientID + "', event)");
+      
+        TextBox2.Attributes.Add("onkeypress", "return controlEnter('" + TextBox5.ClientID + "', event)");
+        TextBox5.Attributes.Add("onkeypress", "return controlEnter('" + TextBox6.ClientID + "', event)");
+        TextBox6.Attributes.Add("onkeypress", "return controlEnter('" + TextBox10.ClientID + "', event)");
+        TextBox10.Attributes.Add("onkeypress", "return controlEnter('" + TextBox11.ClientID + "', event)");
+        TextBox11.Attributes.Add("onkeypress", "return controlEnter('" + TextBox8.ClientID + "', event)");
+
+
+        TextBox8.Attributes.Add("onkeypress", "return controlEnter('" + TextBox14.ClientID + "', event)");
+        TextBox14.Attributes.Add("onkeypress", "return controlEnter('" + TextBox12.ClientID + "', event)");
+        TextBox12.Attributes.Add("onkeypress", "return controlEnter('" + TextBox9.ClientID + "', event)");
+        TextBox9.Attributes.Add("onkeypress", "return controlEnter('" + TextBox15.ClientID + "', event)");
+        TextBox15.Attributes.Add("onkeypress", "return controlEnter('" + TextBox16.ClientID + "', event)");
         if (!IsPostBack)
         {
             
