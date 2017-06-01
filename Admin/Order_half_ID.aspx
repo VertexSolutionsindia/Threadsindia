@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Dashboard.aspx.cs" Inherits="RabbitDashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Order_half_ID.aspx.cs" Inherits="Admin_Order_half_ID" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <!DOCTYPE html>
@@ -88,9 +89,9 @@
     <body>
         <!-- Static navbar -->
  <form id="form1" runat="server">
- <asp:ScriptManager ID="ScriptManager1" runat="server">
- </asp:ScriptManager>
-
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+        
+</asp:ToolkitScriptManager>
     <div>
          <nav class="navbar navbar-inverse yamm navbar-fixed-top">
             <div class="container-fluid">
@@ -149,8 +150,7 @@
         </nav>
         <section class="page">
 
-
-         <nav class="navbar-aside navbar-static-side" role="navigation">
+            <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -277,10 +277,6 @@
                                     <li><a href="Category.aspx">Category Entry</a></li>
 
                            </ul>
-                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Order_half_ID.aspx">Order half ID</a></li>
-
-                           </ul>
                             </li>
                            
 
@@ -289,9 +285,6 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Purchase_entry.aspx">Purchase Entry</a></li>
-                           </ul>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Order_indent_precot.aspx">Order indent precot</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Product Stock</a></li>
@@ -403,494 +396,260 @@
                 
             </nav>
           
-      
+          
             <div id="wrapper">
                 <div class="content-wrapper container">
                     <div class="row">
                         <div class="col-sm-12">
-                           <div class="page-title">
-                                <h2 style=" color:black">Dashboard  <small></small></h2>
+                            <div class="page-title see2">
+                             <h2>Order Half ID
+                                 </h2>
+                            <asp:UpdatePanel ID="UpdatePanel9" runat="server">
+   <ContentTemplate>
+    <asp:Button ID="Button7" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="<" OnClick="Button7_Click"></asp:Button>
+     <asp:Button ID="Button12" runat="server" class="btn-primary" Width="70px" Height="30px"  Text=">" onclick="Button12_Click" ></asp:Button>
+     
+                          
+    </ContentTemplate>
                              
+                           </asp:UpdatePanel>
+                               <br />
+                                    <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+   <ContentTemplate>
+   
+                             <asp:Button ID="Button3" runat="server" Text="New" class="btn-primary" Width="70px" Height="30px"  OnClick="Button3_Click"></asp:Button>
+   <asp:Button ID="Button5" runat="server" Text="Save" class="btn-primary" Width="70px" Height="30px"  OnClick="Button5_Click"></asp:Button>
+  <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Remove" onclick="Button1_Click" />
+  <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" />
+   <asp:Button ID="Button6" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="View" 
+                                 onclick="Button6_Click"  />
+
+  
+   </ContentTemplate>
+                             
+                           </asp:UpdatePanel>
+
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+   <ContentTemplate>
+                           <asp:Button ID="Button11" runat="server" Text="Button" style="display:none"></asp:Button>
+  <asp:Panel ID="Panel1" runat="server" class="panel0" BorderColor="Black" BorderStyle="Solid" BackColor="White" Direction="LeftToRight" style="display:none" 
+                         HorizontalAlign="Left" ScrollBars="Both" Width="800px" Height="420px">
+   <div style="padding:12px; border:1px solid #e5e5e5;   border-radius:10px; background-color:#E6E6FA;color:#233445; font-size:15px; font-weight:400px; font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
+                     <h3 style="font-size:20px; " class="control-label"> View list  <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
+  
+           
+        </div>        
+        Search :<asp:TextBox ID="TextBox3" runat="server" OnTextChanged="TextBox3_TextChanged" ></asp:TextBox>
+                       <div style="padding:12px; ">
+                    <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false" Width="100%">
+                   
+                   <Columns>
+                 
+                   <asp:BoundField HeaderText="Order half ID" DataField="order_id" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
+           
+                   <asp:BoundField HeaderText="Order half name" DataField="order_name" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
+                   <asp:TemplateField HeaderText="Edit">
+                   <ItemTemplate>
+                   <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
+                   </ItemTemplate>
+                    <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
+                   </asp:TemplateField>
+                   </Columns>
+                    <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
+                   </asp:GridView>   
+                         </div>
   
   
-  
+  </asp:Panel>
+  <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="Button11" PopupControlID="Panel1" runat="server" CancelControlID="ImageButton4" BackgroundCssClass="modelbackground"></asp:ModalPopupExtender>
+
+
+  </ContentTemplate>
+                  <Triggers>
+                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                </Triggers>            
+                           </asp:UpdatePanel>
+
 
                                 
                             </div>
                             
                         </div>
                     </div><!-- end .page title-->
-                     <div class="row see">
-                     <br />
- <div class="container">
+                     <div class="row">
+                    <div class="col-md-12">
+                  
+
+
+
+
+                    <div class="row see"  >
+
+
+                    <div class="container">
  
   <div class="panel panel-default">
-         <div class="panel-body">
- 
-              <div class="col-md-6">
-              <h3>Supplier Name :</h3>
-               <asp:DropDownList ID="DropDownList2" class="form-control" Width="100%" runat="server"></asp:DropDownList>
-              <asp:Button ID="Button1" runat="server" Text="Accounts Ledger" 
-                      onclick="Button1_Click"></asp:Button>
-              <h3>Supplier Outstanding</h3>
-              <div style="overflow:scroll; width:100%; height:200px;">
-             <asp:GridView ID="GridView2" runat="server" Width="100%" Font-Size="16px" 
-               AutoGenerateColumns="False" AllowPaging="True" ShowFooter="True" PageSize="100">
-      
-           <Columns>
-           <asp:BoundField HeaderText="Supplier" DataField="Supplier" />
-           <asp:BoundField HeaderText="Outstanding amount" DataField="pending_amount" DataFormatString="{0:#,##0.00}" />
-           
-           </Columns>
-       <HeaderStyle Height="40px" CssClass="red" />
-       <PagerSettings FirstPageText="First" LastPageText="Last" />
-       <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" />
-       <RowStyle Height="40px" />
-           
-           </asp:GridView>
-           </div>
-
-           <div style="overflow:scroll; width:100%; height:200px;">
-             <asp:GridView ID="GridView5" runat="server" Width="100%" Font-Size="16px" 
-               AutoGenerateColumns="False" AllowPaging="True" ShowFooter="True" PageSize="100">
-      
-           <Columns>
-           <asp:BoundField HeaderText="Date" DataField="Pay_date" DataFormatString="{0:#,##0.00}" />
-           <asp:BoundField HeaderText="Particulars" DataField="status"  />
-           <asp:BoundField HeaderText="Credit" DataField="value" />
-             <asp:BoundField HeaderText="Debit" DataField="Estimate_value" />
-              <asp:BoundField HeaderText="Balance" DataField="outstanding" />
-           </Columns>
-       <HeaderStyle Height="40px" CssClass="red" />
-       <PagerSettings FirstPageText="First" LastPageText="Last" />
-       <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" />
-       <RowStyle Height="40px" />
-           
-           </asp:GridView>
-           </div>
-
-
-
-
-
-
-
-              </div>
-
-
-              <div class="col-md-6">
-              <h3>Customer Name:</h3>
-              <asp:DropDownList ID="DropDownList1" class="form-control" runat="server"></asp:DropDownList>
-               <asp:Button ID="Button2" runat="server" Text="Accounts Ledger" 
-                      onclick="Button2_Click"></asp:Button>
-              <h3>Customer Outstanding</h3>
-              <div style="overflow:scroll; width:100%; height:200px;">
-             <asp:GridView ID="GridView1" runat="server" Width="100%" Font-Size="16px" 
-               AutoGenerateColumns="False" AllowPaging="True" ShowFooter="True" PageSize="100">
-      
-           <Columns>
-           <asp:BoundField HeaderText="Customer" DataField="customer" />
-           <asp:BoundField HeaderText="Outstanding amount" DataField="pending_amount" DataFormatString="{0:#,##0.00}" />
-           
-           </Columns>
-       <HeaderStyle Height="40px" CssClass="red" />
-       <PagerSettings FirstPageText="First" LastPageText="Last" />
-       <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" />
-       <RowStyle Height="40px" />
-           
-           </asp:GridView>
-           </div>
-            <div style="overflow:scroll; width:100%; height:200px;">
-             <asp:GridView ID="GridView6" runat="server" Width="100%" Font-Size="16px" 
-               AutoGenerateColumns="False" AllowPaging="True" ShowFooter="True" PageSize="100">
-      
-           <Columns>
-           <asp:BoundField HeaderText="Date" DataField="Pay_date" DataFormatString="{0:#,##0.00}" />
-           <asp:BoundField HeaderText="Particulars" DataField="status"  />
-           <asp:BoundField HeaderText="Credit" DataField="Estimate_value" />
-             <asp:BoundField HeaderText="Debit" DataField="value" />
-              <asp:BoundField HeaderText="Balance" DataField="outstanding" />
-           </Columns>
-       <HeaderStyle Height="40px" CssClass="red" />
-       <PagerSettings FirstPageText="First" LastPageText="Last" />
-       <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" />
-       <RowStyle Height="40px" />
-           
-           </asp:GridView>
-           </div>
-              </div>
-        </div>
-  </div>
-</div>
-
-
-
-
-
-<div class="container">
+  
+                                        <!-- End .form-group  -->
+                                        
+                                       
+                                       
+                                        
+                                   
+                                </div>
+                                 
+                            </div><!-- End .panel -->
+                            
+                            <div class="container">
  
   <div class="panel panel-default">
-         <div class="panel-body">
- 
-              <div class="col-md-6">
-             <h3> Sales Man Salary report :</h3>
-            
-              Employee Name: 
-  <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+  <div class="panel-body">
+   <div class="col-md-6">
+                 <div class="panel-body">
+                           <div class="form-horizontal">
+                               <br />
+                             
+                               <div class="form-group"><label class="col-lg-3 control-label">Order Half ID</label>
+
+                                    <div class="col-lg-9">
+                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
    <ContentTemplate>
-              <asp:DropDownList ID="DropDownList3" runat="server" class="form-control" AutoPostBack="true" 
-                  onselectedindexchanged="DropDownList3_SelectedIndexChanged"></asp:DropDownList>
-              </ContentTemplate>
-                       <Triggers>
-              
+                                    <asp:Label ID="Label1" runat="server" Text=""></asp:Label> 
+                                      </ContentTemplate>
+                                <Triggers>
+                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                      <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
+                <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                  
                 
-                                    
-                                     </Triggers>               
- </asp:UpdatePanel>
-
-              <br />
-             <div class="form-group"><label class="col-lg-3 control-label">  From Date:</label>
-              <div class="col-lg-9">
-              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-   <ContentTemplate>
-              <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-              <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox1"></asp:CalendarExtender>
-               </ContentTemplate>
-                      <Triggers>
-              
-                 
-                                      
-                                     </Triggers>                
- </asp:UpdatePanel>
- </div></div>
-
- <br />
-              <div class="form-group"><label class="col-lg-3 control-label">To date:</label>
-              <div class="col-lg-9">
-              <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-   <ContentTemplate>
-              <asp:TextBox ID="TextBox2" runat="server" AutoPostBack="true" 
-                      ontextchanged="TextBox2_TextChanged"></asp:TextBox>
-              <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox2"></asp:CalendarExtender>
-               </ContentTemplate>
-                         <Triggers>
-              
-                         </Triggers>             
- </asp:UpdatePanel>
-            </div>
             
-            </div>
-              <br />
-              <br />
-          
-            <div class="form-group"><label class="col-lg-3 control-label"> Total Comm :</label>
-               <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel6" runat="server">
-   <ContentTemplate>
-              <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-                </ContentTemplate>
-                         <Triggers>
-               <asp:AsyncPostBackTrigger ControlID="GridView3"   />
-                
-                       </Triggers>             
- </asp:UpdatePanel>
-   </div>
-            
-            </div>
-              <br />
-               <div class="form-group"><label class="col-lg-3 control-label"> Salary :</label>
-               <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-   <ContentTemplate>
-              <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
-                </ContentTemplate>
-                         <Triggers>
-               <asp:AsyncPostBackTrigger ControlID="DropDownList3" EventName="SelectedIndexChanged"  />
-                
-                       </Triggers>             
- </asp:UpdatePanel>
- 
-   </div>
-            
-            </div>
-   <br />
-              <div class="form-group"><label class="col-lg-3 control-label">Total amount :</label>
-                <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel7" runat="server">
-   <ContentTemplate>
-              <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
-                </ContentTemplate>
-                         <Triggers>
-               <asp:AsyncPostBackTrigger ControlID="GridView3"   />
-                
-                       </Triggers>             
- </asp:UpdatePanel>
-   </div>
-            
-            </div>
-              <br />
-              <br />
-              
+                </Triggers>
+                           </asp:UpdatePanel>
+                                    </div>
+                                </div>
 
-               <div style="overflow:scroll; width:100%; height:200px;">
-
-               <asp:UpdatePanel ID="UpdatePanel4" runat="server">
-   <ContentTemplate>
-
-              <asp:GridView ID="GridView3" runat="server" Width="100%" AutoGenerateColumns="false" 
-           onrowdatabound="GridView1_RowDataBound">
-           <Columns>
-           <asp:BoundField DataField="date" HeaderText="Date" />
-            <asp:BoundField DataField="Total_qty" HeaderText="Total Qty" />
-             <asp:BoundField DataField="com_amount" HeaderText="Com Amount" />
-           
-           
-           </Columns>
- 
-             </asp:GridView>
-
-              </ContentTemplate>
-                         <Triggers>
-              
-                  <asp:AsyncPostBackTrigger ControlID="TextBox2" EventName="TextChanged"  />
-                                      
-                          </Triggers>
-              </asp:UpdatePanel>
-
-             </div>
-
-
-             
-
-
-               </div>
-               <div class="col-md-6">
-               <h3> Product Stock</h3> 
-                 <br />
-                 <br />
-                  <div class="form-group"><label class="col-lg-3 control-label">Item Name :</label>
-                <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel8" runat="server">
-   <ContentTemplate>
-             <asp:TextBox ID="TextBox19" runat="server" class="form-control input-x2 dropbox" 
-           AutoPostBack="true" ontextchanged="TextBox19_TextChanged" ></asp:TextBox>
-  
-                           <asp:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" MinimumPrefixLength="1" ServiceMethod="Searchitem" FirstRowSelected = "false" CompletionInterval="0" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox19"  CompletionListCssClass="completionList"
-     CompletionListItemCssClass="listItem"
-     CompletionListHighlightedItemCssClass="itemHighlighted">
-      </asp:AutoCompleteExtender>
-                </ContentTemplate>
-                                
- </asp:UpdatePanel>
-   </div>
-   </div>
-   <br />
-                 <br />
-                  <div class="form-group"><label class="col-lg-3 control-label">Shade No :</label>
-                <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel9" runat="server">
-   <ContentTemplate>
-             <asp:TextBox ID="TextBox6" runat="server" class="form-control input-x2 dropbox" 
-           AutoPostBack="true" ontextchanged="TextBox6_TextChanged" ></asp:TextBox>
-  
-                           <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="Searchshade" FirstRowSelected = "false" CompletionInterval="0" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox6"  CompletionListCssClass="completionList"
-     CompletionListItemCssClass="listItem"
-     CompletionListHighlightedItemCssClass="itemHighlighted">
-      </asp:AutoCompleteExtender>
-                </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="TextBox19" EventName="TextChanged"  />
-                     
-                       </Triggers>                
- </asp:UpdatePanel>
-   </div>
-   </div>
-    <br />
-                 <br />
-                  <div class="form-group"><label class="col-lg-3 control-label">Total Kg :</label>
-                <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel10" runat="server">
-   <ContentTemplate>
-             <asp:TextBox ID="TextBox7" runat="server" class="form-control input-x2 dropbox"  ></asp:TextBox>
-  
-                         
-                </ContentTemplate>
-                       <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="TextBox19" EventName="TextChanged"  />
-                       <asp:AsyncPostBackTrigger ControlID="TextBox6" EventName="TextChanged"  />
-                       </Triggers>         
- </asp:UpdatePanel>
-   </div>
-
-
-     <br />
-                 <br />
-                  <div class="form-group"><label class="col-lg-3 control-label">Total Cones :</label>
-                <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel11" runat="server">
-   <ContentTemplate>
-             <asp:TextBox ID="TextBox8" runat="server" class="form-control input-x2 dropbox"  ></asp:TextBox>
-  
-                           
-                </ContentTemplate>
-                           <Triggers>
-                       
-                         <asp:AsyncPostBackTrigger ControlID="TextBox19" EventName="TextChanged"  />
-                       <asp:AsyncPostBackTrigger ControlID="TextBox6" EventName="TextChanged"  />
-                       </Triggers>      
- </asp:UpdatePanel>
-   </div>
-   </div>
-
-             </div>
-        </div>
-  </div>
-</div>
-</div>
-
-
-
-
-<div class="container">
- 
-  <div class="panel panel-default">
-         <div class="panel-body">
- 
-              <div class="col-md-6">
-              <h3>Winding Delivery pending</h3>
-              
-              <br />
-                 <br />
-                  <div class="form-group"><label class="col-lg-3 control-label">Item Name :</label>
-                <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel12" runat="server">
-   <ContentTemplate>
-             <asp:TextBox ID="TextBox9" runat="server" class="form-control input-x2 dropbox" 
-           AutoPostBack="true" ontextchanged="TextBox9_TextChanged"   ></asp:TextBox>
-  
-                           <asp:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" MinimumPrefixLength="1" ServiceMethod="Searchitem1" FirstRowSelected = "false" CompletionInterval="0" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox9"  CompletionListCssClass="completionList"
-     CompletionListItemCssClass="listItem"
-     CompletionListHighlightedItemCssClass="itemHighlighted">
-      </asp:AutoCompleteExtender>
-                </ContentTemplate>
-                                
- </asp:UpdatePanel>
-   </div>
-   </div>
-   <br />
-                 <br />
-                  <div class="form-group"><label class="col-lg-3 control-label">Shade No :</label>
-                <div class="col-lg-9">
-                <asp:UpdatePanel ID="UpdatePanel13" runat="server">
-   <ContentTemplate>
-             <asp:TextBox ID="TextBox10" runat="server" class="form-control input-x2 dropbox" 
-           AutoPostBack="true" ontextchanged="TextBox10_TextChanged"></asp:TextBox>
-  
-                           <asp:AutoCompleteExtender ID="AutoCompleteExtender4" runat="server" MinimumPrefixLength="1" ServiceMethod="Searchshade1" FirstRowSelected = "false" CompletionInterval="0" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox10"  CompletionListCssClass="completionList"
-     CompletionListItemCssClass="listItem"
-     CompletionListHighlightedItemCssClass="itemHighlighted">
-      </asp:AutoCompleteExtender>
-                </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="TextBox9" EventName="TextChanged"  />
-                     
-                       </Triggers>                
- </asp:UpdatePanel>
-   </div>
-   </div>
-    <br />
-                 <br />
- <asp:UpdatePanel ID="UpdatePanel14" runat="server">
-   <ContentTemplate>
-  <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false" Width="100%">
-  <Columns>
- 
-   <asp:TemplateField>
-           
-           <ItemTemplate>
-               <asp:CheckBox ID="CheckBox2" runat="server" />
-            </ItemTemplate>
-           
-           </asp:TemplateField>
-         
-  <asp:BoundField DataField="customer" HeaderText="Customer Name" />
-   <asp:BoundField DataField="item_name" HeaderText="Item name"  />
-  <asp:BoundField DataField="shade_no" HeaderText="Shade No"  />
-  <asp:BoundField DataField="Cones" HeaderText="Cones" />
-  <asp:BoundField DataField="Gross_Wt" HeaderText="Gross Wt" />
-  <asp:BoundField DataField="Net_Wt" HeaderText="Nett Wt" />
- 
-  </Columns>
-  <EditRowStyle BackColor="#999999" />
-       <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
-     
-       <RowStyle Height="40px" BackColor="white" ForeColor="#333333" />
-       <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-       <SortedAscendingCellStyle BackColor="#E9E7E2" />
-       <SortedAscendingHeaderStyle BackColor="#506C8C" />
-       <SortedDescendingCellStyle BackColor="#FFFDF8" />
-       <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-  
-  
-  </asp:GridView>
-  </ContentTemplate>
-  <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="TextBox10" EventName="TextChanged"  />
-                     
-                       </Triggers>                
- </asp:UpdatePanel>
-
-
-              </div>
-               <div class="col-md-6">
-              <h3>Representative report</h3>
+                                <div >
+                                   
+                               <div class="form-group">  <label class="col-lg-3 control-label">Order Half Name</label>
                               
-              </div>
-  </div>
+                                    <div class="col-lg-9">
+                                     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+   <ContentTemplate>   <asp:TextBox ID="TextBox1" runat="server" 
+           class="form-control input-x2 dropbox" 
+                                         ></asp:TextBox>
+                                 
+                                    </ContentTemplate>
+                                     <Triggers>
+                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                </Triggers>
+                           </asp:UpdatePanel>
+                                    
+                                    </div>
+                                
+                                
+                                </div>
+                                
+                                
+
+                                
+                               
+
+                                 
+                               </div>  
+                               
+                            </div>
+                      </div>
+                    
+                      <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+   <ContentTemplate>
+   <br />
+                      &nbsp;
+
+                          </ContentTemplate>
+                           </asp:UpdatePanel>
+                            </asp:Panel>
+    </div>
+                                        <!-- End .form-group  -->
+                                        
+                                       
+                                       
+                                        
+                                   
+                                </div>
+                                 
+                            </div><!-- End .panel -->  
+
+
+
+                          
+                         <br />
+                        
+
+
+
+                        </div>
+                     
+                    
+                   
+                         <div class="container">
+ 
+  <div class="panel panel-default">
+  <div class="panel-body">
+                        <div class="col-md-12" >
+                                <div class="panel-heading">
+                                    
+                                </div>
+
+                                <div class="panel-body">
+                                   
+                                       <div class="col-md-3">
+
 </div>
-</div>
+<div class="col-md-12">
+               
+                                       
+                                        
+                                    
+                                </div>
+                            </div><!-- End .panel --> 
+                      
+                        
 
 
 
+                        </div>
+                      
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </div>
-
-
-
-      
                         
                     </div><!--end .row-->
-    </div>            
-
-
-                    <div>
-                    
-                  </div>
-                  
 
                   
+                  
+                        </div>
                    
-         </section>
+                   
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        
+
+                
+                   
+                  
+                           
+        </section>
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -969,3 +728,4 @@
         </form>
     </body>
 </html>
+
