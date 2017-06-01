@@ -705,7 +705,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                         getinvoiceno();
                         getinvoiceno1();
                         BindData();
-                     
+                        BindData2();
 
                         TextBox10.Text = "";
                         TextBox11.Text = "";
@@ -725,6 +725,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                         showcustomer();
                         showitem();
                         showunit();
+                        DateTime date = DateTime.Now;
 
                     }
                     else
