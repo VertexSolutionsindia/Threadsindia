@@ -76,7 +76,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from party where category='Winding' and  Com_Id='" + company_id + "' ORDER BY party_id asc", con);
+                SqlCommand cmd = new SqlCommand("Select * from party where  Com_Id='" + company_id + "' ORDER BY party_id asc", con);
                 con.Open();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -98,32 +98,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
     
     private void show_shade_no()
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from shade_no where Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
-                con.Open();
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-
-                DropDownList4.DataSource = ds;
-                DropDownList4.DataTextField = "shade";
-                DropDownList4.DataValueField = "shade_id";
-                DropDownList4.DataBind();
-                DropDownList4.Items.Insert(0, new ListItem("Select shade No", "0"));
-                con.Close();
-            }
-            con1000.Close();
-        }
+        
     }
     private void show_unit()
     {

@@ -459,27 +459,34 @@ left: auto !important;
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
                            <asp:Button ID="Button11" runat="server" Text="Button" style="display:none"></asp:Button>
-  <asp:Panel ID="Panel1" runat="server" class="panel0" BorderColor="Black" BorderStyle="Solid" BackColor="White" Direction="LeftToRight" style="display:none" 
-                         HorizontalAlign="Left" ScrollBars="Both" Width="800px" Height="420px">
-   <div style="padding:12px; border:1px solid #e5e5e5;   border-radius:10px; background-color:#E6E6FA;color:#233445; font-size:15px; font-weight:400px; font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
-                     <h3 style="font-size:20px; " class="control-label"> View list  <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
+<asp:Panel ID="Panel1" runat="server" class="panel0" BorderColor="Black" BorderStyle="Solid" BackColor="#B0C4DE" Direction="LeftToRight" style="display:none" 
+                         HorizontalAlign="Left" ScrollBars="Both" Width="75%" Height="420px">
+   <div style="padding:12px; border:1px solid #e5e5e5;    background-color:#000000; color:#FFFFFF; font-size:15px; font-weight:400px; font-family: 'Open Sans'"
+          HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
+                        <h3 style="font-size:20px; " class="control-label"> View list  <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
   
            
-        </div>        
-        Search :<asp:TextBox ID="TextBox3" runat="server" OnTextChanged="TextBox3_TextChanged" ></asp:TextBox>
-                       <div style="padding:12px; ">
-                    <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false" Width="100%">
+    </div> <br /><br />
+        
+        <div class="col-sm-9 col-sm-offset-3">
+       <div class="col-sm-2"> 
+        <h2 style="color: #003366">Search : </h2>
+        </div>
+        <div class="col-sm-6"><asp:TextBox ID="TextBox3" runat="server" width="100%"  OnTextChanged="TextBox3_TextChanged" ></asp:TextBox>
+                      </div></div> <div style="padding:12px; ">
+                    <asp:GridView ID="GridView3" runat="server" CssClass="red" AutoGenerateColumns="false" Width="100%" PageSize="100" BackColor="White" 
+           BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
                    
                    <Columns>
                  
-                   <asp:BoundField HeaderText="Invoice No" DataField="purchase_invoice" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label"  />
+                   <asp:BoundField HeaderText="Invoice No" DataField="purchase_invoice" HeaderStyle-CssClass="red"  />
            
-               <asp:BoundField HeaderText="Customer" DataField="customer" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-                 <asp:BoundField HeaderText="Mobile No" DataField="mobile_no" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-                   <asp:BoundField HeaderText="Total Qty" DataField="Total_qty" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-                    <asp:BoundField HeaderText="Total Amount" DataField="total_amount" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-                     <asp:BoundField HeaderText="vat" DataField="vat" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-                  <asp:BoundField HeaderText="Nett Total" DataField="Grand_total" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+               <asp:BoundField HeaderText="Customer" DataField="customer" HeaderStyle-CssClass="red"/>
+                 <asp:BoundField HeaderText="Mobile No" DataField="mobile_no" HeaderStyle-CssClass="red"/>
+                   <asp:BoundField HeaderText="Total Qty" DataField="Total_qty" HeaderStyle-CssClass="red"/>
+                    <asp:BoundField HeaderText="Total Amount" DataField="total_amount" HeaderStyle-CssClass="red" />
+                     <asp:BoundField HeaderText="vat" DataField="vat" HeaderStyle-CssClass="red" />
+                  <asp:BoundField HeaderText="Nett Total" DataField="Grand_total" HeaderStyle-CssClass="red" />
                      <asp:TemplateField>
                    <ItemTemplate>
                    <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
@@ -488,7 +495,20 @@ left: auto !important;
                    </asp:TemplateField>
                    </Columns>
                    
-                   </asp:GridView>   
+                                   <FooterStyle BackColor="White" ForeColor="#000066" />
+       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
+       <PagerSettings FirstPageText="First" LastPageText="Last" />
+       <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
+           CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 
+           HorizontalAlign="Left" />
+       <RowStyle Height="40px" ForeColor="#000066" />
+       <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+       <SortedAscendingCellStyle BackColor="#F1F1F1" />
+       <SortedAscendingHeaderStyle BackColor="#007DBB" />
+       <SortedDescendingCellStyle BackColor="#CAC9C9" />
+       <SortedDescendingHeaderStyle BackColor="#00547E" />
+       </asp:GridView> 
                          </div>
   
   
@@ -677,11 +697,18 @@ left: auto !important;
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel30" runat="server">
    <ContentTemplate>
-   <h3>Customer P.O entry</h3>
-  <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="false" Width="100%">
+   <br /><h2>Customer P.O entry</h2>
+  <asp:GridView ID="GridView2" runat="server"  CssClass="red" AutoGenerateColumns="False" Width="100%" 
+           BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
+           CellPadding="3">
   <Columns>
-  <asp:BoundField DataField="purchase_invoice" HeaderText="invoice no" />
-  <asp:BoundField DataField="date" HeaderText="date" DataFormatString="{0: dd/MM/yyyy}"  />
+  <asp:BoundField DataField="purchase_invoice" HeaderText="invoice no" >
+      <HeaderStyle CssClass="red" Height="30px" />
+      </asp:BoundField>
+  <asp:BoundField DataField="date" HeaderText="date" 
+          DataFormatString="{0: dd/MM/yyyy}"  >
+      <HeaderStyle CssClass="red" />
+      </asp:BoundField>
   <asp:TemplateField>
   <ItemTemplate>
   
@@ -691,6 +718,18 @@ left: auto !important;
   
   </asp:TemplateField>
   </Columns>
+  
+  
+  
+      <FooterStyle BackColor="White" ForeColor="#000066" />
+      <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+      <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+      <RowStyle ForeColor="#000066" />
+      <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+      <SortedAscendingCellStyle BackColor="#F1F1F1" />
+      <SortedAscendingHeaderStyle BackColor="#007DBB" />
+      <SortedDescendingCellStyle BackColor="#CAC9C9" />
+      <SortedDescendingHeaderStyle BackColor="#00547E" />
   
   
   
@@ -858,6 +897,14 @@ left: auto !important;
   </Triggers>
                                      
                            </asp:UpdatePanel>
+                              <asp:UpdatePanel ID="UpdatePanel23" runat="server" >
+   <ContentTemplate>
+  <asp:Button ID="Button8" runat="server" CssClass="btn1" Text="ADD" onclick="Button8_Click" OnClientClick="Confirm()"></asp:Button>
+  </ContentTemplate>
+ 
+                                     
+                           </asp:UpdatePanel>
+
    </div>
   
   </div>
@@ -867,27 +914,22 @@ left: auto !important;
   
   
   
-   <asp:UpdatePanel ID="UpdatePanel23" runat="server" >
-   <ContentTemplate>
-  <asp:Button ID="Button8" runat="server" Text="ADD" onclick="Button8_Click" OnClientClick="Confirm()"></asp:Button>
-  </ContentTemplate>
- 
-                                     
-                           </asp:UpdatePanel>
 
 
 
    <asp:UpdatePanel ID="UpdatePanel10" runat="server" >
    <ContentTemplate>
-<asp:GridView ID="GridView1" runat="server" width="100%" AutoGenerateColumns="false" 
+   <div style="overflow: scroll">
+<asp:GridView ID="GridView1" runat="server" CssClass ="red" width="150%" AutoGenerateColumns="False" 
            onrowdatabound="GridView1_RowDataBound" 
            onrowcancelingedit="GridView1_RowCancelingEdit" 
            onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" 
            onselectedindexchanged="GridView1_SelectedIndexChanged" 
-           onrowdeleting="GridView1_RowDeleting" onrowdeleted="GridView1_RowDeleted">
+           onrowdeleting="GridView1_RowDeleting" onrowdeleted="GridView1_RowDeleted" 
+           BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
+           CellPadding="3">
 <Columns>
- <asp:TemplateField ItemStyle-Width = "30px"  HeaderText = "S No" HeaderStyle-CssClass="col-lg-3 control-label" 
-        FooterStyle-CssClass="col-lg-3 control-label">
+ <asp:TemplateField ItemStyle-Width = "30px"  HeaderText = "S No" HeaderStyle-CssClass="red">
 
     <ItemTemplate>
 
@@ -899,15 +941,13 @@ left: auto !important;
 
     
 
-     <FooterStyle CssClass="col-lg-3 control-label" />
-     <HeaderStyle CssClass="col-lg-3 control-label" />
-     <ItemStyle Width="30px" />
+        <HeaderStyle CssClass="red" Height="40px" />
+    <ItemStyle Width="150px" Height="40px" />
 
 </asp:TemplateField>
 
 
- <asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Item Name" HeaderStyle-CssClass="col-lg-3 control-label" 
-        FooterStyle-CssClass="col-lg-3 control-label">
+ <asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Item Name"  HeaderStyle-CssClass="red">
 
     <ItemTemplate>
 
@@ -923,14 +963,12 @@ left: auto !important;
 
    
 
-     <FooterStyle CssClass="col-lg-3 control-label" />
-     <HeaderStyle CssClass="col-lg-3 control-label" />
-     <ItemStyle Width="100px" />
+     <HeaderStyle CssClass="red" />
+    <ItemStyle Width="300px" Height="40px" />
 
 </asp:TemplateField>
 
-<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Shade No" HeaderStyle-CssClass="col-lg-3 control-label" 
-        FooterStyle-CssClass="col-lg-3 control-label">
+<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Shade No"  HeaderStyle-CssClass="red">
 
     <ItemTemplate>
 
@@ -946,16 +984,14 @@ left: auto !important;
 
     
 
-    <FooterStyle CssClass="col-lg-3 control-label" />
-    <HeaderStyle CssClass="col-lg-3 control-label" />
-    <ItemStyle Width="100px" />
+        <HeaderStyle CssClass="red" />
+    <ItemStyle Width="150px" Height="40px" />
 
 </asp:TemplateField>
 
 
 
- <asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Color" HeaderStyle-CssClass="col-lg-3 control-label" 
-        FooterStyle-CssClass="col-lg-3 control-label">
+ <asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Color"  HeaderStyle-CssClass="red">
 
     <ItemTemplate>
 
@@ -971,15 +1007,13 @@ left: auto !important;
 
     
 
-     <FooterStyle CssClass="col-lg-3 control-label" />
-     <HeaderStyle CssClass="col-lg-3 control-label" />
-     <ItemStyle Width="100px" />
+         <HeaderStyle CssClass="red" />
+    <ItemStyle Width="150px" Height="40px" />
 
 </asp:TemplateField>
 
 
-<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Unit" HeaderStyle-CssClass="col-lg-3 control-label" 
-        FooterStyle-CssClass="col-lg-3 control-label">
+<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Unit"  HeaderStyle-CssClass="red">
 
     <ItemTemplate>
 
@@ -995,15 +1029,13 @@ left: auto !important;
 
     
 
-    <FooterStyle CssClass="col-lg-3 control-label" />
-    <HeaderStyle CssClass="col-lg-3 control-label" />
-    <ItemStyle Width="100px" />
+        <HeaderStyle CssClass="red" />
+    <ItemStyle Width="150px" Height="40px" />
 
 </asp:TemplateField>
 
 
-<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Rate" HeaderStyle-CssClass="col-lg-3 control-label" 
-        FooterStyle-CssClass="col-lg-3 control-label">
+<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Rate"  HeaderStyle-CssClass="red">
 
     <ItemTemplate>
 
@@ -1019,9 +1051,8 @@ left: auto !important;
 
    
 
-    <FooterStyle CssClass="col-lg-3 control-label" />
-    <HeaderStyle CssClass="col-lg-3 control-label" />
-    <ItemStyle Width="100px" />
+      <HeaderStyle CssClass="red" />
+    <ItemStyle Width="150px" Height="40px" />
 
 </asp:TemplateField>
 
@@ -1043,14 +1074,14 @@ left: auto !important;
 
    
 
-    <ItemStyle Width="100px" />
+    <HeaderStyle CssClass="red" />
+    <ItemStyle Width="150px" Height="40px" />
 
 </asp:TemplateField>
 
 
 
-<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Total Amount" HeaderStyle-CssClass="col-lg-3 control-label" 
-        FooterStyle-CssClass="col-lg-3 control-label">
+<asp:TemplateField ItemStyle-Width = "100px"  HeaderText = "Total Amount"  HeaderStyle-CssClass="red">
 
     <ItemTemplate>
 
@@ -1066,9 +1097,9 @@ left: auto !important;
 
    
 
-    <FooterStyle CssClass="col-lg-3 control-label" />
-    <HeaderStyle CssClass="col-lg-3 control-label" />
-    <ItemStyle Width="100px" />
+  
+    <HeaderStyle CssClass="red" />
+    <ItemStyle Width="150px" Height="40px" />
 
 </asp:TemplateField>
 
@@ -1083,13 +1114,26 @@ left: auto !important;
         Text = "Delete" onclick="lnkRemove_Click" ></asp:LinkButton>
     </ItemTemplate>
    
+    <ItemStyle Height="40px" />
+   
 </asp:TemplateField>
 <asp:CommandField  ShowEditButton="True" />
 
 </Columns>
 
 
-</asp:GridView>
+    <FooterStyle BackColor="White" ForeColor="#000066" />
+    <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+    <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+    <RowStyle ForeColor="#000066" />
+    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+    <SortedAscendingCellStyle BackColor="#F1F1F1" />
+    <SortedAscendingHeaderStyle BackColor="#007DBB" />
+    <SortedDescendingCellStyle BackColor="#CAC9C9" />
+    <SortedDescendingHeaderStyle BackColor="#00547E" />
+
+
+</asp:GridView></div>
 </ContentTemplate>
                                      <Triggers>
                                        
