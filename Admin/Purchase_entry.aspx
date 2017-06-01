@@ -834,6 +834,7 @@ left: auto !important;
 <hr />
    <asp:UpdatePanel ID="UpdatePanel10" runat="server" >
    <ContentTemplate>
+
    <div style="overflow: scroll">
 <asp:GridView ID="GridView1" runat="server" CssClass="red" width="150%" AutoGenerateColumns="False" 
            onrowdatabound="GridView1_RowDataBound" 
