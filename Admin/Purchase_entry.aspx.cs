@@ -1695,7 +1695,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
             con1000.Close();
         }
 
-       
+        TextBox4.Focus();
 
     }
     protected void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)

@@ -7,23 +7,31 @@
     <head id="Head1" runat="server">
          <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
       
         <title></title>
-        <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.csss">
+      
+          
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    	<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.csss">
   		<link type="text/css" rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
-           <script type="text/javascript" language="javascript">
-               function controlEnter(obj, event) {
-                   var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
-                   if (keyCode == 13) {
-                       document.getElementById(obj).focus();
-                       return false;
-                   }
-                   else {
-                       return true;
-                   }
-               }
+  	
+
+    <script type="text/javascript" language="javascript">
+        function controlEnter(obj, event) {
+            var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+            if (keyCode == 13) {
+                document.getElementById(obj).focus();
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+</script>
+
+             
 </script>
 <style>
 .ajax__combobox_itemlist
@@ -98,9 +106,9 @@ left: auto !important;
     <body>
         <!-- Static navbar -->
  <form id="form1" runat="server">
-    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
-        
-</asp:ToolkitScriptManager>
+   <asp:ScriptManager ID="ScriptManager1" runat="server">
+ </asp:ScriptManager>
+
     <div>
          <nav class="navbar navbar-inverse yamm navbar-fixed-top">
             <div class="container-fluid">
@@ -159,7 +167,8 @@ left: auto !important;
         </nav>
         <section class="page">
 
-            <nav class="navbar-aside navbar-static-side" role="navigation">
+
+         <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -227,7 +236,7 @@ left: auto !important;
                               <li>
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Company setup </span><span class="fa arrow"></span></a>
                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Compnay</a></li>
+                                    <li><a href="">Company</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="location.aspx">Location</a></li>
@@ -404,6 +413,7 @@ left: auto !important;
                 </div>
                 
             </nav>
+          
           
             <div id="wrapper">
                 <div class="content-wrapper container">

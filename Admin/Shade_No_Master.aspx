@@ -458,9 +458,7 @@
 
           
 
-             <asp:BoundField HeaderText="shade Id" DataField="shade_id" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
-              <asp:BoundField HeaderText="shade no" DataField="shade_no" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
-               <asp:BoundField HeaderText="shade color" DataField="shade_color" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
+            
 
                 
                   
