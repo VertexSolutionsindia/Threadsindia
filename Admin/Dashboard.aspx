@@ -294,6 +294,9 @@
                                     <li><a href="Order_indent_precot.aspx">Order indent precot</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Good_Received_precot.aspx">Goods received precot</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Product Stock</a></li>
                            </ul>
                                

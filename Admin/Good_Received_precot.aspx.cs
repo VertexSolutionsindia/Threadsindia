@@ -13,9 +13,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Drawing.Printing;
+using CrystalDecisions.CrystalReports.Engine;
+using System.Data.SqlClient;
+using System.Data.OleDb;
 #endregion
 
-public partial class Admin_Order_indent_precot : System.Web.UI.Page
+public partial class Admin_Good_Received_precot : System.Web.UI.Page
 {
     float tot = 0;
     float tot1 = 0;
@@ -40,7 +44,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                 }
                 con1000.Close();
             }
-         
+
             DateTime date = DateTime.Now;
             TextBox13.Text = Convert.ToDateTime(date).ToString("MM/dd/yyyy");
 
@@ -48,66 +52,35 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
             getinvoiceno();
             getinvoiceno1();
             BindData2();
-           
+
             showrating();
 
 
             active();
             created();
             show_tax();
-            BindData();
+          
             show_category();
             show_item();
             show_tax();
             show_half_order();
             show_pay_terms();
+            show_location();
+            BindData();
 
-
-          
         }
 
 
        
-
+     
+ 
+       
+       
     }
     private void getinvoiceno1()
     {
 
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                int a;
-
-                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                con1.Open();
-                string query = "Select Max(S_no) from odr_indent_precot_details where invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' ";
-                SqlCommand cmd1 = new SqlCommand(query, con1);
-                SqlDataReader dr = cmd1.ExecuteReader();
-                if (dr.Read())
-                {
-                    string val = dr[0].ToString();
-                    if (val == "")
-                    {
-                        Label3.Text = "1";
-                    }
-                    else
-                    {
-                        a = Convert.ToInt32(dr[0].ToString());
-                        a = a + 1;
-                        Label3.Text = a.ToString();
-                    }
-                }
-                con1.Close();
-            }
-            con1000.Close();
-        }
+        
     }
     private void show_category()
     {
@@ -140,8 +113,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
             con1000.Close();
         }
     }
-
-    private void show_item()
+    private void show_location()
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -154,116 +126,39 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from item_master where Com_Id='" + company_id + "'  ORDER BY item_id asc", con);
+                SqlCommand cmd = new SqlCommand("Select * from location where Com_Id='" + company_id + "' ORDER BY loc_id asc", con);
                 con.Open();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(ds);
 
-                ComboBox3.DataSource = ds;
-                ComboBox3.DataTextField = "item_name";
-                ComboBox3.DataValueField = "item_id";
-                ComboBox3.DataBind();
-                ComboBox3.Items.Insert(0, new ListItem("Select item", "1"));
+                ComboBox7.DataSource = ds;
+                ComboBox7.DataTextField = "loc_name";
+                ComboBox7.DataValueField = "loc_id";
+                ComboBox7.DataBind();
+                ComboBox7.Items.Insert(0, new ListItem("Select location", "1"));
 
 
                 con.Close();
             }
             con1000.Close();
         }
+    }
+    private void show_item()
+    {
+       
     }
     private void show_tax()
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from Tax_entry where Com_Id='" + company_id + "'  ORDER BY tax_id asc", con);
-                con.Open();
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-
-                ComboBox4.DataSource = ds;
-                ComboBox4.DataTextField = "tax_name";
-                ComboBox4.DataValueField = "tax_id";
-                ComboBox4.DataBind();
-                ComboBox4.Items.Insert(0, new ListItem("Select tax", "1"));
-
-
-                con.Close();
-            }
-            con1000.Close();
-        }
+       
     }
     private void show_half_order()
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from Order_Half where Com_Id='" + company_id + "'  ORDER BY order_id asc", con);
-                con.Open();
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-
-                ComboBox5.DataSource = ds;
-                ComboBox5.DataTextField = "order_name";
-                ComboBox5.DataValueField = "order_id";
-                ComboBox5.DataBind();
-                ComboBox5.Items.Insert(0, new ListItem("Select Half ID", "1"));
-
-
-                con.Close();
-            }
-            con1000.Close();
-        }
+        
     }
     private void show_pay_terms()
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from PaymentTerms where Com_Id='" + company_id + "'  ORDER BY Pay_id asc", con);
-                con.Open();
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-
-                ComboBox2.DataSource = ds;
-                ComboBox2.DataTextField = "Payment_terms";
-                ComboBox2.DataValueField = "Pay_id";
-                ComboBox2.DataBind();
-                ComboBox2.Items.Insert(0, new ListItem("Select pay terms", "1"));
-
-
-                con.Close();
-            }
-            con1000.Close();
-        }
+        
     }
     protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
     {
@@ -335,7 +230,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from odr_indent_precot_details where invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' ORDER BY S_no asc", con);
+                SqlCommand CMD = new SqlCommand("select * from goods_rcd_precot", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -349,7 +244,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
 
     protected void BindData2()
     {
-       
+
 
     }
 
@@ -417,7 +312,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
 
 
 
-      
+
         TextBox4.Text = "";
 
 
@@ -621,7 +516,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
         TextBox10.Text = "";
         TextBox11.Text = "";
 
-     
+
         TextBox4.Text = "";
 
 
@@ -659,10 +554,8 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                     ComboBox1.SelectedItem.Text = dr2["supplier_name"].ToString();
                     TextBox4.Text = dr2["address"].ToString();
                     TextBox7.Text = dr2["mobile_no"].ToString();
-                    ComboBox3.SelectedItem.Text = dr2["item_name"].ToString();
-                    ComboBox2.SelectedItem.Text = dr2["pay_terms"].ToString();
-                    ComboBox4.SelectedItem.Text = dr2["tax_template"].ToString();
-                    ComboBox5.SelectedItem.Text = dr2["half_ID"].ToString();
+               
+                 
                     TextBox10.Text = dr2["total_qty"].ToString();
                     TextBox11.Text = Convert.ToDecimal(dr2["Total_boxes"]).ToString("#,##0.00");
 
@@ -677,9 +570,9 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
 
 
 
-                 
-                        
-                       
+
+
+
                 }
 
             }
@@ -724,10 +617,8 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                         cmd.Parameters.AddWithValue("@supplier_name", ComboBox1.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox4.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox7.Text);
-                        cmd.Parameters.AddWithValue("@item_name", ComboBox3.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@pay_terms", ComboBox2.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@tax_template", ComboBox4.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@half_ID", ComboBox5.SelectedItem.Text);
+                     
+                    
                         cmd.Parameters.AddWithValue("@total_qty", TextBox10.Text);
                         cmd.Parameters.AddWithValue("@Total_boxes", TextBox11.Text);
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
@@ -749,7 +640,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
 
 
 
-                     
+
                         TextBox4.Text = "";
 
 
@@ -761,7 +652,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                     {
 
 
-                    
+
                         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
 
@@ -772,13 +663,11 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                         cmd.Parameters.AddWithValue("@supplier_name", ComboBox1.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox4.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox7.Text);
-                        cmd.Parameters.AddWithValue("@item_name", ComboBox3.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@pay_terms", ComboBox2.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@tax_template", ComboBox4.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@half_ID",ComboBox5.SelectedItem.Text);
+                      
+                     
                         cmd.Parameters.AddWithValue("@total_qty", TextBox10.Text);
-                        cmd.Parameters.AddWithValue("@Total_boxes",TextBox11.Text);
-                        cmd.Parameters.AddWithValue("@Com_Id",company_id);
+                        cmd.Parameters.AddWithValue("@Total_boxes", TextBox11.Text);
+                        cmd.Parameters.AddWithValue("@Com_Id", company_id);
                         con.Open();
                         cmd.ExecuteNonQuery();
                         con.Close();
@@ -796,7 +685,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
 
 
 
-                     
+
                         TextBox4.Text = "";
 
 
@@ -850,10 +739,8 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                     ComboBox1.SelectedItem.Text = dr2["supplier_name"].ToString();
                     TextBox4.Text = dr2["address"].ToString();
                     TextBox7.Text = dr2["mobile_no"].ToString();
-                    ComboBox3.SelectedItem.Text=dr2["item_name"].ToString();
-                    ComboBox2.SelectedItem.Text = dr2["pay_terms"].ToString();
-                    ComboBox4.SelectedItem.Text = dr2["tax_template"].ToString();
-                    ComboBox5.SelectedItem.Text = dr2["half_ID"].ToString();
+                
+                 
                     TextBox10.Text = dr2["total_qty"].ToString();
                     TextBox11.Text = Convert.ToDecimal(dr2["Total_boxes"]).ToString("#,##0.00");
 
@@ -891,7 +778,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
 
 
 
-                   
+
                     TextBox4.Text = "";
 
 
@@ -907,7 +794,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
     }
     protected void Button6_Click(object sender, EventArgs e)
     {
-       
+
     }
 
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
@@ -942,12 +829,12 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
             }
             con1000.Close();
         }
-       
+
     }
 
 
 
-  
+
     protected void TextBox2_TextChanged(object sender, EventArgs e)
     {
 
@@ -1029,26 +916,9 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
 
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            Label rate = (Label)e.Row.Cells[2].FindControl("lblprecotorder");
-            if (rate != null)
-            {
-                string rate1 = rate.Text;
-                tot = tot + Convert.ToInt32(rate1);
-            }
-        }
-
        
 
 
-
-
-
-
-        TextBox10.Text = Convert.ToDecimal(tot).ToString("#,##0.00");
-     
-       
     }
     protected void DropDownList5_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -1087,9 +957,9 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                                 .FindControl("lblsno")).Text;
                 string shade_no = ((TextBox)GridView1.Rows[e.RowIndex]
                                   .FindControl("txtshadeno")).Text;
-                string precotorder= ((TextBox)GridView1.Rows[e.RowIndex]
+                string precotorder = ((TextBox)GridView1.Rows[e.RowIndex]
                                     .FindControl("txtprecotorder")).Text;
-              
+
 
 
 
@@ -1108,7 +978,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
                     SqlCommand cmd = new SqlCommand("update odr_indent_precot_details set supplier_name=@supplier_name,shade_no=@shade_no,precotorder=@precotorder,Com_Id=@Com_Id where invoice_no=@invoice_no and S_no=@S_no", con);
                     cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
                     cmd.Parameters.AddWithValue("@supplier_name", ComboBox1.SelectedItem.Text);
-                    cmd.Parameters.AddWithValue("@S_no",s_no);
+                    cmd.Parameters.AddWithValue("@S_no", s_no);
                     cmd.Parameters.AddWithValue("@shade_no", shade_no);
                     cmd.Parameters.AddWithValue("@precotorder", precotorder);
                     cmd.Parameters.AddWithValue("@Com_Id", company_id);
@@ -1177,7 +1047,7 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
     }
 
 
-   
+
     protected void txtcones_TextChanged(object sender, EventArgs e)
     {
         string rate = ((TextBox)GridView1.Rows[GridView1.EditIndex].FindControl("txtcones")).Text;
@@ -1238,165 +1108,88 @@ public partial class Admin_Order_indent_precot : System.Web.UI.Page
             if (dr1000.Read())
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select distinct shade_no,shade_id from shade_master_details where Com_Id='" + company_id + "'  ORDER BY shade_id asc", con);
-                con.Open();
-                DataSet ds = new DataSet();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(ds);
-
-                ComboBox6.DataSource = ds;
-                ComboBox6.DataTextField = "shade_no";
-                ComboBox6.DataValueField = "shade_id";
-                ComboBox6.DataBind();
-                ComboBox6.Items.Insert(0, new ListItem("Select party", "1"));
-
-
-                con.Close();
+               
             }
             con1000.Close();
         }
     }
     protected void ComboBox6_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from Product_stock where item_name='" + ComboBox3.SelectedItem.Text + "' and shade_no='" + ComboBox6.SelectedItem.Text + "' and unit='KG' and Com_Id='" + company_id + "'", con2);
-                SqlDataReader dr2;
-                con2.Open();
-                dr2 = cmd2.ExecuteReader();
-                if (dr2.Read())
-                {
-
-                    TextBox2.Text = dr2["qty"].ToString();
-
-                }
-                else
-                {
-                    TextBox2.Text = "";
-                }
-                con2.Close();
-                SqlConnection con3 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd3 = new SqlCommand("select * from Product_stock where item_name='" + ComboBox3.SelectedItem.Text + "' and shade_no='" + ComboBox6.SelectedItem.Text + "' and unit='Cones' and Com_Id='" + company_id + "'", con3);
-                SqlDataReader dr3;
-                con3.Open();
-                dr3 = cmd3.ExecuteReader();
-                if (dr3.Read())
-                {
-
-                    TextBox3.Text = dr3["qty"].ToString();
-
-                }
-                else
-                {
-                    TextBox3.Text = "";
-                }
-                con3.Close();
-
-                SqlConnection con4 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd4 = new SqlCommand("select * from Wendingdly_product_stock where item_name='" + ComboBox3.SelectedItem.Text + "' and shade_no='" + ComboBox6.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con4);
-                SqlDataReader dr4;
-                con4.Open();
-                dr4 = cmd4.ExecuteReader();
-                if (dr4.Read())
-                {
-
-                    TextBox14.Text = dr4["Net_Wt"].ToString();
-
-                }
-                else
-                {
-                    TextBox14.Text = "";
-                }
-                con4.Close();
-
-                SqlConnection con5 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd5 = new SqlCommand("select * from odr_indent_precot_stock where item_name='" + ComboBox3.SelectedItem.Text + "' and shade_no='" + ComboBox6.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con5);
-                SqlDataReader dr5;
-                con5.Open();
-                dr5 = cmd5.ExecuteReader();
-                if (dr5.Read())
-                {
-
-                    TextBox5.Text = dr5["precotorder"].ToString();
-
-                }
-                else
-                {
-                    TextBox5.Text = "";
-                }
-                con4.Close();
-            }
-            con1000.Close();
-        }
-        TextBox2.Focus();
+      
     }
-    protected void Button8_Click(object sender, EventArgs e)
-    {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("INSERT INTO odr_indent_precot_details VALUES(@invoice_no,@supplier_name,@S_no,@item_name,@shade_no,@precotorder,@Com_Id)", con);
-                cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                cmd.Parameters.AddWithValue("@supplier_name", ComboBox1.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@S_no", Label3.Text);
-                cmd.Parameters.AddWithValue("@item_name", ComboBox3.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@shade_no", ComboBox6.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@precotorder", TextBox15.Text);
-                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+    
 
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd1 = new SqlCommand("INSERT INTO odr_indent_precot_stock VALUES(@invoice_no,@half_ID,@supplier_name,@S_no,@item_name,@shade_no,@precotorder,@Com_Id)", con1);
-                cmd1.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                cmd1.Parameters.AddWithValue("@half_ID", ComboBox5.SelectedItem.Text);
-                cmd1.Parameters.AddWithValue("@supplier_name", ComboBox1.SelectedItem.Text);
-                cmd1.Parameters.AddWithValue("@S_no", Label3.Text);
-                cmd1.Parameters.AddWithValue("@item_name", ComboBox3.SelectedItem.Text);
-                cmd1.Parameters.AddWithValue("@shade_no", ComboBox6.SelectedItem.Text);
-                cmd1.Parameters.AddWithValue("@precotorder", TextBox15.Text);
-                cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-
-
-                con1.Open();
-                cmd1.ExecuteNonQuery();
-                con1.Close();
-                BindData();
-                getinvoiceno1();
-            }
-            con1000.Close();
-        }
-    }
-  
-  
     protected void Button10_Click(object sender, EventArgs e)
     {
 
 
 
-     
+
     }
-   
+
+
+  
     
+       
+         protected void Button8_Click(object sender, EventArgs e)
+         {
+             //Upload and save the file
+             string excelPath = Server.MapPath("~/Files/") + Path.GetFileName(FileUpload1.PostedFile.FileName);
+             FileUpload1.SaveAs(excelPath);
+
+             string conString = string.Empty;
+             string extension = Path.GetExtension(FileUpload1.PostedFile.FileName);
+             switch (extension)
+             {
+                 case ".xls": //Excel 97-03
+                     conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                     break;
+                 case ".xlsx": //Excel 07 or higher
+                     conString = ConfigurationManager.ConnectionStrings["Excel07+ConString"].ConnectionString;
+                     break;
+
+             }
+             conString = string.Format(conString, excelPath);
+             using (OleDbConnection excel_con = new OleDbConnection(conString))
+             {
+                 excel_con.Open();
+                 string sheet1 = excel_con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
+                 DataTable dtExcelData = new DataTable();
+
+                 //[OPTIONAL]: It is recommended as otherwise the data will be considered as String by default.
+                 dtExcelData.Columns.AddRange(new DataColumn[7] { new DataColumn("S No", typeof(int)),
+                new DataColumn("Indent Type", typeof(string)),new DataColumn("Count Code",typeof(string)),new DataColumn("Shade No",typeof(string)),new DataColumn("Quantity",typeof(string)),new DataColumn("Actual Gross Weight",typeof(string)),new DataColumn("Fortnight",typeof(string))
+                 });
+
+                 using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+                 {
+                     oda.Fill(dtExcelData);
+                 }
+                 excel_con.Close();
+
+                 string consString = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
+                 using (SqlConnection con = new SqlConnection(consString))
+                 {
+                     using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                     {
+                         //Set the database table name
+                         sqlBulkCopy.DestinationTableName = "goods_rcd_precot";
+
+                         //[OPTIONAL]: Map the Excel columns with that of the database table
+                         sqlBulkCopy.ColumnMappings.Add("S No", "s_no");
+                         sqlBulkCopy.ColumnMappings.Add("Indent Type", "indent_type");
+                         sqlBulkCopy.ColumnMappings.Add("Count Code", "count_code");
+                         sqlBulkCopy.ColumnMappings.Add("Shade No", "shade_no");
+                         sqlBulkCopy.ColumnMappings.Add("Quantity", "qty");
+                         sqlBulkCopy.ColumnMappings.Add("Actual Gross Weight", "actual_g_w");
+                         sqlBulkCopy.ColumnMappings.Add("Fortnight", "fortnight");
+
+                         con.Open();
+                         sqlBulkCopy.WriteToServer(dtExcelData);
+                         con.Close();
+                     }
+                 }
+             }
+             BindData();
+         }
 }
