@@ -49,7 +49,17 @@ public partial class RabbitDashboard : System.Web.UI.Page
                 }
                 con1.Close();
             }
-
+            SqlConnection con10 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd10 = new SqlCommand("select * from currentfinancialyear where no='1'", con10);
+            SqlDataReader dr10;
+            con10.Open();
+            dr10 = cmd10.ExecuteReader();
+            if (dr10.Read())
+            {
+                Label1.Text = dr10["financial_year"].ToString();
+                
+            }
+            con10.Close();
 
            
         }

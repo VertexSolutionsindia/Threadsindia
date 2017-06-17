@@ -83,22 +83,7 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <style>
-          .ajax__combobox_itemlist
-{
-position:absolute!important; 
 
-
-top: auto !important;
-left: auto !important;
-}
-.cbox
-{
-    margin: 0 auto;
-    width: 280px;
-}
-        
-        </style>
 
     </head>
     <body>
@@ -150,9 +135,7 @@ left: auto !important;
                             <a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown" role="button" ><img src="../default-profile-pic.png" alt="" width="25px"><%=User.Identity.Name%></b></span>  <span class="fa fa-caret-down" aria-hidden="true" style=""></a>
                             <ul class="dropdown-menu">
                                 <li><a href="Profile_main.aspx"><i class="fa fa-user"></i>My Profile</a></li>
-                                <li><a href="Seetings.aspx"><i class="fa fa-calendar"></i>Settings</a></li>                         
-                                <li><a href="Advanced_Settings.aspx"><i class="fa fa-envelope"></i>Advanced Settings</a></li>
-                                <li><a href="#"><i class="fa fa-barcode"></i>Custom Field</a></li>
+                             
                                 <li class="divider"></li>
                                
                                  <li ><a href="#" ><asp:LinkButton id="LoginLink" Text="Log Out"  class="fa fa-sign-out" aria-hidden="true"
@@ -174,9 +157,6 @@ left: auto !important;
                             <div class="page-title see2">
                              <h2>Financial year setting
                                  </h2>
-                                
-                              
-                           
                             <asp:UpdatePanel ID="UpdatePanel9" runat="server">
    <ContentTemplate>
     <asp:Button ID="Button7" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="<" OnClick="Button7_Click"></asp:Button>
@@ -278,10 +258,8 @@ left: auto !important;
                                 </div>
                                  
                             </div><!-- End .panel -->
-                            <div>
-                          
+                            
                             <div class="container">
-                             </div>
  
   <div class="panel panel-default">
   <div class="panel-body">
@@ -289,8 +267,7 @@ left: auto !important;
                  <div class="panel-body">
                            <div class="form-horizontal">
                                <br />
-                              
-                            
+                             
                                <div class="form-group"><label class="col-lg-3 control-label">year Id</label>
 
                                     <div class="col-lg-9">
@@ -317,8 +294,9 @@ left: auto !important;
                               
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel11" runat="server">
-   <ContentTemplate>   <asp:TextBox ID="TextBox1" runat="server" 
-           class="form-control input-x2 dropbox" 
+   <ContentTemplate>   
+       <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true" 
+           class="form-control input-x2 dropbox" ontextchanged="TextBox1_TextChanged" 
                                          ></asp:TextBox>
                                  
                                     </ContentTemplate>
@@ -327,6 +305,52 @@ left: auto !important;
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
                      <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                      
+                </Triggers>
+                           </asp:UpdatePanel>
+                                    
+                                    </div>
+                                
+                                
+                                </div>
+
+                                 <div class="form-group">  <label class="col-lg-3 control-label">Start Date</label>
+                              
+                                    <div class="col-lg-9">
+                                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+   <ContentTemplate>   <asp:TextBox ID="TextBox2" runat="server" 
+           class="form-control input-x2 dropbox" 
+                                         ></asp:TextBox>
+                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox2" Format="dd-MM-yyyy"></asp:CalendarExtender>
+                                    </ContentTemplate>
+                                     <Triggers>
+                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                      <asp:AsyncPostBackTrigger ControlID="TextBox1" EventName="TextChanged"  />
+                </Triggers>
+                           </asp:UpdatePanel>
+                                    
+                                    </div>
+                                
+                                
+                                </div>
+                                <div class="form-group">  <label class="col-lg-3 control-label">End Date</label>
+                              
+                                    <div class="col-lg-9">
+                                     <asp:UpdatePanel ID="UpdatePanel10" runat="server">
+   <ContentTemplate>   <asp:TextBox ID="TextBox4" runat="server" 
+           class="form-control input-x2 dropbox" 
+                                         ></asp:TextBox>
+                                  <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox4" Format="dd-MM-yyyy"></asp:CalendarExtender>
+                                    </ContentTemplate>
+                                     <Triggers>
+                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                      <asp:AsyncPostBackTrigger ControlID="TextBox1" EventName="TextChanged"  />
                 </Triggers>
                            </asp:UpdatePanel>
                                     

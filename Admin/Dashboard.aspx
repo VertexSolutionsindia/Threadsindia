@@ -335,46 +335,39 @@
 
 
                <li>
-                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Finance Management </span><span class="fa arrow"></span></a>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts Payable </span><span class="fa arrow"></span></a>
                          
-                          <ul class="nav nav-second-level collapse">
-                          
-                             <li>
-                                <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Outstanding </span><span class="fa arrow"></span></a>
-                                 <ul class="nav nav-second-level collapse">
-                                    <li><a href="Supplier_wise.aspx">Supplier</a></li>
-                                 </ul>
-                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="Customer_wise.aspx">Customer</a></li>
-                                  </ul>
-                                   <ul class="nav nav-second-level collapse">
-                                    <li><a href="salesman_salary.aspx">sales man</a></li>
-                                  </ul>
-                              </li>
-                            </ul>
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="Purchase_payment_outstanding.aspx">Supplier Outstanding</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="">Payemnts Entry</a></li>
+                           </ul>
 
 
-                            
+                              <li>
+                               <li>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts receivable </span><span class="fa arrow"></span></a>
+                         
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="credit_payment_outstanding.aspx">Customer Outstanding</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Collection_entry.aspx">Collection  Entry</a></li>
+                           </ul>
 
-
-
-
-
-                          
-
-                            
-                           
-
-                                    
-                             </li>
 
                               <li>
                     <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Reports </span><span class="fa arrow"></span></a>
-                         
-                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Sales man</a></li>
+                          <ul class="nav nav-second-level collapse">
+                                    <li><a href="Purchase_bill_report.aspx">Purchase bill report</a></li>
                            </ul>
-                           
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="Cash_bill_report.aspx">Cash bill report</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Credit_bill_report.aspx">Credit bill report</a></li>
+                           </ul>
 
 
                             
@@ -415,7 +408,7 @@
                                 <h2 style=" color:black">Dashboard  <small></small></h2>
                              
   
-  
+  Financial Year : <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
   
 
                                 
@@ -494,7 +487,7 @@
                AutoGenerateColumns="False" AllowPaging="True" ShowFooter="True" PageSize="100">
       
            <Columns>
-           <asp:BoundField HeaderText="Customer" DataField="customer" />
+           <asp:BoundField HeaderText="Customer" DataField="Supplier" />
            <asp:BoundField HeaderText="Outstanding amount" DataField="pending_amount" DataFormatString="{0:#,##0.00}" />
            
            </Columns>

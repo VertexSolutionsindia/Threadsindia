@@ -169,7 +169,7 @@ left: auto !important;
         </nav>
         <section class="page">
 
-             <nav class="navbar-aside navbar-static-side" role="navigation">
+            <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -237,7 +237,7 @@ left: auto !important;
                               <li>
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Company setup </span><span class="fa arrow"></span></a>
                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Compnay</a></li>
+                                    <li><a href="">Company</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="location.aspx">Location</a></li>
@@ -296,6 +296,10 @@ left: auto !important;
                                     <li><a href="Category.aspx">Category Entry</a></li>
 
                            </ul>
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="Order_half_ID.aspx">Order half ID</a></li>
+
+                           </ul>
                             </li>
                            
 
@@ -304,6 +308,12 @@ left: auto !important;
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Purchase_entry.aspx">Purchase Entry</a></li>
+                           </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Order_indent_precot.aspx">Order indent precot</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Good_Received_precot.aspx">Goods received precot</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Product Stock</a></li>
@@ -344,46 +354,37 @@ left: auto !important;
 
 
                <li>
-                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Finance Management </span><span class="fa arrow"></span></a>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts Payable </span><span class="fa arrow"></span></a>
                          
-                          <ul class="nav nav-second-level collapse">
-                          
-                             <li>
-                                <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Outstanding </span><span class="fa arrow"></span></a>
-                                 <ul class="nav nav-second-level collapse">
-                                    <li><a href="Supplier_wise.aspx">Supplier</a></li>
-                                 </ul>
-                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="Customer_wise.aspx">Customer</a></li>
-                                  </ul>
-                                   <ul class="nav nav-second-level collapse">
-                                    <li><a href="salesman_salary.aspx">sales man</a></li>
-                                  </ul>
-                              </li>
-                            </ul>
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="Purchase_payment_outstanding.aspx">Supplier Outstanding</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="">Payemnts</a></li>
+                           </ul>
 
 
-                            
+                              <li>
+                               <li>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts receivable </span><span class="fa arrow"></span></a>
+                         
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="credit_payment_outstanding.aspx">Customer Outstanding</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="">Collection</a></li>
+                           </ul>
 
-
-
-
-
-                          
-
-                            
-                           
-
-                                    
-                             </li>
 
                               <li>
                     <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Reports </span><span class="fa arrow"></span></a>
                          
                            <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Sales man</a></li>
+                                    <li><a href="Cash_bill_report.aspx">Cash bill report</a></li>
                            </ul>
-                           
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Credit_bill_report.aspx">Credit bill report</a></li>
+                           </ul>
 
 
                             
@@ -422,7 +423,7 @@ left: auto !important;
                             <div class="page-title see2">
                              <h2>Credit Bill
                                  </h2>
-    
+    <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
                                 
 
                       
@@ -531,7 +532,7 @@ left: auto !important;
                             
                         </div>
                     </div><!-- end .page title-->
-                     <div class="row">
+                      <div class="row">
                     <div class="col-md-12">
                   
 
@@ -559,7 +560,6 @@ left: auto !important;
  
   <div class="panel panel-default">
   <div class="panel-body">
-   <div class="col-md-12">
    <div class="col-md-6">
                  <div class="panel-body">
                            <div class="form-horizontal">
@@ -594,7 +594,7 @@ left: auto !important;
                                      <asp:UpdatePanel ID="UpdatePanel22" runat="server">
    <ContentTemplate>
    <asp:TextBox ID="TextBox13" runat="server" class="form-control input-x2 dropbox" ></asp:TextBox>
-   <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox13"></asp:CalendarExtender>
+   <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox13" Format="dd-MM-yyyy"></asp:CalendarExtender>
                                     </ContentTemplate>
                                      <Triggers>
                                    
@@ -702,6 +702,14 @@ left: auto !important;
            BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
            CellPadding="3">
   <Columns>
+  <asp:TemplateField>
+  <ItemTemplate>
+  <asp:CheckBox ID="CheckBox1" runat="server" 
+          oncheckedchanged="CheckBox1_CheckedChanged" AutoPostBack="true"></asp:CheckBox>
+  
+  </ItemTemplate>
+  
+  </asp:TemplateField>
   <asp:BoundField DataField="purchase_invoice" HeaderText="invoice no" >
       <HeaderStyle CssClass="red" Height="30px" />
       </asp:BoundField>
@@ -709,14 +717,7 @@ left: auto !important;
           DataFormatString="{0: dd/MM/yyyy}"  >
       <HeaderStyle CssClass="red" />
       </asp:BoundField>
-  <asp:TemplateField>
-  <ItemTemplate>
-  
-  <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/edit4.jpg" 
-          width="20px" Height="20px" onclick="ImageButton3_Click" ></asp:ImageButton>
-  </ItemTemplate>
-  
-  </asp:TemplateField>
+ 
   </Columns>
   
   
@@ -768,15 +769,26 @@ left: auto !important;
   
   
   
-                            
-          <div class="container">
- 
-  <div class="panel">
-            <div class="panel-body">                  
-  
+         <h4 style="clear:both" >Product  Details</h4>
+                           
+                              
+   
+     <div class="tablestyle" style="width:100%" >
+    <table border="1">
+    <tr>
+    <th align="center">S.No</th>
+    <th align="center">Item Name</th>
+    <th align="center">shade No</th>
+    <th align="center">Color</th>
+    <th>Unit</th>
+    <th>Rate</th>
+     <th>Quantity</th>
+    <th>Amount</th>
+    </tr>           
    
 
-   <div class="col-md-1" ><h3>S.no</h3>
+  <tr>
+   <td>
     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
    <ContentTemplate>
  <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
@@ -793,12 +805,12 @@ left: auto !important;
                            </asp:UpdatePanel>
   
   
-  </div>
-   <div class="col-md-3" ><h3>Item</h3>
+   </td>
+  <td>
      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
    <ContentTemplate>
   <asp:ComboBox ID="ComboBox2" runat="server" CssClass="cbox" AutoPostBack="true" 
-           iteminsertlocation="Append" Width="100%" dropdownstyle="DropDownList"  
+           iteminsertlocation="Append" Width="300px" Height="35px" dropdownstyle="DropDownList"  
            autocompletemode="SuggestAppend" casesensitive="false" onselectedindexchanged="ComboBox2_SelectedIndexChanged" 
            >
         </asp:ComboBox>
@@ -810,12 +822,12 @@ left: auto !important;
                            </asp:UpdatePanel>
   
   
-  </div>
-   <div class="col-md-2"><h3>Shade No:</h3>
+   </td>
+  <td>
      <asp:UpdatePanel ID="UpdatePanel5" runat="server">
    <ContentTemplate>
     <asp:ComboBox ID="ComboBox3" runat="server" CssClass="cbox" AutoPostBack="true" 
-           iteminsertlocation="Append" Width="100%" dropdownstyle="DropDownList"  
+           iteminsertlocation="Append" Width="100px" Height="35px" dropdownstyle="DropDownList"  
            autocompletemode="SuggestAppend" casesensitive="false" onselectedindexchanged="ComboBox3_SelectedIndexChanged"  
            >
         </asp:ComboBox>
@@ -825,12 +837,12 @@ left: auto !important;
                 <asp:AsyncPostBackTrigger ControlID="TextBox19" EventName="TextChanged"  />
                 </Triggers>
                            </asp:UpdatePanel>
-   </div>
-    <div class="col-md-1"><h3>Color</h3>
+    </td>
+  <td>
 
       <asp:UpdatePanel ID="UpdatePanel6" runat="server">
    <ContentTemplate>
-   <asp:TextBox ID="TextBox1" runat="server"  class="form-control input-x2 dropbox" 
+   <asp:TextBox ID="TextBox1" runat="server" Width="80px" Height="42px"   class="form-control input-x2 dropbox" 
            ontextchanged="TextBox1_TextChanged1"></asp:TextBox>
    </ContentTemplate>
                                      <Triggers>
@@ -838,13 +850,13 @@ left: auto !important;
                <asp:AsyncPostBackTrigger ControlID="ComboBox1" EventName="SelectedIndexChanged"  />
                 </Triggers>
                            </asp:UpdatePanel>
-   </div>
-    <div class="col-md-1"><h3>Unit</h3>
+   </td>
+  <td>
 
       <asp:UpdatePanel ID="UpdatePanel8" runat="server">
    <ContentTemplate>
  <asp:ComboBox ID="ComboBox4" runat="server" CssClass="cbox" AutoPostBack="true" 
-           iteminsertlocation="Append" Width="100%" dropdownstyle="DropDownList"  
+           iteminsertlocation="Append" Width="100px" Height="35px" dropdownstyle="DropDownList"  
            autocompletemode="SuggestAppend" casesensitive="false" onselectedindexchanged="ComboBox4_SelectedIndexChanged" 
            >
         </asp:ComboBox>
@@ -853,12 +865,12 @@ left: auto !important;
                                 <asp:AsyncPostBackTrigger ControlID="Button8" EventName="Click"  />
                           </Triggers>           
                            </asp:UpdatePanel>
-  </div>
-    <div class="col-md-1"><h3>Rate</h3>
+   </td>
+  <td>
 
       <asp:UpdatePanel ID="UpdatePanel13" runat="server">
    <ContentTemplate>
- <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox" 
+ <asp:TextBox ID="TextBox2" runat="server" Width="120px" Height="42px" class="form-control input-x2 dropbox" 
            ontextchanged="TextBox2_TextChanged"></asp:TextBox>
   </ContentTemplate>
   <Triggers>
@@ -871,11 +883,11 @@ left: auto !important;
   </Triggers>
                                      
                            </asp:UpdatePanel>
-  </div>
-  <div class="col-md-1"><h3>Qty </h3>
+   </td>
+  <td>
    <asp:UpdatePanel ID="UpdatePanel14" runat="server">
    <ContentTemplate>
- <asp:TextBox ID="TextBox5" runat="server" AutoPostBack="true" class="form-control input-x2 dropbox" 
+ <asp:TextBox ID="TextBox5" runat="server" AutoPostBack="true" Width="72px" Height="42px" class="form-control input-x2 dropbox" 
            ontextchanged="TextBox5_TextChanged"></asp:TextBox>
   </ContentTemplate>
   <Triggers>
@@ -883,12 +895,12 @@ left: auto !important;
   </Triggers>
                                      
                            </asp:UpdatePanel>
-  </div>
-      <div class="col-md-2"><h3>Total Amount</h3>
+   </td>
+  <td>
 
       <asp:UpdatePanel ID="UpdatePanel15" runat="server">
    <ContentTemplate>
- <asp:TextBox ID="TextBox6" runat="server" AutoPostBack="true" class="form-control input-x2 dropbox" 
+ <asp:TextBox ID="TextBox6" runat="server" AutoPostBack="true" Width="180px" Height="42px" class="form-control input-x2 dropbox" 
            ontextchanged="TextBox6_TextChanged"></asp:TextBox>
   </ContentTemplate>
   <Triggers>
@@ -897,6 +909,9 @@ left: auto !important;
   </Triggers>
                                      
                            </asp:UpdatePanel>
+                           </td>
+                           </tr>
+                           </table>
                               <asp:UpdatePanel ID="UpdatePanel23" runat="server" >
    <ContentTemplate>
   <asp:Button ID="Button8" runat="server" CssClass="btn1" Text="ADD" onclick="Button8_Click" OnClientClick="Confirm()"></asp:Button>
@@ -907,9 +922,6 @@ left: auto !important;
 
    </div>
   
-  </div>
-  </div>
-  </div>
   
   
   
@@ -919,8 +931,8 @@ left: auto !important;
 
    <asp:UpdatePanel ID="UpdatePanel10" runat="server" >
    <ContentTemplate>
-   <div style="overflow: scroll">
-<asp:GridView ID="GridView1" runat="server" CssClass ="red" width="150%" AutoGenerateColumns="False" 
+  
+<asp:GridView ID="GridView1" runat="server" CssClass ="red" width="100%" AutoGenerateColumns="False" 
            onrowdatabound="GridView1_RowDataBound" 
            onrowcancelingedit="GridView1_RowCancelingEdit" 
            onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" 
@@ -1147,9 +1159,23 @@ left: auto !important;
 <br />
 
 <br />
- <div class="col-md-12">
-  <div class="col-md-6">
+ <div class="row">
+                    <div class="col-md-12">
+                  
 
+
+
+
+                  
+  <div class="container">
+
+  <div class="container">
+ 
+  <div class="panel panel-default">
+  <div class="panel-body">
+   <div class="col-md-12">
+   <div class="col-md-6">
+   <br />
   <div class="form-group"><label class="col-lg-3 control-label">Prepared By</label>
 
                                     <div class="col-lg-9">
@@ -1314,6 +1340,27 @@ left: auto !important;
                            </asp:UpdatePanel>
                                     </div>
                                 </div>
+                                  <br />
+                             <div class="form-group"><label class="col-lg-3 control-label">last sales date</label>
+
+                                    <div class="col-lg-9">
+                                     <asp:UpdatePanel ID="UpdatePanel33" runat="server">
+   <ContentTemplate>
+                        <asp:TextBox ID="TextBox20" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>        
+                                      </ContentTemplate>
+                                <Triggers>
+                                 
+                                      <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
+                                        <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
+                <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                   <asp:AsyncPostBackTrigger ControlID="GridView1"   />
+                
+            
+                </Triggers>
+                           </asp:UpdatePanel>
+                                    </div>
+                                </div>
 
   </div>
 
@@ -1322,7 +1369,7 @@ left: auto !important;
              <div class="col-md-6">
                            <div class="form-horizontal">
                               
-                             
+                             <br />
                                <div class="form-group"><label class="col-lg-3 control-label">Total Qty</label>
 
                                     <div class="col-lg-9">
@@ -1459,7 +1506,8 @@ left: auto !important;
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel20" runat="server">
    <ContentTemplate>
-   <asp:TextBox ID="TextBox9" runat="server" class="form-control input-x2 dropbox" ></asp:TextBox>
+   <asp:TextBox ID="TextBox9" runat="server" class="form-control input-x2 dropbox" 
+           AutoPostBack="true" ontextchanged="TextBox9_TextChanged" ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                                       
@@ -1471,18 +1519,11 @@ left: auto !important;
                 </Triggers>
                            </asp:UpdatePanel>
                                     
-                                    </div>
-                               
- 
-     
-                         
-
- 
-                                  
-                
-                             
+                                      </div>
                                 </div>
-                               
+
+                                <div >
+                                </div>
 
                                  
                                </div>  
@@ -1490,8 +1531,7 @@ left: auto !important;
                             </div>                             <!-- End .form-group  -->
                                         
               </div>
-
-    
+                                       
                                        
             
              
@@ -1499,32 +1539,8 @@ left: auto !important;
                  </div>
                  </div>
                  </div>     
-                 </div>
-             
-                                   
-                                </div>
-                                 
-                            </div><!-- End .panel --> 
-
-           
-                   
-   <br />
-                      &nbsp;
-
-                       
-    </div>
-                           <!-- End .form-group  -->
-                  
-                                 
-           </div>
-           </div>
-           </div>
-                                       
-                    
-                                        
-                                   
-                     
-                   
+                
+                </div>
               
                       
                    

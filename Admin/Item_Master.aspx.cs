@@ -442,57 +442,7 @@ public partial class Admin_Sub_category : System.Web.UI.Page
     private void getitemcode()
     {
 
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-               
-
-                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                con1.Open();
-                string query = "Select max(convert(int,SubString(item_code,PATINDEX('%[0-9]%',item_code),Len(item_code)))) from item_master where Com_Id='" + company_id + "' ";
-                SqlCommand cmd1 = new SqlCommand(query, con1);
-                SqlDataReader dr = cmd1.ExecuteReader();
-                if (dr.Read())
-                {
-                    string val = dr[0].ToString();
-                    if (val == "")
-                    {
-                        TextBox2.Text = "IT001";
-                    }
-                    else
-                    {
-                        int a=0;
-                        if (a <= 9)
-                        {
-                            a = Convert.ToInt32(dr[0].ToString());
-                            a = a + 1;
-                            TextBox2.Text = "IT00" + a.ToString();
-                        }
-                        if ((a >= 10) && (a <= 99))
-                        {
-                            a = Convert.ToInt32(dr[0].ToString());
-                            a = a + 1;
-                            TextBox2.Text = "IT0" + a.ToString();
-                        }
-                        if ((a >= 100) && (a <= 999))
-                        {
-                            a = Convert.ToInt32(dr[0].ToString());
-                            a = a + 1;
-                            TextBox2.Text = "IT" + a.ToString();
-                        }
-                    }
-                }
-                con1.Close();
-            }
-            con1000.Close();
-        }
+       
     }
     private void getinvoiceno1()
     {

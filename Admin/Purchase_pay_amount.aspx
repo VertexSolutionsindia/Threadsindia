@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Dream Garments</title>
+        <title>Threads india</title>
       
 
               <script type="text/javascript">
@@ -175,7 +175,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dream Garments</a>
+                    <a class="navbar-brand" href="#">ACJ Traders</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -234,7 +234,7 @@
         </nav>
         <section class="page">
 
-               <nav class="navbar-aside navbar-static-side" role="navigation">
+              <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -302,7 +302,7 @@
                               <li>
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Company setup </span><span class="fa arrow"></span></a>
                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Compnay</a></li>
+                                    <li><a href="">Company</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="location.aspx">Location</a></li>
@@ -361,6 +361,10 @@
                                     <li><a href="Category.aspx">Category Entry</a></li>
 
                            </ul>
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="Order_half_ID.aspx">Order half ID</a></li>
+
+                           </ul>
                             </li>
                            
 
@@ -369,6 +373,12 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Purchase_entry.aspx">Purchase Entry</a></li>
+                           </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Order_indent_precot.aspx">Order indent precot</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Good_Received_precot.aspx">Goods received precot</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Product Stock</a></li>
@@ -409,46 +419,37 @@
 
 
                <li>
-                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Finance Management </span><span class="fa arrow"></span></a>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts Payable </span><span class="fa arrow"></span></a>
                          
-                          <ul class="nav nav-second-level collapse">
-                          
-                             <li>
-                                <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Outstanding </span><span class="fa arrow"></span></a>
-                                 <ul class="nav nav-second-level collapse">
-                                    <li><a href="Supplier_wise.aspx">Supplier</a></li>
-                                 </ul>
-                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="Customer_wise.aspx">Customer</a></li>
-                                  </ul>
-                                   <ul class="nav nav-second-level collapse">
-                                    <li><a href="salesman_salary.aspx">sales man</a></li>
-                                  </ul>
-                              </li>
-                            </ul>
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="Purchase_payment_outstanding.aspx">Supplier Outstanding</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="">Payemnts</a></li>
+                           </ul>
 
 
-                            
+                              <li>
+                               <li>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts receivable </span><span class="fa arrow"></span></a>
+                         
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="credit_payment_outstanding.aspx">Customer Outstanding</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="">Collection</a></li>
+                           </ul>
 
-
-
-
-
-                          
-
-                            
-                           
-
-                                    
-                             </li>
 
                               <li>
                     <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Reports </span><span class="fa arrow"></span></a>
                          
                            <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Sales man</a></li>
+                                    <li><a href="Cash_bill_report.aspx">Cash bill report</a></li>
                            </ul>
-                           
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Credit_bill_report.aspx">Credit bill report</a></li>
+                           </ul>
 
 
                             
@@ -484,9 +485,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Purchase payment check
+                                <h2>Supplier purchase details
                                  </h2>
-                             
+                             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                              
   
 
@@ -526,102 +527,7 @@
 
 
 <div class="panel-body">
-   <div class="col-md-6">
-
-                             <div class="form-group"><label class="col-lg-3 control-label">Supplier name</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-   <ContentTemplate>
-  
-                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
-                                        ontextchanged="TextBox3_TextChanged"></asp:TextBox>
-                                    
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
-
-
-
-
-   <div class="col-md-6">
-
-                        <div class="form-group"><label class="col-lg-3 control-label">Date</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
-   <ContentTemplate>
-  <asp:TextBox ID="TextBox4" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" 
-           ontextchanged="TextBox4_TextChanged"></asp:TextBox>
-                                  <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox4"></asp:CalendarExtender>
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
-
-</div>
-
-
-
-
-
-<div class="panel-body">
-   <div class="col-md-6">
-
-                             <div class="form-group"><label class="col-lg-3 control-label">Customer Address</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-   <ContentTemplate>
-  
-                                    <asp:TextBox ID="TextBox1" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
-                                        ontextchanged="TextBox3_TextChanged"></asp:TextBox>
-                                    
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
-
-
-
-
-   <div class="col-md-6">
-
-                        <div class="form-group"><label class="col-lg-3 control-label">Total outstanding</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-   <ContentTemplate>
-  <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" 
-           ontextchanged="TextBox4_TextChanged"></asp:TextBox>
-                                  
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
-
-</div>
-
-
-<div class="panel-body">
-   <div class="col-md-6">
-
-                             <div class="form-group"><label class="col-lg-3 control-label">Paid Amount</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-   <ContentTemplate>
-  
-                                    <asp:TextBox ID="TextBox5" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
-                                        ontextchanged="TextBox3_TextChanged"></asp:TextBox>
-                                    
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
-
-
-
-
    
-
-</div>
-
-<asp:Button ID="Button2" runat="server" Text="Save" Width="100px" 
-          onclick="Button2_Click"></asp:Button>
-</div>
-
 </div>
 
 
@@ -640,41 +546,73 @@
      <asp:UpdatePanel ID="UpdatePanel7" runat="server">
    <ContentTemplate>
    
- <asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" CellPadding="4" 
+ <asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" CellPadding="3" 
          Font-Size="16px" 
             AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" ForeColor="#333333" 
-        GridLines="None" PageSize="4">
-       <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        onrowdatabound="GridView1_RowDataBound" BackColor="White" 
+           BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
       <Columns>
       
       
       
-         <asp:BoundField HeaderText="No" DataField="NO"  />
-       <asp:BoundField HeaderText="Supplier" DataField="Buyer"  />
-        <asp:BoundField HeaderText="Date" DataField="Pay_date" DataFormatString="{0:dd/MM/yyyy}"  />
-         <asp:BoundField HeaderText="Purchase value" DataField="Estimate_value"  />
-          <asp:BoundField HeaderText="Address" DataField="address"  />
-         <asp:BoundField HeaderText="Total Amount" DataField="total_amount"  />
-            <asp:BoundField HeaderText="Paid amount" DataField="pay_amount"  />
-              <asp:BoundField HeaderText="Pending amount" DataField="pending_amount"  />
-               <asp:BoundField HeaderText="Total Outstanding" DataField="outstanding"  />
+         <asp:BoundField HeaderText="No" DataField="NO"  >
+          <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+       <asp:BoundField HeaderText="Supplier" DataField="Supplier"  >
+          <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+        <asp:BoundField HeaderText="Date" DataField="Pay_date" 
+              DataFormatString="{0:dd/MM/yyyy}"  >
+          <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+         <asp:BoundField HeaderText="Purchase value" DataField="Estimate_value"  >
+          <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+          <asp:BoundField HeaderText="Address" DataField="address"  >
+          <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+         <asp:BoundField HeaderText="Total Amount" DataField="total_amount"  >
+            <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+            <asp:BoundField HeaderText="Paid amount" DataField="pay_amount"  >
+              <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+              <asp:BoundField HeaderText="Pending amount" DataField="pending_amount"  >
+               <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+               <asp:BoundField HeaderText="Total Outstanding" DataField="outstanding"  >
       
+          <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
+       <asp:BoundField HeaderText="Status" DataField="status"  >
+      
+          <HeaderStyle CssClass="Grd1" />
+          <ItemStyle CssClass="Grd1" />
+          </asp:BoundField>
       </Columns>
-       <EditRowStyle BackColor="#999999" />
-       <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+       <FooterStyle BackColor="White" ForeColor="#000066" />
+       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" BackColor="#284775" ForeColor="White" 
-           HorizontalAlign="Center" />
-       <RowStyle Height="40px" BackColor="white" ForeColor="#333333" />
-       <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-       <SortedAscendingCellStyle BackColor="#E9E7E2" />
-       <SortedAscendingHeaderStyle BackColor="#506C8C" />
-       <SortedDescendingCellStyle BackColor="#FFFDF8" />
-       <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+           CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 
+           HorizontalAlign="Left" />
+       <RowStyle Height="40px" ForeColor="#000066" />
+       <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+       <SortedAscendingCellStyle BackColor="#F1F1F1" />
+       <SortedAscendingHeaderStyle BackColor="#007DBB" />
+       <SortedDescendingCellStyle BackColor="#CAC9C9" />
+       <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
 
         </ContentTemplate>

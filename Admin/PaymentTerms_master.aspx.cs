@@ -14,14 +14,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 #endregion
-
-public partial class Admin_Daily_sales : System.Web.UI.Page
+public partial class Settings : System.Web.UI.Page
 {
     public static int company_id = 0;
-    float m = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-
         if (!IsPostBack)
         {
 
@@ -38,7 +35,6 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
                     Label2.Text = dr1000["company_name"].ToString();
                 }
                 con1000.Close();
-                TextBox1.Focus();
             }
 
 
@@ -53,26 +49,9 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
             created();
 
             BindData2();
-            show_shade_no();
+
 
         }
-    }
-    private void show_shade_no()
-    {
-
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from shade_no where Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
-
-        DropDownList1.DataSource = ds;
-        DropDownList1.DataTextField = "shade";
-        DropDownList1.DataValueField = "shade_id";
-        DropDownList1.DataBind();
-        DropDownList1.Items.Insert(0, new ListItem("All", "0"));
-        con.Close();
     }
     protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
     {
@@ -81,20 +60,16 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
         GridViewRow row = (GridViewRow)img.NamingContainer;
 
         SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd2 = new SqlCommand("select * from shade_no where shade_id='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con2);
+        SqlCommand cmd2 = new SqlCommand("select * from PaymentTerms where Pay_id='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con2);
         SqlDataReader dr2;
         con2.Open();
         dr2 = cmd2.ExecuteReader();
         if (dr2.Read())
         {
-            Label1.Text = dr2["shade_id"].ToString();
-            TextBox1.Text = dr2["shade"].ToString();
-            TextBox2.Text = dr2["color"].ToString();
-            string name = dr2["isprecot"].ToString();
-            if (name == "True")
-            {
-                CheckBox1.Checked = true;
-            }
+            Label1.Text = dr2["Pay_id"].ToString();
+            TextBox1.Text = dr2["Payment_Terms"].ToString();
+          
+
         }
         con2.Close();
 
@@ -113,7 +88,7 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
             if (dr1000.Read())
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from shade_no where Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
+                SqlCommand CMD = new SqlCommand("select * from PaymentTerms where Com_Id='" + company_id + "' ORDER BY Pay_id asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -141,17 +116,16 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("delete from shade_no where shade_id='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con);
+                SqlCommand cmd = new SqlCommand("delete from PaymentTerms where Pay_id='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con);
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Shade No deleted successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Payment Terms deleted successfully')", true);
                 BindData();
 
 
                 getinvoiceno();
 
-                TextBox2.Text = "";
                 TextBox1.Text = "";
                 BindData2();
 
@@ -164,9 +138,7 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
         getinvoiceno();
         TextBox1.Text = "";
         BindData2();
-        TextBox2.Text = "";
-        CheckBox1.Checked = false;
-        show_shade_no();
+       
     }
     private void active()
     {
@@ -212,11 +184,11 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
                     ImageButton img = (ImageButton)sender;
                     GridViewRow row = (GridViewRow)img.NamingContainer;
                     SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd = new SqlCommand("delete from Shade_no where shade_id='" + row.Cells[1].Text + "' and Com_Id='" + company_id + "' ", con);
+                    SqlCommand cmd = new SqlCommand("delete from PaymentTerms where Pay_id='" + row.Cells[1].Text + "' and Com_Id='" + company_id + "' ", con);
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Shade No deleted successfully')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Payment Terms deleted successfully')", true);
 
                     BindData();
                     show_category();
@@ -245,7 +217,7 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
 
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                 con1.Open();
-                string query = "Select Max(shade_id) from shade_no where Com_Id='" + company_id + "' ";
+                string query = "Select Max(Pay_id) from PaymentTerms where Com_Id='" + company_id + "' ";
                 SqlCommand cmd1 = new SqlCommand(query, con1);
                 SqlDataReader dr = cmd1.ExecuteReader();
                 if (dr.Read())
@@ -340,12 +312,6 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
 
 
     }
-    protected void TextBox2_TextChanged(object sender, EventArgs e)
-    {
-
-
-        TextBox1.Focus();
-    }
     protected void TextBox1_TextChanged(object sender, EventArgs e)
     {
 
@@ -356,9 +322,7 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
         getinvoiceno();
         TextBox1.Text = "";
         BindData2();
-        TextBox2.Text = "";
-        CheckBox1.Checked= false;
-        show_shade_no();
+       
 
     }
     protected void Button7_Click(object sender, EventArgs e)
@@ -380,19 +344,15 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
                 }
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from shade_no where shade_id='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from PaymentTerms where Pay_id='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
                 if (dr2.Read())
                 {
-                    TextBox1.Text = dr2["shade"].ToString();
-                    TextBox2.Text = dr2["color"].ToString();
-                    string name = dr2["isprecot"].ToString();
-                    if (name == "True")
-                    {
-                        CheckBox1.Checked = true;
-                    }
+                    TextBox1.Text = dr2["Payment_Terms"].ToString();
+             
+
                 }
                 con2.Close();
             }
@@ -413,12 +373,12 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 if (TextBox1.Text == "")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please enter country')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please enter Payment Terms')", true);
                 }
                 else
                 {
                     SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd1 = new SqlCommand("select * from shade_no where shade_id='" + Label1.Text + "' AND Com_Id='" + company_id + "'  ", con1);
+                    SqlCommand cmd1 = new SqlCommand("select * from PaymentTerms where Pay_id='" + Label1.Text + "' AND Com_Id='" + company_id + "'  ", con1);
                     con1.Open();
                     SqlDataReader dr1;
                     dr1 = cmd1.ExecuteReader();
@@ -426,37 +386,22 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
                     {
 
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand cmd = new SqlCommand("Update shade_no set shade=@shade,color=@color,Com_Id=@Com_Id,isprecot=@isprecot where shade_id=@shade_id", CON);
-                        cmd.Parameters.AddWithValue("@shade_id", Label1.Text);
-                        cmd.Parameters.AddWithValue("@shade", TextBox1.Text);
-                        cmd.Parameters.AddWithValue("@color", TextBox2.Text);
-
+                        SqlCommand cmd = new SqlCommand("Update PaymentTerms set Payment_Terms=@Payment_Terms,Com_Id=@Com_Id where Pay_id=@Pay_id", CON);
+                        cmd.Parameters.AddWithValue("@Pay_id", Label1.Text);
+                        cmd.Parameters.AddWithValue("@Payment_Terms", TextBox1.Text);
 
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
-                        if (CheckBox1.Checked == true)
-                        {
-                            string value = "True";
-                            cmd.Parameters.AddWithValue("@isprecot", value);
-                        }
-                        else
-                        {
-                            string value = "False";
-                            cmd.Parameters.AddWithValue("@isprecot", value);
-                        }
-
                         CON.Open();
                         cmd.ExecuteNonQuery();
                         CON.Close();
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Shade no updated successfully')", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Payment Terms updated successfully')", true);
                         BindData();
                         show_category();
                         getinvoiceno();
 
                         TextBox1.Text = "";
-                        TextBox2.Text = "";
+                     
                         BindData2();
-                        show_shade_no();
-                        CheckBox1.Checked = false;
 
                     }
                     else
@@ -464,36 +409,22 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
 
 
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand cmd = new SqlCommand("insert into shade_no values(@shade_id,@shade,@color,@Com_Id,@isprecot)", CON);
-                        cmd.Parameters.AddWithValue("@shade_id", Label1.Text);
-                        cmd.Parameters.AddWithValue("@shade", TextBox1.Text);
-                        cmd.Parameters.AddWithValue("@color", TextBox2.Text);
-
-
+                        SqlCommand cmd = new SqlCommand("insert into PaymentTerms values(@Pay_id,@Payment_Terms,@Com_Id)", CON);
+                        cmd.Parameters.AddWithValue("@Pay_id", Label1.Text);
+                        cmd.Parameters.AddWithValue("@Payment_Terms", TextBox1.Text);
+                     
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
-                        if (CheckBox1.Checked == true)
-                        {
-                            string value = "True";
-                            cmd.Parameters.AddWithValue("@isprecot", value);
-                        }
-                        else
-                        {
-                            string value = "False";
-                            cmd.Parameters.AddWithValue("@isprecot", value);
-                        }
                         CON.Open();
                         cmd.ExecuteNonQuery();
                         CON.Close();
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Shade No created successfully')", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Payment Terms created successfully')", true);
                         BindData();
                         show_category();
                         getinvoiceno();
 
                         TextBox1.Text = "";
-                        TextBox2.Text = "";
+                      
                         BindData2();
-                        show_shade_no();
-                        CheckBox1.Checked = false;
                     }
                     con1.Close();
 
@@ -502,12 +433,6 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
             con1000.Close();
 
         }
-    }
-
-    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-       
-       
     }
     protected void Button12_Click(object sender, EventArgs e)
     {
@@ -523,7 +448,7 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
                 SqlConnection con21 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd21 = new SqlCommand("select max(shade_id) from shade_no where  Com_Id='" + company_id + "' ", con21);
+                SqlCommand cmd21 = new SqlCommand("select max(Pay_id) from PaymentTerms where  Com_Id='" + company_id + "' ", con21);
                 SqlDataReader dr21;
                 con21.Open();
                 dr21 = cmd21.ExecuteReader();
@@ -537,27 +462,23 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
                 }
                 con21.Close();
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from shade_no where shade_id='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from PaymentTerms where Pay_id='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
                 if (dr2.Read())
                 {
-                    TextBox1.Text = dr2["shade"].ToString();
-                    TextBox2.Text = dr2["color"].ToString();
-                    string name = dr2["isprecot"].ToString();
-                    if (name == "True")
-                    {
-                        CheckBox1.Checked = true;
-                    }
+                    TextBox1.Text = dr2["Payment_Terms"].ToString();
+                 
+
                 }
                 else
                 {
 
                     getinvoiceno();
 
-                    TextBox2.Text = "";
-                    CheckBox1.Checked = false;
+                 
+
                 }
                 con2.Close();
             }
@@ -568,26 +489,10 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
     {
         this.ModalPopupExtender1.Show();
     }
-    protected void Button8_Click(object sender, EventArgs e)
-    {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from shade_no where shade='" + DropDownList1.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
-                DataTable dt1 = new DataTable();
-                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-                da1.Fill(dt1);
-                GridView3.DataSource = dt1;
-                GridView3.DataBind();
-            }
-        }
-        this.ModalPopupExtender1.Show();
-    }
+
+
+
+
+   
+
 }

@@ -46,8 +46,19 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 }
                 con1000.Close();
             }
+            SqlConnection con10 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd10 = new SqlCommand("select * from currentfinancialyear where no='1'", con10);
+            SqlDataReader dr10;
+            con10.Open();
+            dr10 = cmd10.ExecuteReader();
+            if (dr10.Read())
+            {
+                Label4.Text = dr10["financial_year"].ToString();
+
+            }
+            con10.Close();
             DateTime date = DateTime.Now;
-            TextBox13.Text = Convert.ToDateTime(date).ToString("MM/dd/yyyy");
+            TextBox13.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
             TextBox16.Text = "0.00";
             TextBox17.Text = "0.00";
           
@@ -229,7 +240,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + row.Cells[0].Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + row.Cells[0].Text + "' and Com_Id='" + company_id + "' and year='"+Label4.Text+"'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
@@ -258,7 +269,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + row.Cells[0].Text + "' and Com_Id='" + company_id + "' ORDER BY s_no asc", con);
+                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + row.Cells[0].Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ORDER BY s_no asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -287,7 +298,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' ORDER BY s_no asc", con);
+                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ORDER BY s_no asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -312,7 +323,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from creditbill_entry where Com_Id='" + company_id + "' ORDER BY  purchase_invoice asc", con);
+                SqlCommand CMD = new SqlCommand("select * from creditbill_entry where Com_Id='" + company_id + "' and year='" + Label4.Text + "' ORDER BY  purchase_invoice asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -464,7 +475,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                 con1.Open();
-                string query = "Select Max(purchase_invoice) from creditbill_entry where Com_Id='" + company_id + "' ";
+                string query = "Select Max(purchase_invoice) from creditbill_entry where Com_Id='" + company_id + "' and year='" + Label4.Text + "' ";
                 SqlCommand cmd1 = new SqlCommand(query, con1);
                 SqlDataReader dr = cmd1.ExecuteReader();
                 if (dr.Read())
@@ -503,7 +514,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                 con1.Open();
-                string query = "Select Max(s_no) from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' ";
+                string query = "Select Max(s_no) from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ";
                 SqlCommand cmd1 = new SqlCommand(query, con1);
                 SqlDataReader dr = cmd1.ExecuteReader();
                 if (dr.Read())
@@ -658,7 +669,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 else
                 {
                     SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd1 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + Label1.Text + "' AND Com_Id='" + company_id + "'  ", con1);
+                    SqlCommand cmd1 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + Label1.Text + "' AND Com_Id='" + company_id + "' and year='" + Label4.Text + "' ", con1);
                     con1.Open();
                     SqlDataReader dr1;
                     dr1 = cmd1.ExecuteReader();
@@ -679,9 +690,9 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
 
-                SqlCommand cmd = new SqlCommand("update creditbill_entry set date=@date,customer=@customer,address=@address,mobile_no=@mobile_no,Total_qty=@Total_qty,total_amount=@total_amount,vat=@vat,vat_amount=@vat_amount,sub_total=@sub_total,round_off=@round_off,Grand_total=@Grand_total,Com_Id=@Com_Id,status=@status,value=@value,sales_man=@sales_man,prepared_by=@prepared_by,delivery_person=@delivery_person,old_out=@old_out,new_out=@new_out,com_amount=@com_amount where purchase_invoice=@purchase_invoice  and Com_Id='" + company_id + "'  ", con);
+                SqlCommand cmd = new SqlCommand("update creditbill_entry set date=@date,customer=@customer,address=@address,mobile_no=@mobile_no,Total_qty=@Total_qty,total_amount=@total_amount,vat=@vat,vat_amount=@vat_amount,sub_total=@sub_total,round_off=@round_off,Grand_total=@Grand_total,Com_Id=@Com_Id,status=@status,value=@value,sales_man=@sales_man,prepared_by=@prepared_by,delivery_person=@delivery_person,old_out=@old_out,new_out=@new_out,com_amount=@com_amount where purchase_invoice=@purchase_invoice  and Com_Id='" + company_id + "' and year='" + Label4.Text + "'  ", con);
                 cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                cmd.Parameters.AddWithValue("@date", TextBox13.Text);
+                cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox13.Text).ToString("MM-dd-yyyy"));
                 cmd.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
                 cmd.Parameters.AddWithValue("@address", TextBox4.Text);
                 cmd.Parameters.AddWithValue("@mobile_no", TextBox7.Text);
@@ -707,6 +718,85 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
+
+
+                float b11 = 0;
+                float f11 = 0;
+                float c11 = 0;
+
+                SqlConnection con100 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                SqlCommand check_User_Name100 = new SqlCommand("SELECT * FROM receive_amount_status WHERE Supplier = @Supplier and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ", con100);
+                check_User_Name100.Parameters.AddWithValue("@Supplier", ComboBox1.SelectedItem.Text);
+                con100.Open();
+                SqlDataReader reader100 = check_User_Name100.ExecuteReader();
+                if (reader100.HasRows)
+                {
+                    SqlConnection con11 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                    SqlCommand cmd11 = new SqlCommand("Select * from receive_amount where Supplier='" + ComboBox1.SelectedItem.Text + "' and invoice_no='" + Label1.Text + "'  and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con11);
+                    con11.Open();
+                    SqlDataReader dr11;
+                    dr11 = cmd11.ExecuteReader();
+                    if (dr11.Read())
+                    {
+
+                        b11 = float.Parse(dr11["pending_amount"].ToString());
+
+
+
+
+
+
+                        SqlConnection con27 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                        SqlCommand cd27 = new SqlCommand("update receive_amount_status set pending_amount=pending_amount-@pending_amount where Supplier='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con27);
+                        cd27.Parameters.AddWithValue("@pending_amount", b11);
+                        con27.Open();
+                        cd27.ExecuteNonQuery();
+                        con27.Close();
+
+                        SqlConnection con272 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                        SqlCommand cd272 = new SqlCommand("update receive_amount set pending_amount=pending_amount-@pending_amount,outstanding=outstanding-@outstanding where Supplier='" + ComboBox1.SelectedItem.Text + "' and  invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ", con272);
+                        cd272.Parameters.AddWithValue("@pending_amount", b11);
+                        cd272.Parameters.AddWithValue("@outstanding", b11);
+                        con272.Open();
+                        cd272.ExecuteNonQuery();
+                        con272.Close();
+
+                        SqlConnection con271 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                        SqlCommand cd271 = new SqlCommand("update receive_amount_status set pending_amount=pending_amount+@pending_amount where Supplier='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con271);
+                        cd271.Parameters.AddWithValue("@pending_amount", float.Parse(TextBox9.Text));
+                        con271.Open();
+                        cd271.ExecuteNonQuery();
+                        con271.Close();
+
+
+
+
+
+                        SqlConnection con26 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                        SqlCommand cmd26 = new SqlCommand("update receive_amount set Estimate_value=@Estimate_value,address=@address,total_amount=@total_amount,pay_amount=@pay_amount,pending_amount=@pending_amount,outstanding=outstanding+@outstanding where Supplier='" + ComboBox1.SelectedItem.Text + "' AND invoice_no='" + Label1.Text + "' and year='" + Label4.Text + "'", con26);
+
+
+                        cmd26.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox11.Text));
+                        cmd26.Parameters.AddWithValue("@address", TextBox4.Text);
+
+                        cmd26.Parameters.AddWithValue("@total_amount", float.Parse(TextBox9.Text));
+                        cmd26.Parameters.AddWithValue("@pay_amount", float.Parse(TextBox7.Text));
+                        cmd26.Parameters.AddWithValue("@pending_amount", float.Parse(TextBox9.Text));
+                        cmd26.Parameters.AddWithValue("@outstanding", float.Parse(TextBox9.Text));
+
+
+
+                        con26.Open();
+                        cmd26.ExecuteNonQuery();
+                        con26.Close();
+
+
+
+                    }
+                    con11.Close();
+                }
+
+                con100.Close();
 
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Credit bill updated successfully')", true);
                 getinvoiceno();
@@ -757,9 +847,9 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
 
-                SqlCommand cmd = new SqlCommand("INSERT INTO creditbill_entry VALUES(@purchase_invoice,@date,@customer,@address,@mobile_no,@Total_qty,@total_amount,@vat,@vat_amount,@sub_total,@round_off,@Grand_total,@Com_Id,@status,@value,@sales_man,@prepared_by,@delivery_person,@old_out,@new_out,@com_amount)", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO creditbill_entry VALUES(@purchase_invoice,@date,@customer,@address,@mobile_no,@Total_qty,@total_amount,@vat,@vat_amount,@sub_total,@round_off,@Grand_total,@Com_Id,@status,@value,@sales_man,@prepared_by,@delivery_person,@old_out,@new_out,@com_amount,@year)", con);
                 cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                cmd.Parameters.AddWithValue("@date", TextBox13.Text);
+                cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox13.Text).ToString("MM-dd-yyyy"));
                 cmd.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
                 cmd.Parameters.AddWithValue("@address", TextBox4.Text);
                 cmd.Parameters.AddWithValue("@mobile_no", TextBox7.Text);
@@ -782,6 +872,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 cmd.Parameters.AddWithValue("@new_out", float.Parse(TextBox17.Text));
                 float totlcom = comm * float.Parse(TextBox10.Text);
                 cmd.Parameters.AddWithValue("@com_amount", totlcom);
+                cmd.Parameters.AddWithValue("@year", Label4.Text);
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
@@ -793,15 +884,18 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 float b11 = 0;
                 float f11 = 0;
                 float c11 = 0;
+                float pay1 = 0;
+                string status1 = "Bill";
+                float value1 = 0;
                 SqlConnection con100 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                SqlCommand cmd100 = new SqlCommand("SELECT * FROM receive_amount_status WHERE customer = @customer and Com_Id='" + company_id + "'", con100);
-                cmd100.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
+                SqlCommand cmd100 = new SqlCommand("SELECT * FROM receive_amount_status WHERE Supplier = @Supplier and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con100);
+                cmd100.Parameters.AddWithValue("@Supplier", ComboBox1.SelectedItem.Text);
                 con100.Open();
                 SqlDataReader reader1 = cmd100.ExecuteReader();
                 if (reader1.HasRows)
                 {
                     SqlConnection con11 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                    SqlCommand cmd11 = new SqlCommand("Select * from receive_amount_status where customer='" + ComboBox1.SelectedItem.Text + "' and  Com_Id='" + company_id + "'", con11);
+                    SqlCommand cmd11 = new SqlCommand("Select * from receive_amount_status where Supplier='" + ComboBox1.SelectedItem.Text + "' and  Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con11);
                     con11.Open();
                     SqlDataReader dr11;
                     dr11 = cmd11.ExecuteReader();
@@ -818,28 +912,32 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
 
-                        string status1 = "Sales Bill";
-                        int value1 = 0;
+
+
                         SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                        SqlCommand cmd24 = new SqlCommand("insert into receive_amount values(@customer,@Pay_date,@Estimate_value,@address,@total_amount,@outstanding,@invoice_no,@Com_Id,@status,@value)", con24);
-                        cmd24.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
-                        cmd24.Parameters.AddWithValue("@pay_date", TextBox13.Text);
+                        SqlCommand cmd24 = new SqlCommand("insert into receive_amount values(@Supplier,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@value)", con24);
+                        cmd24.Parameters.AddWithValue("@Supplier", ComboBox1.SelectedItem.Text);
+                        cmd24.Parameters.AddWithValue("@Pay_date", Convert.ToDateTime(TextBox13.Text).ToString("MM-dd-yyyy"));
                         cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox9.Text));
                         cmd24.Parameters.AddWithValue("@address", TextBox4.Text);
 
-                        cmd24.Parameters.AddWithValue("@total_amount", float.Parse(string.Format("{0:0.00}", c11)));
-
+                        cmd24.Parameters.AddWithValue("@total_amount", float.Parse(string.Format("{0:0.00}", TextBox9.Text)));
+                        cmd24.Parameters.AddWithValue("@pay_amount", pay1);
+                        cmd24.Parameters.AddWithValue("@pending_amount", float.Parse(string.Format("{0:0.00}", TextBox9.Text)));
                         cmd24.Parameters.AddWithValue("@outstanding", float.Parse(string.Format("{0:0.00}", c11)));
+
                         cmd24.Parameters.AddWithValue("@invoice_no", Label1.Text);
                         cmd24.Parameters.AddWithValue("@Com_Id", company_id);
                         cmd24.Parameters.AddWithValue("@status", status1);
                         cmd24.Parameters.AddWithValue("@value", value1);
+                        cmd.Parameters.AddWithValue("@year", Label4.Text);
                         con24.Open();
                         cmd24.ExecuteNonQuery();
                         con24.Close();
 
+
                         SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                        SqlCommand cmd23 = new SqlCommand("update receive_amount_status set address=@address,total_amount=total_amount+@total_amount,pending_amount=pending_amount+@pending_amount where customer='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "' ", con23);
+                        SqlCommand cmd23 = new SqlCommand("update receive_amount_status set address=@address,total_amount=total_amount+@total_amount,pending_amount=pending_amount+@pending_amount where Supplier='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ", con23);
 
                         cmd23.Parameters.AddWithValue("@address", TextBox4.Text);
 
@@ -865,37 +963,38 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 else
                 {
 
-                    string status1 = "Purchase Bill";
-                    int value1 = 0;
+
                     SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                    SqlCommand cmd23 = new SqlCommand("insert into receive_amount_status values(@customer,@address,@total_amount,@pending_amount,@Com_Id)", con23);
-                    cmd23.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
+                    SqlCommand cmd23 = new SqlCommand("insert into receive_amount_status values(@Supplier,@address,@total_amount,@pending_amount,@paid_amount,@Com_Id,@year)", con23);
+                    cmd23.Parameters.AddWithValue("@Supplier", ComboBox1.SelectedItem.Text);
                     cmd23.Parameters.AddWithValue("@address", TextBox4.Text);
 
                     cmd23.Parameters.AddWithValue("@total_amount", float.Parse(string.Format("{0:0.00}", TextBox9.Text)));
 
                     cmd23.Parameters.AddWithValue("@pending_amount", float.Parse(string.Format("{0:0.00}", TextBox9.Text)));
-
+                    cmd23.Parameters.AddWithValue("@paid_amount", pay1);
                     cmd23.Parameters.AddWithValue("@Com_Id", company_id);
+                    cmd23.Parameters.AddWithValue("@year", Label4.Text);
                     con23.Open();
                     cmd23.ExecuteNonQuery();
                     con23.Close();
-                    string return_by = "";
 
                     SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                    SqlCommand cmd24 = new SqlCommand("insert into receive_amount values(@customer,@Pay_date,@Estimate_value,@address,@total_amount,@outstanding,@invoice_no,@Com_Id,@status,@value)", con24);
-                    cmd24.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
-                    cmd24.Parameters.AddWithValue("@pay_date", TextBox13.Text);
+                    SqlCommand cmd24 = new SqlCommand("insert into receive_amount values(@Supplier,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@value,@year)", con24);
+                    cmd24.Parameters.AddWithValue("@Supplier", ComboBox1.SelectedItem.Text);
+                    cmd24.Parameters.AddWithValue("@Pay_date", Convert.ToDateTime(TextBox13.Text).ToString("MM-dd-yyyy"));
                     cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox9.Text));
                     cmd24.Parameters.AddWithValue("@address", TextBox4.Text);
 
                     cmd24.Parameters.AddWithValue("@total_amount", float.Parse(string.Format("{0:0.00}", TextBox9.Text)));
-
+                    cmd24.Parameters.AddWithValue("@pay_amount", pay1);
+                    cmd24.Parameters.AddWithValue("@pending_amount", float.Parse(string.Format("{0:0.00}", TextBox9.Text)));
                     cmd24.Parameters.AddWithValue("@outstanding", float.Parse(string.Format("{0:0.00}", TextBox9.Text)));
                     cmd24.Parameters.AddWithValue("@invoice_no", Label1.Text);
                     cmd24.Parameters.AddWithValue("@Com_Id", company_id);
                     cmd24.Parameters.AddWithValue("@status", status1);
                     cmd24.Parameters.AddWithValue("@value", value1);
+                    cmd24.Parameters.AddWithValue("@year", Label4.Text);
                     con24.Open();
                     cmd24.ExecuteNonQuery();
                     con24.Close();
@@ -1037,7 +1136,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from customerpo_entry where customer='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con);
+                SqlCommand CMD = new SqlCommand("select * from customerpo_entry where customer='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ORDER BY purchase_invoice asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -1081,7 +1180,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 con1.Close();
 
                 SqlConnection con3 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd3 = new SqlCommand("delete from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con3);
+                SqlCommand cmd3 = new SqlCommand("delete from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con3);
 
                 con3.Open();
                 cmd3.ExecuteNonQuery();
@@ -1255,7 +1354,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                          SqlConnection con111 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                         SqlCommand cmd111 = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + Label3.Text + "' and Com_Id='" + company_id + "'  ", con111);
+                         SqlCommand cmd111 = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + Label3.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'  ", con111);
                          con111.Open();
                          SqlDataReader dr111;
                          dr111 = cmd111.ExecuteReader();
@@ -1267,7 +1366,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                          {
 
                              SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                             SqlCommand cmd = new SqlCommand("insert into creditbill_entry_details values(@invoice,@customer,@s_no,@item_name,@shade_no,@color,@unit,@rate,@qty,@total_amount,@Com_Id)", con);
+                             SqlCommand cmd = new SqlCommand("insert into creditbill_entry_details values(@invoice,@customer,@s_no,@item_name,@shade_no,@color,@unit,@rate,@qty,@total_amount,@Com_Id,@year)", con);
                              cmd.Parameters.AddWithValue("@invoice", Label1.Text);
                              cmd.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
                              cmd.Parameters.AddWithValue("@s_no", Label3.Text);
@@ -1279,6 +1378,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                              cmd.Parameters.AddWithValue("@qty", float.Parse(TextBox5.Text));
                              cmd.Parameters.AddWithValue("@total_amount", float.Parse(TextBox6.Text));
                              cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                             cmd.Parameters.AddWithValue("@year", Label4.Text);
                              con.Open();
                              cmd.ExecuteNonQuery();
                              con.Close();
@@ -1348,7 +1448,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                          SqlConnection con111 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                         SqlCommand cmd111 = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + Label3.Text + "' and Com_Id='" + company_id + "'  ", con111);
+                         SqlCommand cmd111 = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + Label3.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'  ", con111);
                          con111.Open();
                          SqlDataReader dr111;
                          dr111 = cmd111.ExecuteReader();
@@ -1360,7 +1460,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                          {
 
                              SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                             SqlCommand cmd = new SqlCommand("insert into creditbill_entry_details values(@invoice,@customer,@s_no,@item_name,@shade_no,@color,@unit,@rate,@qty,@total_amount,@Com_Id)", con);
+                             SqlCommand cmd = new SqlCommand("insert into creditbill_entry_details values(@invoice,@customer,@s_no,@item_name,@shade_no,@color,@unit,@rate,@qty,@total_amount,@Com_Id,@year)", con);
                              cmd.Parameters.AddWithValue("@invoice", Label1.Text);
                              cmd.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
                              cmd.Parameters.AddWithValue("@s_no", Label3.Text);
@@ -1372,6 +1472,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                              cmd.Parameters.AddWithValue("@qty", float.Parse(TextBox5.Text));
                              cmd.Parameters.AddWithValue("@total_amount", float.Parse(TextBox6.Text));
                              cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                             cmd.Parameters.AddWithValue("@year", Label4.Text);
                              con.Open();
                              cmd.ExecuteNonQuery();
                              con.Close();
@@ -1541,14 +1642,14 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 }
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
                 if (dr2.Read())
                 {
 
-                    TextBox13.Text = Convert.ToDateTime(dr2["date"]).ToString("MM/dd/yyyy");
+                    TextBox13.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
 
                     ComboBox1.SelectedItem.Text = dr2["customer"].ToString();
                     TextBox4.Text = dr2["address"].ToString();
@@ -1571,7 +1672,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' ORDER BY s_no asc", con);
+                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ORDER BY s_no asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -1605,7 +1706,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
                 SqlConnection con21 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd21 = new SqlCommand("select max(purchase_invoice) from creditbill_entry where  Com_Id='" + company_id + "' ", con21);
+                SqlCommand cmd21 = new SqlCommand("select max(purchase_invoice) from creditbill_entry where  Com_Id='" + company_id + "' and year='" + Label4.Text + "' ", con21);
                 SqlDataReader dr21;
                 con21.Open();
                 dr21 = cmd21.ExecuteReader();
@@ -1624,14 +1725,14 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from creditbill_entry where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
                 if (dr2.Read())
                 {
 
-                    TextBox13.Text = Convert.ToDateTime(dr2["date"]).ToString("MM/dd/yyyy");
+                    TextBox13.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
 
                     ComboBox1.SelectedItem.Text = dr2["customer"].ToString();
                     TextBox4.Text = dr2["address"].ToString();
@@ -1651,7 +1752,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                     TextBox17.Text = Convert.ToDecimal(dr2["new_out"]).ToString("#,##0.00");
 
                     SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' ORDER BY s_no asc", con);
+                    SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ORDER BY s_no asc", con);
                     DataTable dt1 = new DataTable();
                     SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                     da1.Fill(dt1);
@@ -1764,7 +1865,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                 SqlConnection con10 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd10 = new SqlCommand("select * from creditbill_entry_details where invoice=@invoice and s_no=@s_no and Com_Id='" + company_id + "'", con10);
+                SqlCommand cmd10 = new SqlCommand("select * from creditbill_entry_details where invoice=@invoice and s_no=@s_no and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con10);
                 cmd10.Parameters.AddWithValue("@invoice", Label1.Text);
                 cmd10.Parameters.AddWithValue("@s_no", s_no);
                 SqlDataReader dr10;
@@ -1811,7 +1912,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("update creditbill_entry_details set customer=@customer,item_name=@item_name,shade_no=@shade_no,color=@color,unit=@unit,rate=@rate,qty=@qty,total_amount=@total_amount where invoice=@invoice and s_no=@s_no", con);
+                SqlCommand cmd = new SqlCommand("update creditbill_entry_details set customer=@customer,item_name=@item_name,shade_no=@shade_no,color=@color,unit=@unit,rate=@rate,qty=@qty,total_amount=@total_amount where invoice=@invoice and s_no=@s_no and year='" + Label4.Text + "'", con);
                 cmd.Parameters.AddWithValue("@invoice", Label1.Text);
                 cmd.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
                 cmd.Parameters.AddWithValue("@s_no", s_no);
@@ -1863,7 +1964,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                 LinkButton lnkRemove = (LinkButton)sender;
 
                 SqlConnection con10 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd10 = new SqlCommand("select * from creditbill_entry_details where invoice=@invoice and s_no=@s_no and Com_Id='" + company_id + "'", con10);
+                SqlCommand cmd10 = new SqlCommand("select * from creditbill_entry_details where invoice=@invoice and s_no=@s_no and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con10);
                 cmd10.Parameters.AddWithValue("@invoice", Label1.Text);
                 cmd10.Parameters.AddWithValue("@s_no", lnkRemove.CommandArgument);
                 SqlDataReader dr10;
@@ -1888,7 +1989,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
-                SqlCommand cmd = new SqlCommand("delete from creditbill_entry_details where invoice=@invoice and s_no=@s_no and Com_Id='" + company_id + "'", con);
+                SqlCommand cmd = new SqlCommand("delete from creditbill_entry_details where invoice=@invoice and s_no=@s_no and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con);
                 cmd.Parameters.AddWithValue("@invoice", Label1.Text);
                 cmd.Parameters.AddWithValue("@s_no", lnkRemove.CommandArgument);
                 con.Open();
@@ -1907,106 +2008,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             con10001.Close();
         }
     }
-    protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
-    {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con10001 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd10001 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con10001);
-            SqlDataReader dr10001;
-            con10001.Open();
-            dr10001 = cmd10001.ExecuteReader();
-            if (dr10001.Read())
-            {
-                company_id = Convert.ToInt32(dr10001["com_id"].ToString());
-                ImageButton img = (ImageButton)sender;
-                GridViewRow row = (GridViewRow)img.NamingContainer;
-                if (User.Identity.IsAuthenticated)
-                {
-                    SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-                    SqlDataReader dr1000;
-                    con1000.Open();
-                    dr1000 = cmd1000.ExecuteReader();
-                    if (dr1000.Read())
-                    {
-                        company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand CMD = new SqlCommand("select * from customerpo_details where invoice='" + row.Cells[0].Text + "' and Com_Id='" + company_id + "'", con);
-                        DataTable dt1 = new DataTable();
-                        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-                        da1.Fill(dt1);
-                        GridView1.DataSource = dt1;
-                        GridView1.DataBind();
-
-                        for (int i = 0; i < GridView1.Rows.Count; i++)
-                        {
-
-
-
-                            string s_no = ((Label)GridView1.Rows[i].FindControl("lbls_no")).Text;
-                            string itemname = ((Label)GridView1.Rows[i].FindControl("lblitemName")).Text;
-                            string shade_no = ((Label)GridView1.Rows[i].FindControl("lblshadeno")).Text;
-                            string color = ((Label)GridView1.Rows[i].FindControl("lblcolor")).Text;
-                            string unit = ((Label)GridView1.Rows[i].FindControl("lblunit")).Text;
-                            string rate = ((Label)GridView1.Rows[i].FindControl("lblrate")).Text;
-                            string qty = ((Label)GridView1.Rows[i].FindControl("lblqty")).Text;
-                            string total_amount = ((Label)GridView1.Rows[i].FindControl("lbltotalamount")).Text;
-                            SqlConnection con111 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                            SqlCommand cmd111 = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + s_no + "' and Com_Id='" + company_id + "'  ", con111);
-                            con111.Open();
-                            SqlDataReader dr111;
-                            dr111 = cmd111.ExecuteReader();
-                            if (dr111.HasRows)
-                            {
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('The entry already exit')", true);
-                            }
-                            else
-                            {
-
-
-
-
-                                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                                SqlCommand cmd = new SqlCommand("insert into creditbill_entry_details values(@invoice,@customer,@s_no,@item_name,@shade_no,@color,@unit,@rate,@qty,@total_amount,@Com_Id)", con1);
-                                cmd.Parameters.AddWithValue("@invoice", Label1.Text);
-                                cmd.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
-                                cmd.Parameters.AddWithValue("@s_no", s_no);
-                                cmd.Parameters.AddWithValue("@item_name", itemname);
-                                cmd.Parameters.AddWithValue("@shade_no", shade_no);
-                                cmd.Parameters.AddWithValue("@color", color);
-                                cmd.Parameters.AddWithValue("@unit", unit);
-                                cmd.Parameters.AddWithValue("@rate", rate);
-                                cmd.Parameters.AddWithValue("@qty", qty);
-                                cmd.Parameters.AddWithValue("@total_amount", float.Parse(total_amount));
-                                cmd.Parameters.AddWithValue("@Com_Id", company_id);
-                                con1.Open();
-                                cmd.ExecuteNonQuery();
-                                con1.Close();
-
-                                SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                                SqlCommand cmd1 = new SqlCommand("update Product_stock set qty=qty-@qty where item_name='" + itemname + "' and shade_no='" + shade_no + "' and unit='" + unit + "'  AND Com_Id='" + company_id + "'  ", con2);
-
-                                cmd1.Parameters.AddWithValue("@qty", qty);
-
-                                con2.Open();
-                                cmd1.ExecuteNonQuery();
-                                con2.Close();
-
-
-                            }
-
-
-                        }
-
-
-                    }
-                    con1000.Close();
-                }
-            }
-            con10001.Close();
-        }
-    }
+    
     [System.Web.Script.Services.ScriptMethod()]
     [System.Web.Services.WebMethod]
 
@@ -2248,10 +2250,19 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
                 }
                 con2.Close();
+                SqlConnection con10 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd10 = new SqlCommand("select * from currentfinancialyear where no='1'", con10);
+                SqlDataReader dr10;
+                con10.Open();
+                dr10 = cmd10.ExecuteReader();
+                if (dr10.Read())
+                {
+                    Label4.Text = dr10["financial_year"].ToString();
 
+                }
 
                 SqlConnection con3 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd3 = new SqlCommand("select * from receive_amount_status where customer='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con3);
+                SqlCommand cmd3 = new SqlCommand("select * from receive_amount_status where Supplier='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con3);
                 SqlDataReader dr3;
                 con3.Open();
                 dr3 = cmd3.ExecuteReader();
@@ -2265,6 +2276,26 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
                 }
                 con3.Close();
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                con1.Open();
+                string query = "Select Max(purchase_invoice),date from creditbill_entry where customer='" + ComboBox1.SelectedItem.Text + "' and Com_Id='" + company_id + "' group by date ";
+                SqlCommand cmd1 = new SqlCommand(query, con1);
+                SqlDataReader dr = cmd1.ExecuteReader();
+                if (dr.Read())
+                {
+                    TextBox20.Text = Convert.ToDateTime(dr["date"]).ToString("dd-MM-yyyy");
+
+                }
+                con1.Close();
+
+
+                if (TextBox16.Text != "" && TextBox9.Text != "")
+                {
+                    float old = float.Parse(TextBox16.Text);
+                    float total11 = float.Parse(TextBox9.Text);
+                    float new11 = (old + total11);
+                    TextBox17.Text = Convert.ToDecimal((new11)).ToString("#,##0.00");
+                }
             }
             con1000.Close();
         }
@@ -2465,4 +2496,115 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
     }
      #endregion
+    protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con10001 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd10001 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con10001);
+            SqlDataReader dr10001;
+            con10001.Open();
+            dr10001 = cmd10001.ExecuteReader();
+            if (dr10001.Read())
+            {
+                company_id = Convert.ToInt32(dr10001["com_id"].ToString());
+                CheckBox img = (CheckBox)sender;
+                GridViewRow row = (GridViewRow)img.NamingContainer;
+                if (User.Identity.IsAuthenticated)
+                {
+                    SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                    SqlDataReader dr1000;
+                    con1000.Open();
+                    dr1000 = cmd1000.ExecuteReader();
+                    if (dr1000.Read())
+                    {
+                        company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                        SqlCommand CMD = new SqlCommand("select * from customerpo_details where invoice='" + row.Cells[1].Text + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con);
+                        DataTable dt1 = new DataTable();
+                        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                        da1.Fill(dt1);
+                        GridView1.DataSource = dt1;
+                        GridView1.DataBind();
+
+                        for (int i = 0; i < GridView1.Rows.Count; i++)
+                        {
+
+
+
+                            string s_no = ((Label)GridView1.Rows[i].FindControl("lbls_no")).Text;
+                            string itemname = ((Label)GridView1.Rows[i].FindControl("lblitemName")).Text;
+                            string shade_no = ((Label)GridView1.Rows[i].FindControl("lblshadeno")).Text;
+                            string color = ((Label)GridView1.Rows[i].FindControl("lblcolor")).Text;
+                            string unit = ((Label)GridView1.Rows[i].FindControl("lblunit")).Text;
+                            string rate = ((Label)GridView1.Rows[i].FindControl("lblrate")).Text;
+                            string qty = ((Label)GridView1.Rows[i].FindControl("lblqty")).Text;
+                            string total_amount = ((Label)GridView1.Rows[i].FindControl("lbltotalamount")).Text;
+                            SqlConnection con111 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                            SqlCommand cmd111 = new SqlCommand("select * from creditbill_entry_details where invoice='" + Label1.Text + "' and s_no='" + s_no + "' and Com_Id='" + company_id + "'  ", con111);
+                            con111.Open();
+                            SqlDataReader dr111;
+                            dr111 = cmd111.ExecuteReader();
+                            if (dr111.HasRows)
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('The entry already exit')", true);
+                            }
+                            else
+                            {
+
+
+
+
+                                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                                SqlCommand cmd = new SqlCommand("insert into creditbill_entry_details values(@invoice,@customer,@s_no,@item_name,@shade_no,@color,@unit,@rate,@qty,@total_amount,@Com_Id,@year)", con1);
+                                cmd.Parameters.AddWithValue("@invoice", Label1.Text);
+                                cmd.Parameters.AddWithValue("@customer", ComboBox1.SelectedItem.Text);
+                                cmd.Parameters.AddWithValue("@s_no", s_no);
+                                cmd.Parameters.AddWithValue("@item_name", itemname);
+                                cmd.Parameters.AddWithValue("@shade_no", shade_no);
+                                cmd.Parameters.AddWithValue("@color", color);
+                                cmd.Parameters.AddWithValue("@unit", unit);
+                                cmd.Parameters.AddWithValue("@rate", rate);
+                                cmd.Parameters.AddWithValue("@qty", qty);
+                                cmd.Parameters.AddWithValue("@total_amount", float.Parse(total_amount));
+                                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                                cmd.Parameters.AddWithValue("@year", Label4.Text);
+                                con1.Open();
+                                cmd.ExecuteNonQuery();
+                                con1.Close();
+
+                                SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                                SqlCommand cmd1 = new SqlCommand("update Product_stock set qty=qty-@qty where item_name='" + itemname + "' and shade_no='" + shade_no + "' and unit='" + unit + "'  AND Com_Id='" + company_id + "'  ", con2);
+
+                                cmd1.Parameters.AddWithValue("@qty", qty);
+
+                                con2.Open();
+                                cmd1.ExecuteNonQuery();
+                                con2.Close();
+
+
+                            }
+
+
+                        }
+
+
+                    }
+                    con1000.Close();
+                }
+            }
+            con10001.Close();
+        }
+        }
+    protected void TextBox9_TextChanged(object sender, EventArgs e)
+    {
+        if (TextBox16.Text != "")
+        {
+            float old = float.Parse(TextBox16.Text);
+            float total11 = float.Parse(TextBox9.Text);
+            float new11 = (old + total11);
+            TextBox17.Text = Convert.ToDecimal((new11)).ToString("#,##0.00");
+        }
+    }
 }

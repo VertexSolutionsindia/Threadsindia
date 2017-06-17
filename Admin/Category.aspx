@@ -444,9 +444,9 @@
                    
                    <Columns>
                  
-                   <asp:BoundField HeaderText="Tax ID" DataField="cat_id" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
+                   <asp:BoundField HeaderText="Category ID" DataField="cat_id" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
            
-               <asp:BoundField HeaderText="Tax Name" DataField="cat_name" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
+               <asp:BoundField HeaderText="Category Name" DataField="cat_name" HeaderStyle-CssClass="red" FooterStyle-CssClass="red" ItemStyle-CssClass="red"    />
                
                <asp:TemplateField HeaderText="Edit">
                    <ItemTemplate>
