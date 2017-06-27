@@ -523,7 +523,7 @@
    
  <asp:GridView ID="GridView1" runat="server" CssClass="red" Width="100%" CellPadding="3" 
          Font-Size="16px" 
-           AutoGenerateColumns="False" AllowPaging="True" 
+           AutoGenerateColumns="False" AllowPaging="True" ShowFooter="true" 
         onpageindexchanging="GridView1_PageIndexChanging" 
         onrowdatabound="GridView1_RowDataBound" PageSize="100" BackColor="White" 
            BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
@@ -538,22 +538,48 @@
            <asp:BoundField HeaderText="Customer Name" DataField="Supplier">
                <HeaderStyle CssClass="red" />
                </asp:BoundField>
-             <asp:BoundField HeaderText="Total qty" DataField="Total_qty" >
+             <asp:TemplateField HeaderText="Total Qty" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
+                    <ItemTemplate>
+                        <asp:Label ID="lbltotalqty" runat="server" Text='<%# Eval("Total_qty")%>' DataFormatString="{0:N2}" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="totalqty" runat="server" />
+                    </FooterTemplate>
+                </asp:TemplateField>
+
+
             
-               <HeaderStyle CssClass="red" />
-               </asp:BoundField>
-            
-              <asp:BoundField HeaderText="Total Amount" DataField="total_amount" >
-               <HeaderStyle CssClass="red" />
-               </asp:BoundField>
+
+                <asp:TemplateField HeaderText="Total Amount" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
+                    <ItemTemplate>
+                        <asp:Label ID="lbltotal" runat="server" Text='<%# Eval("total_amount")%>' DataFormatString="{0:N2}" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="total" runat="server" />
+                    </FooterTemplate>
+                </asp:TemplateField>
+
+
+
+
+
                <asp:BoundField HeaderText="Vat" DataField="vat" >
                
                <HeaderStyle CssClass="red" />
                </asp:BoundField>
-                 <asp:BoundField HeaderText="Grand total" DataField="Grand_total" >
                
-               <HeaderStyle CssClass="red" />
-               </asp:BoundField>
+
+
+
+
+                 <asp:TemplateField HeaderText="Grand total" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
+                    <ItemTemplate>
+                        <asp:Label ID="lblgrand" runat="server" Text='<%# Eval("Grand_total")%>' DataFormatString="{0:N2}" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="grand" runat="server" />
+                    </FooterTemplate>
+                </asp:TemplateField>
        </Columns>
        <FooterStyle BackColor="White" ForeColor="#000066" />
        <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 

@@ -15,8 +15,7 @@ using System.Web.UI.WebControls;
 using System.Drawing;
 #endregion
 
-
-public partial class Admin_Collection_entry : System.Web.UI.Page
+public partial class Admin_payment_entry : System.Web.UI.Page
 {
     public static int company_id = 0;
     protected void Page_Load(object sender, EventArgs e)
@@ -53,7 +52,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
 
             DateTime date = DateTime.Now;
             TextBox9.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
-       
+
             getinvoiceno();
             show_category();
             showrating();
@@ -81,7 +80,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from party where Com_Id='" + company_id + "' and category='Customer'  ORDER BY party_id asc", con);
+                SqlCommand cmd = new SqlCommand("Select * from party where Com_Id='" + company_id + "' and category='Supplier'  ORDER BY party_id asc", con);
                 con.Open();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -106,7 +105,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
         GridViewRow row = (GridViewRow)img.NamingContainer;
 
         SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd2 = new SqlCommand("select * from collection_entry where ID='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con2);
+        SqlCommand cmd2 = new SqlCommand("select * from payment_entry where ID='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con2);
         SqlDataReader dr2;
         con2.Open();
         dr2 = cmd2.ExecuteReader();
@@ -115,7 +114,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             Label1.Text = dr2["cat_id"].ToString();
             TextBox9.Text = Convert.ToDateTime(dr2["Date"]).ToString("dd-MM-yyyy");
             ComboBox1.SelectedItem.Text = dr2["pay_mode"].ToString();
-            ComboBox2.SelectedItem.Text = dr2["cus_name"].ToString();
+            ComboBox2.SelectedItem.Text = dr2["sup_name"].ToString();
             TextBox10.Text = dr2["address"].ToString();
             TextBox11.Text = dr2["mobile_no"].ToString();
             TextBox1.Text = dr2["bank_name"].ToString();
@@ -145,7 +144,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             if (dr1000.Read())
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from collection_entry where Com_Id='" + company_id + "' ORDER BY ID asc", con);
+                SqlCommand CMD = new SqlCommand("select * from payment_entry where Com_Id='" + company_id + "' ORDER BY ID asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -173,7 +172,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("delete from receive_amount where invoice_no='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con);
+                SqlCommand cmd = new SqlCommand("delete from pay_amount where invoice_no='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -188,9 +187,9 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 if (dr3.Read())
                 {
                     float pending = float.Parse(dr3["coll_amount"].ToString());
-                    string supplier = dr3["cus_name"].ToString();
+                    string supplier = dr3["sup_name"].ToString();
                     SqlConnection con4 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd4 = new SqlCommand("update receive_amount_status set pending_amount=pending_amount+@pending_amount where Supplier='" + supplier + "' and Com_Id='" + company_id + "'", con4);
+                    SqlCommand cmd4 = new SqlCommand("update pay_amount_status set pending_amount=pending_amount+@pending_amount where Supplier='" + supplier + "' and Com_Id='" + company_id + "'", con4);
                     cmd4.Parameters.AddWithValue("@pending_amount", pending);
                     con4.Open();
                     cmd4.ExecuteNonQuery();
@@ -199,25 +198,21 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 con3.Close();
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("delete from collection_entry where ID='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("delete from payment_entry where ID='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con2);
 
                 con2.Open();
                 cmd2.ExecuteNonQuery();
                 con2.Close();
 
 
-                SqlConnection con10 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd10 = new SqlCommand("delete from collection_entry where ID='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con10);
-                con10.Open();
-                cmd10.ExecuteNonQuery();
-                con10.Close();
+               
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Collected amount deleted successfully')", true);
                 BindData();
 
 
                 getinvoiceno();
 
-               
+
                 BindData2();
 
             }
@@ -279,7 +274,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from Collection_entry where Com_Id='" + company_id + "' ORDER BY ID asc", con);
+                SqlCommand CMD = new SqlCommand("select * from payment_entry where Com_Id='" + company_id + "' ORDER BY ID asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -342,7 +337,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
 
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                 con1.Open();
-                string query = "Select Max(ID) from collection_entry where Com_Id='" + company_id + "' ";
+                string query = "Select Max(ID) from payment_entry where Com_Id='" + company_id + "' ";
                 SqlCommand cmd1 = new SqlCommand(query, con1);
                 SqlDataReader dr = cmd1.ExecuteReader();
                 if (dr.Read())
@@ -483,15 +478,15 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 }
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from collection_entry where ID='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from payment_entry where ID='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
                 if (dr2.Read())
                 {
-                    TextBox9.Text = Convert.ToDateTime( dr2["Date"]).ToString("dd-MM-yyyy");
+                    TextBox9.Text = Convert.ToDateTime(dr2["Date"]).ToString("dd-MM-yyyy");
                     ComboBox1.SelectedItem.Text = dr2["pay_mode"].ToString();
-                    ComboBox2.SelectedItem.Text = dr2["cus_name"].ToString();
+                    ComboBox2.SelectedItem.Text = dr2["sup_name"].ToString();
                     TextBox1.Text = dr2["bank_name"].ToString();
                     TextBox10.Text = dr2["address"].ToString();
                     TextBox11.Text = dr2["mobile_no"].ToString();
@@ -526,7 +521,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 else
                 {
                     SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd1 = new SqlCommand("select * from collection_entry where ID='" + Label1.Text + "' AND Com_Id='" + company_id + "'  ", con1);
+                    SqlCommand cmd1 = new SqlCommand("select * from payment_entry where ID='" + Label1.Text + "' AND Com_Id='" + company_id + "'  ", con1);
                     con1.Open();
                     SqlDataReader dr1;
                     dr1 = cmd1.ExecuteReader();
@@ -534,19 +529,19 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                     {
 
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand cmd = new SqlCommand("Update collection_entry set pay_mode=@pay_mode,cus_name=@cus_name,address=@address,mobile_no=@mobile_no,bank_name=@bank_name,amount=@amount,data=@data,utr_no=@utr_no,oldbalance=@oldbalance,coll_amount=@coll_amount,newbalance=@newbalance where ID=ID and Com_Id=@Com_Id", CON);
+                        SqlCommand cmd = new SqlCommand("Update payemnt_entry set pay_mode=@pay_mode,sup_name=@sup_name,address=@address,mobile_no=@mobile_no,bank_name=@bank_name,amount=@amount,data=@data,utr_no=@utr_no,oldbalance=@oldbalance,coll_amount=@coll_amount,newbalance=@newbalance where ID=ID and Com_Id=@Com_Id", CON);
                         cmd.Parameters.AddWithValue("@ID", Label1.Text);
                         cmd.Parameters.AddWithValue("@pay_mode", ComboBox1.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@cus_name", ComboBox2.SelectedItem.Text);
+                        cmd.Parameters.AddWithValue("@sup_name", ComboBox2.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox10.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox11.Text);
                         cmd.Parameters.AddWithValue("@bank_name", TextBox1.Text);
                         cmd.Parameters.AddWithValue("@amount", TextBox2.Text);
                         cmd.Parameters.AddWithValue("@data", TextBox4.Text);
                         cmd.Parameters.AddWithValue("@utr_no", TextBox6.Text);
-                        cmd.Parameters.AddWithValue("@oldbalance",float.Parse( TextBox7.Text));
-                        cmd.Parameters.AddWithValue("@coll_amount",float.Parse( TextBox8.Text));
-                        cmd.Parameters.AddWithValue("@newbalance",float.Parse( TextBox5.Text));
+                        cmd.Parameters.AddWithValue("@oldbalance", float.Parse(TextBox7.Text));
+                        cmd.Parameters.AddWithValue("@coll_amount", float.Parse(TextBox8.Text));
+                        cmd.Parameters.AddWithValue("@newbalance", float.Parse(TextBox5.Text));
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
                         CON.Open();
                         cmd.ExecuteNonQuery();
@@ -558,7 +553,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                         int value1 = 0;
                         string status1 = "Collection amount";
                         SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                        SqlCommand cmd23 = new SqlCommand("update receive_amount set Supplier=@Supplier,Pay_date=@Pay_date,Estimate_value=@Estimate_value,address=@address,total_amount=@total_amount,pay_amount=@pay_amount,pending_amount=@pending_amount,outstanding=@outstanding,Com_Id=@Com_Id,status=@status,value=@value,year=@year where invoice_no=@invoice_no and Com_Id=@Com_Id", con23);
+                        SqlCommand cmd23 = new SqlCommand("update pay_amount set Supplier=@Supplier,Pay_date=@Pay_date,Estimate_value=@Estimate_value,address=@address,total_amount=@total_amount,pay_amount=@pay_amount,pending_amount=@pending_amount,outstanding=@outstanding,Com_Id=@Com_Id,status=@status,value=@value,year=@year where invoice_no=@invoice_no and Com_Id=@Com_Id", con23);
                         cmd23.Parameters.AddWithValue("@Supplier", ComboBox2.SelectedItem.Text);
                         cmd23.Parameters.AddWithValue("@Pay_date", Convert.ToDateTime(TextBox9.Text).ToString("MM-dd-yyyy"));
                         cmd23.Parameters.AddWithValue("@Estimate_value", DBNull.Value);
@@ -584,7 +579,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
 
 
                         SqlConnection con22 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                        SqlCommand cmd22 = new SqlCommand("update receive_amount_status set Supplier=@Supplier,address=@address,total_amount=@total_amount,pending_amount=@pending_amount,paid_amount=@paid_amount,Com_Id=@Com_Id where Supplier='" + ComboBox2.SelectedItem.Text + "' and year='" + Label3.Text + "' ", con22);
+                        SqlCommand cmd22 = new SqlCommand("update pay_amount_status set Supplier=@Supplier,address=@address,total_amount=@total_amount,pending_amount=@pending_amount,paid_amount=@paid_amount,Com_Id=@Com_Id where Supplier='" + ComboBox2.SelectedItem.Text + "' and year='" + Label3.Text + "' ", con22);
 
 
                         cmd22.Parameters.AddWithValue("@Supplier", ComboBox2.SelectedItem.Text);
@@ -633,24 +628,24 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
 
 
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand cmd = new SqlCommand("insert into collection_entry values(@ID,@Date,@pay_mode,@cus_name,@address,@mobile_no,@bank_name,@amount,@data,@utr_no,@oldbalance,@coll_amount,@newbalance,@Com_Id)", CON);
+                        SqlCommand cmd = new SqlCommand("insert into payment_entry values(@ID,@Date,@pay_mode,@sup_name,@address,@mobile_no,@bank_name,@amount,@data,@utr_no,@oldbalance,@coll_amount,@newbalance,@Com_Id)", CON);
                         cmd.Parameters.AddWithValue("@ID", Label1.Text);
-                        cmd.Parameters.AddWithValue("@Date",Convert.ToDateTime(TextBox9.Text).ToString("MM-dd-yyyy"));
-                    cmd.Parameters.AddWithValue("@pay_mode",ComboBox1.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@cus_name",ComboBox2.SelectedItem.Text);
-                        cmd.Parameters.AddWithValue("@address",TextBox10.Text);
+                        cmd.Parameters.AddWithValue("@Date", Convert.ToDateTime(TextBox9.Text).ToString("MM-dd-yyyy"));
+                        cmd.Parameters.AddWithValue("@pay_mode", ComboBox1.SelectedItem.Text);
+                        cmd.Parameters.AddWithValue("@sup_name", ComboBox2.SelectedItem.Text);
+                        cmd.Parameters.AddWithValue("@address", TextBox10.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox11.Text);
-                        cmd.Parameters.AddWithValue("@bank_name",TextBox1.Text);
-                        if (TextBox2.Text=="")
+                        cmd.Parameters.AddWithValue("@bank_name", TextBox1.Text);
+                        if (TextBox2.Text == "")
                         {
-                            float a1=0;
-                             cmd.Parameters.AddWithValue("@amount", a1);
+                            float a1 = 0;
+                            cmd.Parameters.AddWithValue("@amount", a1);
                         }
                         else
                         {
                             cmd.Parameters.AddWithValue("@amount", TextBox2.Text);
                         }
-                     
+
                         if (TextBox4.Text == "")
                         {
                             cmd.Parameters.AddWithValue("@data", DBNull.Value);
@@ -659,81 +654,81 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                         {
                             cmd.Parameters.AddWithValue("@data", Convert.ToDateTime(TextBox4.Text).ToString("MM-dd-yyyy"));
                         }
-                      
-                        cmd.Parameters.AddWithValue("@utr_no",TextBox6.Text);
-                        cmd.Parameters.AddWithValue("@oldbalance",float.Parse( TextBox7.Text));
-                        cmd.Parameters.AddWithValue("@coll_amount",TextBox8.Text);
-                        cmd.Parameters.AddWithValue("@newbalance",TextBox5.Text);
+
+                        cmd.Parameters.AddWithValue("@utr_no", TextBox6.Text);
+                        cmd.Parameters.AddWithValue("@oldbalance", float.Parse(TextBox7.Text));
+                        cmd.Parameters.AddWithValue("@coll_amount", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@newbalance", TextBox5.Text);
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
                         CON.Open();
                         cmd.ExecuteNonQuery();
-                         CON.Close();
+                        CON.Close();
 
 
 
 
-                         string return_by = "";
-                         int value1 = 0;
-                         string status1 = "Collection amount";
-                         SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                         SqlCommand cmd23 = new SqlCommand("insert into receive_amount values(@Supplier,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@value,@year)", con23);
-                         cmd23.Parameters.AddWithValue("@Supplier", ComboBox2.SelectedItem.Text);
-                         cmd23.Parameters.AddWithValue("@Pay_date",Convert.ToDateTime( TextBox9.Text).ToString("MM-dd-yyyy"));
-                         cmd23.Parameters.AddWithValue("@Estimate_value", DBNull.Value);
-                         cmd23.Parameters.AddWithValue("@address", TextBox10.Text);
-                         cmd23.Parameters.AddWithValue("@total_amount",float.Parse(TextBox7.Text));
+                        string return_by = "";
+                        int value1 = 0;
+                        string status1 = "Paid amount";
+                        SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                        SqlCommand cmd23 = new SqlCommand("insert into pay_amount values(@Supplier,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@value,@year)", con23);
+                        cmd23.Parameters.AddWithValue("@Supplier", ComboBox2.SelectedItem.Text);
+                        cmd23.Parameters.AddWithValue("@Pay_date", Convert.ToDateTime(TextBox9.Text).ToString("MM-dd-yyyy"));
+                        cmd23.Parameters.AddWithValue("@Estimate_value", DBNull.Value);
+                        cmd23.Parameters.AddWithValue("@address", TextBox10.Text);
+                        cmd23.Parameters.AddWithValue("@total_amount", float.Parse(TextBox7.Text));
 
 
-                         cmd23.Parameters.AddWithValue("@pay_amount", TextBox8.Text);
-
-
-                        
-                      
-                         cmd23.Parameters.AddWithValue("@pending_amount", TextBox5.Text);
-                         cmd23.Parameters.AddWithValue("@outstanding", TextBox5.Text);
-                         cmd23.Parameters.AddWithValue("@invoice_no",Label1.Text);
-                         cmd23.Parameters.AddWithValue("@Com_Id", company_id);
-                         cmd23.Parameters.AddWithValue("@status", status1);
-                         cmd23.Parameters.AddWithValue("@value", value1);
-                         cmd23.Parameters.AddWithValue("@year", Label3.Text);
-                         con23.Open();
-                         cmd23.ExecuteNonQuery();
-                         con23.Close();
-
-
-
-                         SqlConnection con22 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                         SqlCommand cmd22 = new SqlCommand("update receive_amount_status set Supplier=@Supplier,address=@address,total_amount=@total_amount,pending_amount=@pending_amount,paid_amount=@paid_amount,Com_Id=@Com_Id where Supplier='" + ComboBox2.SelectedItem.Text+ "' and year='" + Label3.Text + "' ", con22);
-
-
-                         cmd22.Parameters.AddWithValue("@Supplier", ComboBox2.SelectedItem.Text);
-
-                         cmd22.Parameters.AddWithValue("@address", TextBox10.Text);
+                        cmd23.Parameters.AddWithValue("@pay_amount", TextBox8.Text);
 
 
 
 
+                        cmd23.Parameters.AddWithValue("@pending_amount", TextBox5.Text);
+                        cmd23.Parameters.AddWithValue("@outstanding", TextBox5.Text);
+                        cmd23.Parameters.AddWithValue("@invoice_no", Label1.Text);
+                        cmd23.Parameters.AddWithValue("@Com_Id", company_id);
+                        cmd23.Parameters.AddWithValue("@status", status1);
+                        cmd23.Parameters.AddWithValue("@value", value1);
+                        cmd23.Parameters.AddWithValue("@year", Label3.Text);
+                        con23.Open();
+                        cmd23.ExecuteNonQuery();
+                        con23.Close();
 
-                         
-                         cmd22.Parameters.AddWithValue("@total_amount", TextBox5.Text);
-                         cmd22.Parameters.AddWithValue("@pending_amount", TextBox5.Text);
-                         cmd22.Parameters.AddWithValue("@paid_amount", TextBox8.Text);
-                         cmd22.Parameters.AddWithValue("@Com_Id", company_id);
 
-                         con22.Open();
-                         cmd22.ExecuteNonQuery();
-                         con22.Close();
+
+                        SqlConnection con22 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
+                        SqlCommand cmd22 = new SqlCommand("update pay_amount_status set Supplier=@Supplier,address=@address,total_amount=@total_amount,pending_amount=@pending_amount,paid_amount=@paid_amount,Com_Id=@Com_Id where Supplier='" + ComboBox2.SelectedItem.Text + "' and year='" + Label3.Text + "' ", con22);
+
+
+                        cmd22.Parameters.AddWithValue("@Supplier", ComboBox2.SelectedItem.Text);
+
+                        cmd22.Parameters.AddWithValue("@address", TextBox10.Text);
 
 
 
 
 
 
-                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Amount added successfully')", true);
-                         BindData();
+                        cmd22.Parameters.AddWithValue("@total_amount", TextBox5.Text);
+                        cmd22.Parameters.AddWithValue("@pending_amount", TextBox5.Text);
+                        cmd22.Parameters.AddWithValue("@paid_amount", TextBox8.Text);
+                        cmd22.Parameters.AddWithValue("@Com_Id", company_id);
 
-                         TextBox5.Text = "";
-                      
+                        con22.Open();
+                        cmd22.ExecuteNonQuery();
+                        con22.Close();
+
+
+
+
+
+
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Amount added successfully')", true);
+                        BindData();
+
+                        TextBox5.Text = "";
+
 
 
 
@@ -780,7 +775,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
                 SqlConnection con21 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd21 = new SqlCommand("select max(ID) from collection_entry where  Com_Id='" + company_id + "' ", con21);
+                SqlCommand cmd21 = new SqlCommand("select max(ID) from payment_entry where  Com_Id='" + company_id + "' ", con21);
                 SqlDataReader dr21;
                 con21.Open();
                 dr21 = cmd21.ExecuteReader();
@@ -794,7 +789,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 }
                 con21.Close();
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("select * from collection_Entry where ID='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("select * from payment_Entry where ID='" + Label1.Text + "' and  Com_Id='" + company_id + "'", con2);
                 SqlDataReader dr2;
                 con2.Open();
                 dr2 = cmd2.ExecuteReader();
@@ -803,7 +798,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
 
                     TextBox9.Text = Convert.ToDateTime(dr2["Date"]).ToString("dd-MM-yyyy");
                     ComboBox1.SelectedItem.Text = dr2["pay_mode"].ToString();
-                    ComboBox2.SelectedItem.Text = dr2["cus_name"].ToString();
+                    ComboBox2.SelectedItem.Text = dr2["sup_name"].ToString();
                     TextBox10.Text = dr2["address"].ToString();
                     TextBox11.Text = dr2["mobile_no"].ToString();
                     TextBox1.Text = dr2["bank_name"].ToString();
@@ -859,7 +854,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con3 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd3 = new SqlCommand("select * from receive_amount_status where Supplier='" + ComboBox2.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con3);
+                SqlCommand cmd3 = new SqlCommand("select * from pay_amount_status where Supplier='" + ComboBox2.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con3);
                 SqlDataReader dr3;
                 con3.Open();
                 dr3 = cmd3.ExecuteReader();
@@ -901,10 +896,10 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             float collected = float.Parse(TextBox8.Text);
             TextBox5.Text = (old - collected).ToString();
         }
-     catch(Exception er)
-        {}
+        catch (Exception er)
+        { }
     }
-     protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
+    protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -919,17 +914,17 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 ImageButton img = (ImageButton)sender;
                 GridViewRow row = (GridViewRow)img.NamingContainer;
 
-               
+
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("delete from receive_amount where invoice_no='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con);
-               
+                SqlCommand cmd = new SqlCommand("delete from pay_amount where invoice_no='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con);
+
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
 
 
                 SqlConnection con3 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd3 = new SqlCommand("select * from collection_entry where ID='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con3);
+                SqlCommand cmd3 = new SqlCommand("select * from payment_entry where ID='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con3);
                 SqlDataReader dr3;
                 con3.Open();
                 dr3 = cmd3.ExecuteReader();
@@ -938,7 +933,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                     float pending = float.Parse(dr3["coll_amount"].ToString());
                     string supplier = dr3["cus_name"].ToString();
                     SqlConnection con4 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd4 = new SqlCommand("update receive_amount_status set pending_amount=pending_amount+@pending_amount where Supplier='"+supplier+"' and Com_Id='"+company_id+"'",con4);
+                    SqlCommand cmd4 = new SqlCommand("update pay_amount_status set pending_amount=pending_amount+@pending_amount where Supplier='" + supplier + "' and Com_Id='" + company_id + "'", con4);
                     cmd4.Parameters.AddWithValue("@pending_amount", pending);
                     con4.Open();
                     cmd4.ExecuteNonQuery();
@@ -947,7 +942,7 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
                 con3.Close();
 
                 SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd2 = new SqlCommand("delete from collection_entry where ID='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con2);
+                SqlCommand cmd2 = new SqlCommand("delete from payment_entry where ID='" + row.Cells[0].Text + "' and  Com_Id='" + company_id + "'", con2);
 
                 con2.Open();
                 cmd2.ExecuteNonQuery();
@@ -956,5 +951,5 @@ public partial class Admin_Collection_entry : System.Web.UI.Page
             }
             con1000.Close();
         }
-         }
+    }
 }

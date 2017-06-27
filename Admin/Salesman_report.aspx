@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Credit_bill_report.aspx.cs" Inherits="Admin_Credit_bill_report" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Salesman_report.aspx.cs" Inherits="Admin_Salesman_report" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -380,7 +380,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Credit bill report
+                                <h2>Sales man report
                                  </h2>
                              
                              
@@ -412,12 +412,12 @@
   <div class="panel-body">
    <div class="col-md-6">
 
-    <br /> <div class="form-group"><label class="col-lg-3 control-label">Customer Name</label>
+    <br /> <div class="form-group"><label class="col-lg-3 control-label">Sales man Name</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel10" runat="server">
    <ContentTemplate>
-   <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownList1_SelectedIndexChanged"
+   <asp:DropDownList ID="DropDownList1" runat="server" onselectedindexchanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true"
            class="form-control input-x2 dropbox"  
            ></asp:DropDownList>
            
@@ -481,14 +481,7 @@
                                       </Triggers>
                                       </asp:UpdatePanel></div></div></div>
 
-                                       <asp:DropDownList ID="DropDownList2" runat="server">
-              <asp:ListItem>PDF</asp:ListItem>
-                                   <asp:ListItem>WORD</asp:ListItem>
-                                   <asp:ListItem>EXCEL</asp:ListItem>
-           </asp:DropDownList>
-          
-    <asp:Button ID="Button9" runat="server" Text="Reports" onclick="Button9_Click"></asp:Button>
-
+                                      
 
 
 
@@ -522,7 +515,7 @@
    
  <asp:GridView ID="GridView1" runat="server" CssClass="red" Width="100%" CellPadding="3" 
          Font-Size="16px" 
-           AutoGenerateColumns="False" AllowPaging="True" ShowFooter="true"
+           AutoGenerateColumns="False" AllowPaging="True" ShowFooter="true" 
         onpageindexchanging="GridView1_PageIndexChanging" 
         onrowdatabound="GridView1_RowDataBound" PageSize="100" BackColor="White" 
            BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
@@ -537,7 +530,9 @@
            <asp:BoundField HeaderText="Customer Name" DataField="customer">
                <HeaderStyle CssClass="red" />
                </asp:BoundField>
-             <asp:TemplateField HeaderText="Total Qty" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
+           
+            
+              <asp:TemplateField HeaderText="Total Qty" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
                     <ItemTemplate>
                         <asp:Label ID="lbltotalqty" runat="server" Text='<%# Eval("Total_qty")%>' DataFormatString="{0:N2}" />
                     </ItemTemplate>
@@ -546,39 +541,16 @@
                     </FooterTemplate>
                 </asp:TemplateField>
 
-
-            
-
-                <asp:TemplateField HeaderText="Total Amount" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
+              <asp:TemplateField HeaderText="Commision Amount" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
                     <ItemTemplate>
-                        <asp:Label ID="lbltotal" runat="server" Text='<%# Eval("total_amount")%>' DataFormatString="{0:N2}" />
+                        <asp:Label ID="lblcom" runat="server" Text='<%# Eval("com_amount")%>' DataFormatString="{0:N2}" />
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:Label ID="total" runat="server" />
+                        <asp:Label ID="com" runat="server" />
                     </FooterTemplate>
                 </asp:TemplateField>
-
-
-
-
-
-               <asp:BoundField HeaderText="Vat" DataField="vat" >
-               
-               <HeaderStyle CssClass="red" />
-               </asp:BoundField>
-               
-
-
-
-
-                 <asp:TemplateField HeaderText="Grand total" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
-                    <ItemTemplate>
-                        <asp:Label ID="lblgrand" runat="server" Text='<%# Eval("Grand_total")%>' DataFormatString="{0:N2}" />
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:Label ID="grand" runat="server" />
-                    </FooterTemplate>
-                </asp:TemplateField>
+              
+             
        </Columns>
        <FooterStyle BackColor="White" ForeColor="#000066" />
        <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 

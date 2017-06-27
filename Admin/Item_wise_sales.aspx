@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Credit_bill_report.aspx.cs" Inherits="Admin_Credit_bill_report" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Item_wise_sales.aspx.cs" Inherits="Admin_Item_wise_sales" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -380,7 +380,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Credit bill report
+                                <h2>Item wise sales report
                                  </h2>
                              
                              
@@ -412,12 +412,45 @@
   <div class="panel-body">
    <div class="col-md-6">
 
-    <br /> <div class="form-group"><label class="col-lg-3 control-label">Customer Name</label>
+    <br />
+    
+     <div class="form-group"><label class="col-lg-3 control-label">Customer Name</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel10" runat="server">
    <ContentTemplate>
    <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownList1_SelectedIndexChanged"
+           class="form-control input-x2 dropbox"  
+           ></asp:DropDownList>
+           
+
+        
+                                    
+                                      </ContentTemplate>
+                                      </asp:UpdatePanel></div></div>
+                                      <br />
+                                         <div class="form-group"><label class="col-lg-3 control-label">Item Name</label>
+
+                                    <div class="col-lg-9">
+                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+   <ContentTemplate>
+   <asp:DropDownList ID="DropDownList3" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownList3_SelectedIndexChanged"
+           class="form-control input-x2 dropbox"  
+           ></asp:DropDownList>
+           
+
+        
+                                    
+                                      </ContentTemplate>
+                                      </asp:UpdatePanel></div></div>
+
+                                       <br />
+                                         <div class="form-group"><label class="col-lg-3 control-label">Shade No</label>
+
+                                    <div class="col-lg-9">
+                                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+   <ContentTemplate>
+   <asp:DropDownList ID="DropDownList4" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownList4_SelectedIndexChanged"
            class="form-control input-x2 dropbox"  
            ></asp:DropDownList>
            
@@ -450,44 +483,16 @@
   <div class="panel-body">
    <div class="col-md-6">
 
-                             <div class="form-group"><label class="col-lg-3 control-label">From date</label>
-
-                                 
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-   <ContentTemplate>
-   
-                                <asp:TextBox ID="TextBox1" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
-                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox1"></asp:CalendarExtender>
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                           </div>
 
 
 
 
    <div class="col-md-6">
 
-                        <div class="form-group"><label class="col-lg-3 control-label">To date</label>
-                           <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-   <ContentTemplate>
-   <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox2_TextChanged"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox2"></asp:CalendarExtender>
-                                      </ContentTemplate>
-                                      <Triggers>
-                                       
-                                      
-                                      </Triggers>
-                                      </asp:UpdatePanel></div></div></div>
+                      </div>
 
-                                       <asp:DropDownList ID="DropDownList2" runat="server">
-              <asp:ListItem>PDF</asp:ListItem>
-                                   <asp:ListItem>WORD</asp:ListItem>
-                                   <asp:ListItem>EXCEL</asp:ListItem>
-           </asp:DropDownList>
-          
-    <asp:Button ID="Button9" runat="server" Text="Reports" onclick="Button9_Click"></asp:Button>
+                                     
 
 
 
@@ -531,15 +536,20 @@
                <asp:BoundField HeaderText="Bill No" DataField="invoice"  >
                <HeaderStyle CssClass="red" />
                </asp:BoundField>
-           <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd-MM-yyyy}" >
-               <HeaderStyle CssClass="red" />
-               </asp:BoundField>
+          
            <asp:BoundField HeaderText="Customer Name" DataField="customer">
                <HeaderStyle CssClass="red" />
                </asp:BoundField>
-             <asp:TemplateField HeaderText="Total Qty" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
+                <asp:BoundField HeaderText="CItem Name" DataField="item_name">
+               <HeaderStyle CssClass="red" />
+               </asp:BoundField>
+ <asp:BoundField HeaderText="Shade No" DataField="shade_no">
+               <HeaderStyle CssClass="red" />
+               </asp:BoundField>
+
+             <asp:TemplateField HeaderText="Qty" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
                     <ItemTemplate>
-                        <asp:Label ID="lbltotalqty" runat="server" Text='<%# Eval("Total_qty")%>' DataFormatString="{0:N2}" />
+                        <asp:Label ID="lbltotalqty" runat="server" Text='<%# Eval("qty")%>' DataFormatString="{0:N2}" />
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:Label ID="totalqty" runat="server" />
@@ -562,23 +572,13 @@
 
 
 
-               <asp:BoundField HeaderText="Vat" DataField="vat" >
-               
-               <HeaderStyle CssClass="red" />
-               </asp:BoundField>
+            
                
 
 
 
 
-                 <asp:TemplateField HeaderText="Grand total" HeaderStyle-CssClass="get" ItemStyle-CssClass="get">
-                    <ItemTemplate>
-                        <asp:Label ID="lblgrand" runat="server" Text='<%# Eval("Grand_total")%>' DataFormatString="{0:N2}" />
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:Label ID="grand" runat="server" />
-                    </FooterTemplate>
-                </asp:TemplateField>
+               
        </Columns>
        <FooterStyle BackColor="White" ForeColor="#000066" />
        <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
@@ -698,6 +698,3 @@
         </form>
     </body>
 </html>
-
-
-

@@ -17,6 +17,9 @@ using System.Drawing;
 
 public partial class Admin_Cash_bill_report : System.Web.UI.Page
 {
+    float m = 0;
+    float m1 = 0;
+    float m2 = 0;
     public static int company_id = 0;
     public static int company_id1 = 0;
     protected void Page_Load(object sender, EventArgs e)
@@ -194,7 +197,59 @@ public partial class Admin_Cash_bill_report : System.Web.UI.Page
     }
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-       
+        try
+        {
+
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                e.Row.Cells[0].Text = "Total : ";
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label Salary = (Label)e.Row.FindControl("lblgrand");
+
+                m = m + float.Parse(Salary.Text);
+
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                Label lblTotalPrice = (Label)e.Row.FindControl("grand");
+                lblTotalPrice.Text = m.ToString();
+
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label Salary = (Label)e.Row.FindControl("lbltotal");
+
+                m1 = m1 + float.Parse(Salary.Text);
+
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                Label lblTotalPrice = (Label)e.Row.FindControl("total");
+                lblTotalPrice.Text = m1.ToString();
+
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label Salary = (Label)e.Row.FindControl("lbltotalqty");
+
+                m2 = m2 + float.Parse(Salary.Text);
+
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                Label lblTotalPrice = (Label)e.Row.FindControl("totalqty");
+                lblTotalPrice.Text = m2.ToString();
+
+            }
+           
+        }
+        catch (Exception er)
+        { }
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
     {

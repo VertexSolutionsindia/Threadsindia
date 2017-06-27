@@ -14,7 +14,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 #endregion
-public partial class Admin_Purchase_bill_report : System.Web.UI.Page
+
+public partial class Admin_Item_wise_sales : System.Web.UI.Page
 {
     float m = 0;
     float m1 = 0;
@@ -50,9 +51,9 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
 
 
 
+            show_cus();
+
             show_item();
-
-
 
 
 
@@ -60,7 +61,7 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
 
         }
     }
-     private void show_item()
+    private void show_cus()
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -73,7 +74,7 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from party where category='Supplier' and Com_Id='" + company_id + "' ORDER BY party_code asc", con);
+                SqlCommand cmd = new SqlCommand("Select * from party where category='Customer' and Com_Id='" + company_id + "' ORDER BY party_code asc", con);
                 con.Open();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -84,6 +85,35 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
                 DropDownList1.DataValueField = "party_code";
                 DropDownList1.DataBind();
                 DropDownList1.Items.Insert(0, new ListItem("Select item", "0"));
+                con.Close();
+            }
+            con1000.Close();
+        }
+    }
+    private void show_item()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("Select * from item_master where Com_Id='" + company_id + "' ORDER BY item_code asc", con);
+                con.Open();
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                DropDownList3.DataSource = ds;
+                DropDownList3.DataTextField = "item_name";
+                DropDownList3.DataValueField = "item_code";
+                DropDownList3.DataBind();
+                DropDownList3.Items.Insert(0, new ListItem("Select item", "0"));
                 con.Close();
             }
             con1000.Close();
@@ -110,28 +140,28 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
     {
 
     }
-    
-   
-    
 
-    
 
-    
+
+
+
+
+
     private void show_company()
     {
-        
-        
+
+
     }
 
     private void show_barcode()
     {
-        
-       
+
+
     }
     private void show_category()
     {
-     
-       
+
+
     }
     protected void BindData()
     {
@@ -146,7 +176,7 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from purchase_entry where Com_Id='" + company_id + "'", con);
+                SqlCommand CMD = new SqlCommand("select * from cashbill_entry_details where Com_Id='" + company_id + "' union all select * from creditbill_entry_details where Com_Id='" + company_id + "'", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -159,15 +189,15 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
     }
     protected void ImageButton9_Click(object sender, ImageClickEventArgs e)
     {
-       
+
 
 
     }
     private void getinvoiceno()
     {
     }
-    
-    
+
+
     protected void LoginLink_OnClick(object sender, EventArgs e)
     {
         FormsAuthentication.SignOut();
@@ -191,10 +221,11 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-       
+
     }
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+
         try
         {
 
@@ -203,19 +234,7 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
                 e.Row.Cells[0].Text = "Total : ";
             }
 
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                Label Salary = (Label)e.Row.FindControl("lblgrand");
-
-                m = m + float.Parse(Salary.Text);
-
-            }
-            if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                Label lblTotalPrice = (Label)e.Row.FindControl("grand");
-                lblTotalPrice.Text = m.ToString();
-
-            }
+          
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -247,13 +266,13 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
 
         }
         catch (Exception er)
-        { } 
+        { }
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
 
     }
-   
+
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -266,91 +285,7 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
 
 
 
-    #region " [ Button Event ] "
-    protected void Button9_Click(object sender, EventArgs e)
-    {
-        // select appropriate contenttype, while binary transfer it identifies filetype
-        string contentType = string.Empty;
-        if (DropDownList2.SelectedValue.Equals(".pdf"))
-            contentType = "application/pdf";
-        if (DropDownList2.SelectedValue.Equals(".doc"))
-            contentType = "application/ms-word";
-        if (DropDownList2.SelectedValue.Equals(".xls"))
-            contentType = "application/xls";
-
-        DataTable dsData = new DataTable();
-
-        DataSet ds = null;
-        SqlDataAdapter da = null;
-
-
-
-        try
-        {
-            string constring = ConfigurationManager.AppSettings["connection"];
-            using (SqlConnection con = new SqlConnection(constring))
-            {
-                using (SqlCommand cmd = new SqlCommand("purchase_bill_report", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@fromdate", TextBox1.Text);
-                    cmd.Parameters.AddWithValue("@todate", TextBox2.Text);
-                    cmd.Parameters.AddWithValue("@customer", DropDownList1.SelectedItem.Text);
-                    cmd.Parameters.AddWithValue("@com_id", company_id);
-                    da = new SqlDataAdapter(cmd);
-                    ds = new DataSet();
-                    con.Open();
-                    da.Fill(ds);
-                    con.Close();
-
-                }
-            }
-        }
-        catch
-        {
-            throw;
-        }
-
-
-
-        dsData = ds.Tables[0];
-
-        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + DropDownList2.SelectedValue;
-        string extension;
-        string encoding;
-        string mimeType;
-        string[] streams;
-        Warning[] warnings;
-
-        LocalReport report = new LocalReport();
-        report.ReportPath = Server.MapPath("~/Admin/Purchase_bill_report.rdlc");
-        ReportDataSource rds = new ReportDataSource();
-        rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file
-        rds.Value = dsData;
-        report.DataSources.Add(rds);
-
-        Byte[] mybytes = report.Render(DropDownList2.SelectedItem.Text, null,
-                        out extension, out encoding,
-                        out mimeType, out streams, out warnings); //for exporting to PDF
-        using (FileStream fs = File.Create(Server.MapPath("~/img/") + FileName))
-        {
-            fs.Write(mybytes, 0, mybytes.Length);
-        }
-
-        Response.ClearHeaders();
-        Response.ClearContent();
-        Response.Buffer = true;
-        Response.Clear();
-        Response.ContentType = contentType;
-        Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName);
-        Response.WriteFile(Server.MapPath("~/img/" + FileName));
-        Response.Flush();
-        Response.Close();
-        Response.End();
-
-
-    }
-    #endregion
+   
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (User.Identity.IsAuthenticated)
@@ -364,7 +299,7 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from purchase_entry where Supplier='"+DropDownList1.SelectedItem.Text+"' and Com_Id='" + company_id + "'", con);
+                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where customer='" + DropDownList1.SelectedItem.Text + "' and Com_Id='" + company_id + "' union all select * from cashbill_entry_details where customer='" + DropDownList1.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -374,7 +309,53 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
             con1000.Close();
         }
     }
-    protected void TextBox2_TextChanged(object sender, EventArgs e)
+   
+    protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("Select * from shade_master_details where item_name='"+DropDownList3.SelectedItem.Text+"' and Com_Id='" + company_id + "' ORDER BY shade_id asc", con);
+                con.Open();
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+                DropDownList4.DataSource = ds;
+                DropDownList4.DataTextField = "shade_no";
+                DropDownList4.DataValueField = "shade_id";
+                DropDownList4.DataBind();
+                DropDownList4.Items.Insert(0, new ListItem("Select shade no", "0"));
+                con.Close();
+
+
+
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD1 = new SqlCommand("select * from creditbill_entry_details where item_name='" + DropDownList3.SelectedItem.Text + "' and  Com_Id='" + company_id + "' union all select * from cashbill_entry_details where item_name='" + DropDownList3.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con1);
+                DataTable dt11 = new DataTable();
+                SqlDataAdapter da11 = new SqlDataAdapter(CMD1);
+                da11.Fill(dt11);
+                GridView1.DataSource = dt11;
+                GridView1.DataBind();
+            }
+            con1000.Close();
+
+
+
+                  
+              
+        }
+    }
+    protected void DropDownList4_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -387,7 +368,7 @@ public partial class Admin_Purchase_bill_report : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from purchase_entry where date between '" + TextBox1.Text + "' and '" + TextBox2.Text + "' and  Com_Id='" + company_id + "'", con);
+                SqlCommand CMD = new SqlCommand("select * from creditbill_entry_details where item_name='" + DropDownList3.SelectedItem.Text + "' and shade_no='" + DropDownList4.SelectedItem.Text + "' and Com_Id='" + company_id + "' union all select * from cashbill_entry_details where item_name='" + DropDownList3.SelectedItem.Text + "' and shade_no='" + DropDownList4.SelectedItem.Text + "' and Com_Id='" + company_id + "'", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);

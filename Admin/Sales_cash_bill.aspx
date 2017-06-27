@@ -1,5 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Sales_cash_bill.aspx.cs" Inherits="Admin_Sales_entry" %>
 
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+    Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
+
+
 <%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 
@@ -433,16 +438,30 @@ left: auto !important;
                             <div class="page-title see2">
                              <h2>Cash Bill
                                  </h2>
-                                 <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
-                                   <asp:UpdatePanel ID="UpdatePanel33" runat="server">
-   <ContentTemplate>
-<asp:TextBox ID="TextBox19" runat="server" Width="30px"></asp:TextBox>
- </ContentTemplate>
-                             
-                           </asp:UpdatePanel>
+                                  <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+                                  <br />
+                                 Com ID=<asp:TextBox ID="TextBox20" runat="server"></asp:TextBox>
+                               
+                      <asp:UpdatePanel ID="UpdatePanel33" runat="server">
+   <ContentTemplate>             
+<asp:TextBox ID="TextBox19" runat="server" Width="60px"></asp:TextBox>
+
+
+                           <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
    <asp:Button ID="Button10" runat="server" Text="<" onclick="Button10_Click"></asp:Button>
    <asp:Button ID="Button13" runat="server" Text=">" onclick="Button13_Click"></asp:Button>
-    
+     </ContentTemplate>
+                         <Triggers>
+                                 
+                                      <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
+                                        <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
+                <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                  
+                
+            
+                </Triggers>     
+                           </asp:UpdatePanel>
    <asp:DropDownList ID="DropDownList2" runat="server">
               <asp:ListItem>PDF</asp:ListItem>
                                    <asp:ListItem>WORD</asp:ListItem>
@@ -450,12 +469,13 @@ left: auto !important;
            </asp:DropDownList>
           
     <asp:Button ID="Button9" runat="server" Text="Show pdf" onclick="Button9_Click"></asp:Button>
-    <asp:Button ID="Button14" runat="server" Text="Print" OnClientClick="Print()" onclick="Button9_Click"></asp:Button>
+   <asp:Button ID="Button7" runat="server" Text="Print"></asp:Button>
+                           
+                           
                             <asp:UpdatePanel ID="UpdatePanel9" runat="server">
    <ContentTemplate>
 
-    <asp:Button ID="Button7" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="<" OnClick="Button7_Click" Visible="false"></asp:Button>
-     <asp:Button ID="Button12" runat="server" class="btn-primary" Width="70px" Height="30px"  Text=">" onclick="Button12_Click" Visible="false" ></asp:Button>
+   
      
                           
     </ContentTemplate>
@@ -477,6 +497,7 @@ left: auto !important;
                              
                            </asp:UpdatePanel>
 
+
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
                            <asp:Button ID="Button11" runat="server" Text="Button" style="display:none"></asp:Button>
@@ -487,12 +508,7 @@ left: auto !important;
            
     </div> <br /><br />
         
-        <div class="col-sm-9 col-sm-offset-3">
-       <div class="col-sm-2"> 
-        <h2 style="color: #003366">Search : </h2>
-        </div>
-        <div class="col-sm-6"><asp:TextBox ID="TextBox3" runat="server" width="100%"  OnTextChanged="TextBox3_TextChanged" ></asp:TextBox>
-                      </div></div>
+    
                        <div style="padding:12px; ">
                     <asp:GridView ID="GridView3" runat="server"  CssClass="red" AutoGenerateColumns="false" Width="100%" PageSize="100" BackColor="White" 
            BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
@@ -500,7 +516,12 @@ left: auto !important;
                    
                    <Columns>
                  
-                   <asp:BoundField HeaderText="Invoice No" DataField="purchase_invoice" HeaderStyle-CssClass="red"  />
+                   <asp:TemplateField HeaderText="Bill No" HeaderStyle-CssClass="red">
+            <ItemTemplate>
+         
+               <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lnkView_Click"  CssClass="goo" Text='<%# Eval("invoice") %>'>LinkButton</asp:LinkButton>
+            </ItemTemplate>
+        </asp:TemplateField>
            
                <asp:BoundField HeaderText="Customer" DataField="customer" HeaderStyle-CssClass="red"/>
                  <asp:BoundField HeaderText="Mobile No" DataField="mobile_no" HeaderStyle-CssClass="red" />
@@ -539,10 +560,10 @@ left: auto !important;
 
   </ContentTemplate>
                   <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                    
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                  
                 </Triggers>            
                            </asp:UpdatePanel>
 
@@ -590,9 +611,10 @@ left: auto !important;
                                      <asp:UpdatePanel ID="UpdatePanel3" runat="server">
    <ContentTemplate>
                                     <asp:Label ID="Label1" runat="server" Text=""></asp:Label> 
+                                  
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                 
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -617,10 +639,10 @@ left: auto !important;
    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox13"></asp:CalendarExtender>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                    
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+
                     
                 </Triggers>
                            </asp:UpdatePanel>
@@ -644,10 +666,10 @@ left: auto !important;
         </asp:ComboBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                     
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+
                     
                      
                 </Triggers>
@@ -666,10 +688,10 @@ left: auto !important;
    <asp:TextBox ID="TextBox4" runat="server" class="form-control input-x2 dropbox" TextMode="MultiLine"></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                    
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+
                   
                       <asp:AsyncPostBackTrigger ControlID="ComboBox1" EventName="SelectedIndexChanged"  />
                 </Triggers>
@@ -688,10 +710,10 @@ left: auto !important;
    <asp:TextBox ID="TextBox7" runat="server" class="form-control input-x2 dropbox" ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                    
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                 
                    
                       <asp:AsyncPostBackTrigger ControlID="ComboBox1" EventName="SelectedIndexChanged"  />
                 </Triggers>
@@ -709,16 +731,37 @@ left: auto !important;
                             </div>
                       </div>
                       </div>
-             <div class="col-md-6">
-                 <div class="panel-body">
-                           <div class="form-horizontal">
+           
 
 
-                           <div class="form-group">  <label class="col-lg-3 control-label"></label>
-                              
-                                    <div class="col-lg-9">
+
+
+
                                      <asp:UpdatePanel ID="UpdatePanel29" runat="server">
    <ContentTemplate>
+                           <asp:Button ID="Button15" runat="server" Text="Button" style="display:none"></asp:Button>
+  <asp:Panel ID="Panel2" runat="server" class="panel0" BorderColor="Black" BorderStyle="Solid" BackColor="#B0C4DE" Direction="LeftToRight" style="display:none" 
+                         HorizontalAlign="Left" ScrollBars="Both" Width="75%" Height="420px">
+   <div style="padding:12px; border:1px solid #e5e5e5;    background-color:#000000; color:#FFFFFF; font-size:15px; font-weight:400px; font-family: 'Open Sans'" HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">   <h3 style="font-size:20px; " class="control-label"> View list  <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
+  
+           
+        <div class="col-sm-6">
+                      </div>
+  
+           
+    </div> 
+        
+        <div class="col-sm-9 col-sm-offset-3">
+     
+        <div class="col-sm-6">
+                      </div>View list  
+       <asp:ImageButton ID="ImageButton100" runat="server" ImageUrl="~/exit11.png" 
+           width="30px" height="30px" style="float:right" />
+       </h3>
+  
+           
+      </div>
+                       <div style="padding:12px; ">
    <br /><h2>Customer P.O entry</h2>
   <asp:GridView ID="GridView2" runat="server" CssClass="red" AutoGenerateColumns="False" Width="100%" 
            BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
@@ -732,14 +775,30 @@ left: auto !important;
   </ItemTemplate>
   
   </asp:TemplateField>
-  <asp:BoundField DataField="purchase_invoice" HeaderText="invoice no" >
+  <asp:BoundField DataField="po_invoice" HeaderText="invoice no" >
       <HeaderStyle CssClass="red" Height="30px" />
       </asp:BoundField>
-  <asp:BoundField DataField="date" HeaderText="date" 
-          DataFormatString="{0: dd/MM/yyyy}"  >
+       <asp:BoundField DataField="customer" HeaderText="Customer" >
       <HeaderStyle CssClass="red" Height="30px" />
       </asp:BoundField>
- 
+         <asp:BoundField DataField="item_name" HeaderText="Item Name" >
+      <HeaderStyle CssClass="red" Height="30px" />
+      </asp:BoundField>
+        <asp:BoundField DataField="shade_no" HeaderText="Shade No" >
+      <HeaderStyle CssClass="red" Height="30px" />
+      </asp:BoundField>
+    <asp:BoundField DataField="color" HeaderText="Color" >
+      <HeaderStyle CssClass="red" Height="30px" />
+      </asp:BoundField>
+   <asp:BoundField DataField="unit" HeaderText="Unit" >
+      <HeaderStyle CssClass="red" Height="30px" />
+      </asp:BoundField>
+       <asp:BoundField DataField="rate" HeaderText="Rate" >
+      <HeaderStyle CssClass="red" Height="30px" />
+      </asp:BoundField>
+         <asp:BoundField DataField="qty" HeaderText="Qty" >
+      <HeaderStyle CssClass="red" Height="30px" />
+      </asp:BoundField>
   </Columns>
   
   
@@ -757,26 +816,22 @@ left: auto !important;
   
   
   </asp:GridView>
+  </div>
   
+  
+  </asp:Panel>
+  <asp:ModalPopupExtender ID="ModalPopupExtender2" runat="server" TargetControlID="Button15" PopupControlID="Panel2" runat="server" CancelControlID="ImageButton100" BackgroundCssClass="modelbackground"></asp:ModalPopupExtender>
 
-                                    </ContentTemplate>
-                                     <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+
+  </ContentTemplate>
+                  <Triggers>
+                                   
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
-                  
-                </Triggers>
+                   
+                </Triggers>            
                            </asp:UpdatePanel>
-                                    
-                               </div>
-                                
-                                
-                                </div>
-                                 </div>
-                           </div>
-                           </div>
-                         </div>
+
                 
        </div>
        </div>
@@ -817,7 +872,7 @@ left: auto !important;
   </ContentTemplate>
                                      <Triggers>
                                         
-              <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+           
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -988,11 +1043,7 @@ left: auto !important;
 
     </ItemTemplate>
 
-    <EditItemTemplate>
-
-        <asp:TextBox ID="txtitemName" runat="server" Width="200px" Text='<%# Eval("item_name")%>'></asp:TextBox>
-
-    </EditItemTemplate> 
+    
 
    
 
@@ -1009,11 +1060,7 @@ left: auto !important;
 
     </ItemTemplate>
 
-    <EditItemTemplate>
-
-        <asp:TextBox ID="txtshadeno" runat="server" Width="50px" Text='<%# Eval("shade_no")%>'></asp:TextBox>
-
-    </EditItemTemplate> 
+   
 
     
 
@@ -1032,11 +1079,7 @@ left: auto !important;
 
     </ItemTemplate>
 
-    <EditItemTemplate>
-
-        <asp:TextBox ID="txtcolor" runat="server" Width="70px" Text='<%# Eval("color")%>'></asp:TextBox>
-
-    </EditItemTemplate> 
+   
 
     
 
@@ -1054,11 +1097,8 @@ left: auto !important;
 
     </ItemTemplate>
 
-    <EditItemTemplate>
-
-        <asp:TextBox ID="txtunit" runat="server" Width="70px" Text='<%# Eval("unit")%>'></asp:TextBox>
-
-    </EditItemTemplate> 
+    
+   
 
     
 
@@ -1072,14 +1112,10 @@ left: auto !important;
 
     <ItemTemplate>
 
-        <asp:TextBox ID="txtrate1" runat="server" Width="70px" Text='<%# Eval("rate")%>'></asp:TextBox>
+        <asp:TextBox ID="txtrate1" runat="server" Width="70px" Text='<%# Eval("rate")%>' AutoPostBack="true" ontextchanged="txtrate1_TextChanged"></asp:TextBox>
     </ItemTemplate>
 
-    <EditItemTemplate>
-
-        <asp:TextBox ID="txtrate" runat="server" Width="70px" Text='<%# Eval("rate")%>'></asp:TextBox>
-
-    </EditItemTemplate> 
+   
 
    
 
@@ -1098,12 +1134,7 @@ left: auto !important;
 
     </ItemTemplate>
 
-    <EditItemTemplate>
-   
-        <asp:TextBox ID="txtqty" runat="server" Width="70px" AutoPostBack="true" Text='<%# Eval("qty")%>' 
-            ontextchanged="txtqty_TextChanged"></asp:TextBox>
-
-    </EditItemTemplate> 
+    
 
    
 
@@ -1125,11 +1156,7 @@ left: auto !important;
 
     </ItemTemplate>
 
-    <EditItemTemplate>
-
-        <asp:TextBox ID="txttotalamount" runat="server" Width="70px" Text='<%# Eval("total_amount")%>'></asp:TextBox>
-
-    </EditItemTemplate> 
+   
 
    
 
@@ -1152,7 +1179,7 @@ left: auto !important;
     <ItemStyle Height="40px" />
    
 </asp:TemplateField>
-<asp:CommandField  ShowEditButton="True" />
+
 
 </Columns>
 
@@ -1233,7 +1260,7 @@ left: auto !important;
                                 <asp:TextBox ID="TextBox15" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -1262,7 +1289,7 @@ left: auto !important;
         </asp:ComboBox> 
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                   
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -1286,14 +1313,14 @@ left: auto !important;
                                      <asp:UpdatePanel ID="UpdatePanel28" runat="server">
    <ContentTemplate>
                                 
-                                        <asp:ComboBox ID="ComboBox6" runat="server" CssClass="cbox" AutoPostBack="true" 
-           iteminsertlocation="Append" Width="350px" dropdownstyle="DropDownList"  
-           autocompletemode="SuggestAppend" casesensitive="false" 
+                                        <asp:ComboBox ID="ComboBox6" runat="server"  AutoPostBack="true" 
+            Width="350px" dropdownstyle="DropDownList"  
+            casesensitive="false" 
           >
         </asp:ComboBox>
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -1316,7 +1343,7 @@ left: auto !important;
                         <asp:TextBox ID="TextBox16" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>        
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                  
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -1337,7 +1364,7 @@ left: auto !important;
                         <asp:TextBox ID="TextBox17" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>        
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -1361,7 +1388,7 @@ left: auto !important;
                         <asp:TextBox ID="TextBox18" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>        
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                   
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -1392,7 +1419,7 @@ left: auto !important;
                                   <asp:TextBox ID="TextBox10" runat="server"   class="form-control input-x2 dropbox" ></asp:TextBox>
                                       </ContentTemplate>
                                 <Triggers>
-                                   <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                   
                                       <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
                                         <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
@@ -1416,10 +1443,10 @@ left: auto !important;
     <asp:TextBox ID="TextBox11" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                  
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                 
                          <asp:AsyncPostBackTrigger ControlID="GridView1"   />
                 </Triggers>
                            </asp:UpdatePanel>
@@ -1435,17 +1462,14 @@ left: auto !important;
                                     Vat  <asp:DropDownList ID="DropDownList5" runat="server" AutoPostBack="true"
                                          onselectedindexchanged="DropDownList5_SelectedIndexChanged">
                                           
-                                     <asp:ListItem>5</asp:ListItem>
-                                     <asp:ListItem>2</asp:ListItem>
-                                     <asp:ListItem>4</asp:ListItem>
-                                     </asp:DropDownList>%
+                                             </asp:DropDownList>%
                                      
                                      </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                     
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                  
                          <asp:AsyncPostBackTrigger ControlID="GridView1"   />
                             <asp:AsyncPostBackTrigger ControlID="DropDownList5" EventName="SelectedIndexChanged"  />
                 </Triggers>
@@ -1459,10 +1483,10 @@ left: auto !important;
    <asp:TextBox ID="TextBox8" runat="server" class="form-control input-x2 dropbox" ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                     
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                   
                     
                          <asp:AsyncPostBackTrigger ControlID="GridView1"   />
                 </Triggers>
@@ -1480,10 +1504,10 @@ left: auto !important;
    <asp:TextBox ID="TextBox14" runat="server" class="form-control input-x2 dropbox" ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                      
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                
                  
                       <asp:AsyncPostBackTrigger ControlID="DropDownList5" EventName="SelectedIndexChanged"  />
                 </Triggers>
@@ -1501,10 +1525,10 @@ left: auto !important;
    <asp:TextBox ID="TextBox12" runat="server" class="form-control input-x2 dropbox" ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                    
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+                 
                
                       <asp:AsyncPostBackTrigger ControlID="DropDownList5" EventName="SelectedIndexChanged"  />
                 </Triggers>
@@ -1522,15 +1546,15 @@ left: auto !important;
    <asp:TextBox ID="TextBox9" runat="server" class="form-control input-x2 dropbox" ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
-                                      <asp:AsyncPostBackTrigger ControlID="Button7" EventName="Click"  />
+                                    
                 <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
-                     <asp:AsyncPostBackTrigger ControlID="Button12" EventName="Click"  />
+
                  
                       <asp:AsyncPostBackTrigger ControlID="DropDownList5" EventName="SelectedIndexChanged"  />
                 </Triggers>
                            </asp:UpdatePanel>
-                                       </div>
+                                               </div>
                                 </div>
 
                                 <div >
@@ -1559,8 +1583,27 @@ left: auto !important;
                    
    <br />                 <!-- End .form-group  -->
                                         
-             
-                    
+             <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" 
+                            InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana" 
+                            WaitMessageFont-Size="14pt" Width="799px">
+                 <LocalReport ReportPath="Admin\Report.rdlc">
+                     <DataSources>
+                         <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
+                     </DataSources>
+                 </LocalReport>
+                        </rsweb:ReportViewer>
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" 
+                            OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" 
+                            TypeName="cashsalesTableAdapters.DataTable1TableAdapter">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="Label1" Name="x" PropertyName="Text" 
+                                Type="String" />
+                            <asp:ControlParameter ControlID="TextBox20" Name="y" PropertyName="Text" 
+                                Type="Int32" />
+                            <asp:ControlParameter ControlID="TextBox20" Name="z" PropertyName="Text" 
+                                Type="Double" />
+                        </SelectParameters>
+                        </asp:ObjectDataSource>
                     
 
                    

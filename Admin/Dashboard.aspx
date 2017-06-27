@@ -341,7 +341,7 @@
                                     <li><a href="Purchase_payment_outstanding.aspx">Supplier Outstanding</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Payemnts Entry</a></li>
+                                    <li><a href="payment_entry.aspx">Payemnts Entry</a></li>
                            </ul>
 
 
@@ -368,8 +368,12 @@
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Credit_bill_report.aspx">Credit bill report</a></li>
                            </ul>
-
-
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Salesman_report.aspx">Sales man report</a></li>
+                           </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Item_wise_sales.aspx">Item wise sales Report</a></li>
+                           </ul>
                             
 
 

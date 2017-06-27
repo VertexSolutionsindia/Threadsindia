@@ -12,10 +12,6 @@
   <DataSets>
     <DataSet Name="DataSet1">
       <Fields>
-        <Field Name="purchase_invoice">
-          <DataField>purchase_invoice</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="date">
           <DataField>date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
@@ -76,10 +72,6 @@
           <DataField>sales_man</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="invoice">
-          <DataField>invoice</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="Expr1">
           <DataField>Expr1</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -112,10 +104,6 @@
           <DataField>qty</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
-        <Field Name="Expr2">
-          <DataField>Expr2</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
         <Field Name="Expr3">
           <DataField>Expr3</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
@@ -132,6 +120,26 @@
           <DataField>com_amount</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
+        <Field Name="invoice">
+          <DataField>invoice</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="year">
+          <DataField>year</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Expr2">
+          <DataField>Expr2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Expr4">
+          <DataField>Expr4</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="Expr5">
+          <DataField>Expr5</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>cashsales</DataSourceName>
@@ -139,7 +147,7 @@
       </Query>
       <rd:DataSetInfo>
         <rd:DataSetName>cashsales</rd:DataSetName>
-        <rd:SchemaPath>E:\Threads india 22-5-2017\App_Code\cashsales.xsd</rd:SchemaPath>
+        <rd:SchemaPath>E:\Threadsindia\App_Code\cashsales.xsd</rd:SchemaPath>
         <rd:TableName>DataTable1</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -414,8 +422,6 @@
       </Border>
     </Style>
   </Body>
-  <Code>
-</Code>
   <Width>7.34765in</Width>
   <Page>
     <PageHeader>
