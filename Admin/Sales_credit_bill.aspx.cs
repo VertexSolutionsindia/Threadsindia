@@ -831,7 +831,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                         if (dr10.Read())
                         {
                             float comm = float.Parse(dr10["com_amount"].ToString());
-                            string status = "Purchase";
+                            string status = "Credit Bill";
                             float value = 0;
                             SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
@@ -993,7 +993,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
                         if (dr10.Read())
                         {
                             float comm = float.Parse(dr10["com_amount"].ToString());
-                            string status = "Purchase";
+                            string status = "Credit Bill";
                             float value = 0;
                             SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 

@@ -18,20 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title></title>
-        <script type="text/javascript">
-            function Print() {
-                var dvReport = document.getElementById("dvReport");
-                var frame1 = dvReport.getElementsByTagName("iframe")[0];
-                if (navigator.appName.indexOf("Internet Explorer") != -1 || navigator.appVersion.indexOf("Trident") != -1) {
-                    frame1.name = frame1.id;
-                    window.frames[frame1.id].focus();
-                    window.frames[frame1.id].print();
-                } else {
-                    var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
-                    frameDoc.print();
-                }
-            }  
-</script>          
+           
           <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-footable/0.1.0/css/footable.min.css"
     rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -469,18 +456,10 @@ left: auto !important;
            </asp:DropDownList>
           
     <asp:Button ID="Button9" runat="server" Text="Show pdf" onclick="Button9_Click"></asp:Button>
-   <asp:Button ID="Button7" runat="server" Text="Print"></asp:Button>
-                           
-                           
-                            <asp:UpdatePanel ID="UpdatePanel9" runat="server">
-   <ContentTemplate>
-
-   
-     
+    <input type="button" id="btnPrint" value="Print" onclick="Print()" />
                           
-    </ContentTemplate>
-                             
-                           </asp:UpdatePanel>
+                           
+                            
                                <br />
                                     <asp:UpdatePanel ID="UpdatePanel7" runat="server">
    <ContentTemplate>
@@ -1596,7 +1575,7 @@ left: auto !important;
                             OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" 
                             TypeName="cashsalesTableAdapters.DataTable1TableAdapter">
                         <SelectParameters>
-                            <asp:ControlParameter ControlID="Label1" Name="x" PropertyName="Text" 
+                            <asp:ControlParameter ControlID="TextBox19" Name="x" PropertyName="Text" 
                                 Type="String" />
                             <asp:ControlParameter ControlID="TextBox20" Name="y" PropertyName="Text" 
                                 Type="Int32" />
@@ -1605,7 +1584,36 @@ left: auto !important;
                         </SelectParameters>
                         </asp:ObjectDataSource>
                     
-
+                     <script type="text/javascript">
+                         function Print() {
+                             var report = document.getElementById("<%=ReportViewer1.ClientID %>");
+                             var div = report.getElementsByTagName("DIV");
+                             var reportContents;
+                             for (var i = 0; i < div.length; i++) {
+                                 if (div[i].id.indexOf("VisibleReportContent") != -1) {
+                                     reportContents = div[i].innerHTML;
+                                     break;
+                                 }
+                             }
+                             var frame1 = document.createElement('iframe');
+                             frame1.name = "frame1";
+                             frame1.style.position = "absolute";
+                             frame1.style.top = "-1000000px";
+                             document.body.appendChild(frame1);
+                             var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+                             frameDoc.document.open();
+                             frameDoc.document.write('<html><head><title>RDLC Report</title>');
+                             frameDoc.document.write('</head><body style = "font-family:arial;font-size:10pt;">');
+                             frameDoc.document.write(reportContents);
+                             frameDoc.document.write('</body></html>');
+                             frameDoc.document.close();
+                             setTimeout(function () {
+                                 window.frames["frame1"].focus();
+                                 window.frames["frame1"].print();
+                                 document.body.removeChild(frame1);
+                             }, 500);
+                         }
+    </script> 
                    
    <br />
                  
