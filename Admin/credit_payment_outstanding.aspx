@@ -249,8 +249,7 @@ left: auto !important;
             </div><!--/.container-fluid -->
         </nav>
         <section class="page">
-
-              <nav class="navbar-aside navbar-static-side" role="navigation">
+          <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -399,7 +398,9 @@ left: auto !important;
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Product Stock</a></li>
                            </ul>
-                               
+                               <ul class="nav nav-second-level collapse">
+                                    <li><a href="Purchase_bill_report.aspx">Purchase bill report</a></li>
+                           </ul>
                             </li>
                            
                            <li>
@@ -407,13 +408,27 @@ left: auto !important;
                            <ul class="nav nav-second-level collapse">
                                     <li><a href="Customer_po.aspx">Customer P.O</a></li>
                            </ul>
+                                                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Customer_PO_Report.aspx">Customer PO Report</a></li>
+                           </ul>
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Sales_cash_bill.aspx">Cash Bill</a></li>
+                           </ul>
+                                  <ul class="nav nav-second-level collapse">
+                                    <li><a href="Cash_bill_report.aspx">Cash bill report</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Sales_credit_bill.aspx">Credit Bill</a></li>
                            </ul>
-                               
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Credit_bill_report.aspx">Credit bill report</a></li>
+                           </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Salesman_report.aspx">Sales man report</a></li>
+                           </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Item_wise_sales.aspx">Item wise sales Report</a></li>
+                           </ul>
                             </li>
 
 
@@ -422,10 +437,10 @@ left: auto !important;
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Winding </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Wending_delivery.aspx">Winding delivery</a></li>
+                                    <li><a href="Wending_delivery.aspx">Winding Delivery</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Winding_receipt.aspx">Winding receeipt</a></li>
+                                    <li><a href="Winding_receipt.aspx">Winding Receipt</a></li>
                            </ul>
                                
                             </li>
@@ -441,7 +456,7 @@ left: auto !important;
                                     <li><a href="Purchase_payment_outstanding.aspx">Supplier Outstanding</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Payemnts</a></li>
+                                    <li><a href="payment_entry.aspx">Payments Entry</a></li>
                            </ul>
 
 
@@ -453,19 +468,12 @@ left: auto !important;
                                     <li><a href="credit_payment_outstanding.aspx">Customer Outstanding</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Collection</a></li>
+                                    <li><a href="Collection_entry.aspx">Collection  Entry</a></li>
                            </ul>
 
 
-                              <li>
+<%--                              <li>
                     <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Reports </span><span class="fa arrow"></span></a>
-                         
-                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Cash_bill_report.aspx">Cash bill report</a></li>
-                           </ul>
-                            <ul class="nav nav-second-level collapse">
-                                    <li><a href="Credit_bill_report.aspx">Credit bill report</a></li>
-                           </ul>
 
 
                             
@@ -480,7 +488,7 @@ left: auto !important;
                            
 
                                     
-                             </li>
+                             </li>--%>
 
                            </ul>
                           
@@ -496,6 +504,7 @@ left: auto !important;
                 </div>
                 
             </nav>
+
             <div id="wrapper">
                 <div class="content-wrapper container">
                     <div class="row">

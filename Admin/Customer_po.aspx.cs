@@ -355,14 +355,34 @@ public partial class Admin_Default : System.Web.UI.Page
     protected void lnkView_Click(object sender, EventArgs e)
     {
         GridViewRow grdrow = (GridViewRow)((LinkButton)sender).NamingContainer;
-
-
         LinkButton Lnk = (LinkButton)sender;
         string name = Lnk.Text;
         Session["name"] = name;
-        Response.Redirect("Account_show.aspx");
-
-
+        SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand cmd2 = new SqlCommand("select * from customerpo_entry where po_invoice='" + name + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "'", con2);
+        SqlDataReader dr2;
+        con2.Open();
+        dr2 = cmd2.ExecuteReader();
+        if (dr2.Read())
+        {
+            Label1.Text = dr2["po_invoice"].ToString();
+            TextBox13.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
+            ComboBox1.SelectedItem.Text = dr2["customer"].ToString();
+            TextBox4.Text = dr2["address"].ToString();
+            TextBox7.Text = dr2["mobile_no"].ToString();
+            TextBox17.Text = dr2["ponumber"].ToString();
+            TextBox10.Text = dr2["Total_qty"].ToString();
+            TextBox11.Text = Convert.ToDecimal(dr2["total_amount"]).ToString("#,##0.00");
+        }
+        con2.Close();
+        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand CMD = new SqlCommand("select * from customerpo_details where po_invoice='" + name + "' and Com_Id='" + company_id + "' and year='" + Label4.Text + "' ORDER BY s_no asc", con);
+        DataTable dt1 = new DataTable();
+        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        da1.Fill(dt1);
+        GridView1.DataSource = dt1;
+        GridView1.DataBind();
+        getinvoiceno1();
     }
 
     private void created()

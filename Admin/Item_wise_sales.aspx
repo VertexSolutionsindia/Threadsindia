@@ -128,7 +128,7 @@
         </nav>
         <section class="page">
 
-           <nav class="navbar-aside navbar-static-side" role="navigation">
+  <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -196,7 +196,7 @@
                               <li>
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Company setup </span><span class="fa arrow"></span></a>
                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Compnay</a></li>
+                                    <li><a href="">Company</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="location.aspx">Location</a></li>
@@ -255,6 +255,10 @@
                                     <li><a href="Category.aspx">Category Entry</a></li>
 
                            </ul>
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="Order_half_ID.aspx">Order half ID</a></li>
+
+                           </ul>
                             </li>
                            
 
@@ -264,10 +268,18 @@
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Purchase_entry.aspx">Purchase Entry</a></li>
                            </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Order_indent_precot.aspx">Order indent precot</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Good_Received_precot.aspx">Goods received precot</a></li>
+                           </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Product Stock</a></li>
                            </ul>
-                               
+                               <ul class="nav nav-second-level collapse">
+                                    <li><a href="Purchase_bill_report.aspx">Purchase bill report</a></li>
+                           </ul>
                             </li>
                            
                            <li>
@@ -275,13 +287,27 @@
                            <ul class="nav nav-second-level collapse">
                                     <li><a href="Customer_po.aspx">Customer P.O</a></li>
                            </ul>
+                                                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Customer_PO_Report.aspx">Customer PO Report</a></li>
+                           </ul>
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Sales_cash_bill.aspx">Cash Bill</a></li>
+                           </ul>
+                                  <ul class="nav nav-second-level collapse">
+                                    <li><a href="Cash_bill_report.aspx">Cash bill report</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
                                     <li><a href="Sales_credit_bill.aspx">Credit Bill</a></li>
                            </ul>
-                               
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Credit_bill_report.aspx">Credit bill report</a></li>
+                           </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Salesman_report.aspx">Sales man report</a></li>
+                           </ul>
+                             <ul class="nav nav-second-level collapse">
+                                    <li><a href="Item_wise_sales.aspx">Item wise sales Report</a></li>
+                           </ul>
                             </li>
 
 
@@ -290,10 +316,10 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Winding </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Wending_delivery.aspx">Winding delivery</a></li>
+                                    <li><a href="Wending_delivery.aspx">Winding Delivery</a></li>
                            </ul>
                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Winding_receipt.aspx">Winding receeipt</a></li>
+                                    <li><a href="Winding_receipt.aspx">Winding Receipt</a></li>
                            </ul>
                                
                             </li>
@@ -303,46 +329,30 @@
 
 
                <li>
-                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Finance Management </span><span class="fa arrow"></span></a>
-                         
-                          <ul class="nav nav-second-level collapse">
-                          
-                             <li>
-                                <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Outstanding </span><span class="fa arrow"></span></a>
-                                 <ul class="nav nav-second-level collapse">
-                                    <li><a href="Supplier_wise.aspx">Supplier</a></li>
-                                 </ul>
-                                  <ul class="nav nav-second-level collapse">
-                                    <li><a href="Customer_wise.aspx">Customer</a></li>
-                                  </ul>
-                                   <ul class="nav nav-second-level collapse">
-                                    <li><a href="salesman_salary.aspx">sales man</a></li>
-                                  </ul>
-                              </li>
-                            </ul>
-
-
-                            
-
-
-
-
-
-                          
-
-                            
-                           
-
-                                    
-                             </li>
-
-                              <li>
-                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Reports </span><span class="fa arrow"></span></a>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts Payable </span><span class="fa arrow"></span></a>
                          
                            <ul class="nav nav-second-level collapse">
-                                    <li><a href="">Sales man</a></li>
+                                    <li><a href="Purchase_payment_outstanding.aspx">Supplier Outstanding</a></li>
                            </ul>
-                           
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="payment_entry.aspx">Payments Entry</a></li>
+                           </ul>
+
+
+                              <li>
+                               <li>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Accounts receivable </span><span class="fa arrow"></span></a>
+                         
+                           <ul class="nav nav-second-level collapse">
+                                    <li><a href="credit_payment_outstanding.aspx">Customer Outstanding</a></li>
+                           </ul>
+                            <ul class="nav nav-second-level collapse">
+                                    <li><a href="Collection_entry.aspx">Collection  Entry</a></li>
+                           </ul>
+
+
+<%--                              <li>
+                    <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Reports </span><span class="fa arrow"></span></a>
 
 
                             
@@ -357,7 +367,7 @@
                            
 
                                     
-                             </li>
+                             </li>--%>
 
                            </ul>
                           
